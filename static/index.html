@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Rice Gene Explorer</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header>
+      <span class="brand">RICE GENE EXPLORER</span
+      ><span class="tag">Local research prototype</span>
+      <h1>Follow the evidence<br />around a gene.</h1>
+      <p>
+        Search rice identifiers and symbols. Explore published GWAS signals and the
+        genes in their genomic neighborhood.
+      </p>
+    </header>
+    <main>
+      <section class="search">
+        <form id="search">
+          <label for="query">Gene ID or symbol</label>
+          <div class="searchline">
+            <input
+              id="query"
+              value="Os03g0407400"
+              placeholder="GS3, Os03g0407400, LOC_Os01g01010"
+              autocomplete="off"
+              required
+            /><button>Find gene →</button>
+          </div>
+          <p class="muted">
+            RAP loci, transcripts, mapped MSU identifiers and annotated symbols. Try
+            <button type="button" class="link" data-example="GS3">GS3</button> or
+            <button type="button" class="link" data-example="SD1">SD1</button>.
+          </p>
+        </form>
+        <div id="message" role="status" aria-live="polite"></div>
+        <div id="matches"></div>
+      </section>
+      <section id="result" hidden>
+        <div id="gene"></div>
+        <div class="controls">
+          <label
+            >Flanking window<select id="window">
+              <option value="10000">±10 kb</option>
+              <option value="25000" selected>±25 kb</option>
+              <option value="50000">±50 kb</option>
+              <option value="100000">±100 kb</option>
+              <option value="250000">±250 kb</option>
+              <option value="1000000">±1 Mb</option>
+            </select></label
+          ><label
+            >Trait contains<input
+              id="trait"
+              placeholder="All available traits" /></label
+          ><button id="apply">Apply filters</button
+          ><a id="export" class="button secondary">Export evidence CSV</a>
+        </div>
+        <div class="notice">
+          A nearby GWAS signal is regional evidence. It does not establish that the
+          selected gene is causal. No GWAS or single-cell analysis runs during this
+          search.
+        </div>
+        <section class="panel">
+          <h2>Genomic neighborhood</h2>
+          <p id="region" class="muted"></p>
+          <div class="chartscroll">
+            <svg
+              id="chart"
+              viewBox="0 0 1100 400"
+              role="img"
+              aria-label="GWAS association strengths and gene positions"
+            ></svg>
+          </div>
+          <p class="muted">
+            Click a gene arrow or its name to explore it. Gene orientation follows the
+            reference strand. Plot points show association records, which may share a
+            position.
+          </p>
+        </section>
+        <section class="panel">
+          <h2>Published association evidence</h2>
+          <p id="counts"></p>
+          <div class="tablewrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Trait</th>
+                  <th>SNP position</th>
+                  <th>Relation / distance</th>
+                  <th>p-value</th>
+                  <th>Alleles / effect</th>
+                  <th>Study & publication</th>
+                </tr>
+              </thead>
+              <tbody id="associations"></tbody>
+            </table>
+          </div>
+          <div class="pagination">
+            <button id="prev">← Previous</button><span id="page"></span
+            ><button id="next">Next →</button>
+          </div>
+        </section>
+        <section class="panel">
+          <h2>Genes in this window</h2>
+          <div class="tablewrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Gene</th>
+                  <th>Symbol</th>
+                  <th>Position / strand</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody id="neighbors"></tbody>
+            </table>
+          </div>
+        </section>
+        <section class="panel">
+          <h2>Single-cell expression</h2>
+          <p>
+            Planned for the next stage. No expression datasets have been imported into
+            this prototype.
+          </p>
+        </section>
+      </section>
+      <footer>
+        <h2>Data coverage & interpretation</h2>
+        <p id="coverage"></p>
+        <p>
+          Reference: Os-Nipponbare-Reference-IRGSP-1.0. Coordinates are 1-based and
+          inclusive. Annotation: RAP-DB supported gene set, release 2026-02-05;
+          computationally predicted-only and organelle genes are not included.
+        </p>
+        <p>
+          GWAS Atlas provides curated published associations, not complete genome-wide
+          results. A search with no records means no matching evidence in this imported
+          dataset, not evidence of no biological association. Ambiguous reference labels
+          are excluded from region searches.
+        </p>
+        <p>
+          <a
+            href="https://rapdb.dna.naro.go.jp/download/irgsp1.html"
+            target="_blank"
+            rel="noopener"
+            >RAP-DB source</a
+          >
+          ·
+          <a href="https://ngdc.cncb.ac.cn/gwas/download" target="_blank" rel="noopener"
+            >GWAS Atlas source</a
+          >
+          · <a href="/api/status" target="_blank">Source versions and checksums</a>
+        </p>
+      </footer>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>

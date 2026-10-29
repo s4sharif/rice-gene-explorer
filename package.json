@@ -1,0 +1,16 @@
+{
+  "name": "rice-gene-explorer",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local rice gene search and published GWAS evidence explorer",
+  "scripts": {
+    "format": "prettier --write static scripts/*.mjs *.json .*.json .github/workflows/*.yml docs/*.md README.md CONTRIBUTING.md",
+    "format:check": "prettier --check static scripts/*.mjs *.json .*.json .github/workflows/*.yml docs/*.md README.md CONTRIBUTING.md",
+    "check:comments": "node scripts/check_function_comments.mjs",
+    "check:syntax": "node --check static/app.js"
+  },
+  "devDependencies": {
+    "acorn": "8.15.0",
+    "prettier": "3.6.2"
+  }
+}

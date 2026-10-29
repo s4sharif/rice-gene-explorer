@@ -1,0 +1,20 @@
+# Local datasets are downloaded and verified from their original sources.
+data/raw/
+data/*.sqlite
+data/*.sqlite-*
+data/*.building.sqlite
+
+# Local environments, caches and operating-system files.
+__pycache__/
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
+.coverage
+*.py[cod]
+.venv/
+node_modules/
+.DS_Store
+.env
+.env.*
+!.env.example
+*.log

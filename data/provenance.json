@@ -1,0 +1,55 @@
+{
+  "rap_loci": {
+    "name": "RAP-DB supported gene loci",
+    "url": "https://rapdb.dna.naro.go.jp/download/archive/irgsp1/IRGSP-1.0_representative_2026-02-05.tar.gz",
+    "release": "2026-02-05",
+    "file": "rap_representative.tar.gz",
+    "sha256": "9f041a149217b4c217b0b5f90955c8b0a6fb34ef9a4923fbe968eec9c4aa3806"
+  },
+  "rap_annotation": {
+    "name": "RAP-DB gene annotations",
+    "url": "https://rapdb.dna.naro.go.jp/download/archive/irgsp1/IRGSP-1.0_representative_annotation_2026-02-05.tsv.gz",
+    "release": "2026-02-05",
+    "file": "rap_annotation.tsv.gz",
+    "sha256": "e7d13a7d2ff852061f5ac890efa117fbba5f0a580a4eda4233404d49a93c062d"
+  },
+  "rap_msu": {
+    "name": "RAP-DB RAP/MSU mapping",
+    "url": "https://rapdb.dna.naro.go.jp/download/archive/RAP-MSU_2026-02-05.txt.gz",
+    "release": "2026-02-05",
+    "file": "rap_msu.txt.gz",
+    "sha256": "75f3c7c2b81837ee0ec94c17b73ba36ae6e7c3f93192840399e8887553c77e00"
+  },
+  "gwas_atlas": {
+    "name": "CNCB GWAS Atlas rice association export",
+    "url": "https://download.cncb.ac.cn/gwas_atlas/gwas_association_result_for_rice.txt.gz",
+    "release": "Unversioned export; identified by SHA-256",
+    "file": "rice_associations.txt.gz",
+    "sha256": "fc243ce64d551add237f3db8f1de62dd421feedb2547e67115e2baa4e68e9a2a"
+  },
+  "audit": {
+    "counts": {
+      "gene": 36061,
+      "alias": 195087,
+      "association": 132767,
+      "publication": 152,
+      "study": 828,
+      "trait": 357,
+      "quarantine": 2296
+    },
+    "source_association_rows": 135063,
+    "accepted_reference_labels": [
+      "IRGSP 1.0",
+      "IRGSP-1.0",
+      "IRGSP1.0",
+      "Nipponbare (IRGSP 1.0)"
+    ],
+    "quarantine_reasons": {
+      "P-value outside (0,1]": 5,
+      "Unresolved reference label: 1": 2291
+    },
+    "p_value_parsing": "Unicode minus U+2212 normalized to ASCII minus for numeric parsing only; original text preserved",
+    "integrity_check": "ok",
+    "foreign_key_check": "ok"
+  }
+}

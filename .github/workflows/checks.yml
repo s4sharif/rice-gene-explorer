@@ -1,0 +1,41 @@
+name: Project checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - name: Install development tools
+        run: |
+          python -m pip install -r requirements-dev.txt
+          npm ci
+      - name: Check formatting and explanatory comments
+        run: |
+          black --check .
+          ruff check .
+          npm run format:check
+          python scripts/check_function_comments.py
+          npm run check:comments
+          npm run check:syntax
+      - name: Download and verify source snapshots
+        run: python fetch_data.py
+      - name: Build and validate the database
+        run: |
+          python build_database.py
+          python validate_data.py
+          python -m unittest discover -s tests -v
