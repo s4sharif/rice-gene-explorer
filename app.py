@@ -13,6 +13,7 @@ from urllib.parse import parse_qs, urlparse
 
 ROOT = Path(__file__).resolve().parent
 DB = ROOT / "data/rice.sqlite"
+PAGE_SIZE = 8
 
 
 # Open a read-only database connection and close it after the query finishes.
@@ -118,7 +119,8 @@ def region(gene_id, window=25000, trait="", page=1, export=False):
             return enrich(db.execute(cols + join + order, args))
         associations = enrich(
             db.execute(
-                cols + join + order + " LIMIT 100 OFFSET ?", args + [(page - 1) * 100]
+                cols + join + order + " LIMIT ? OFFSET ?",
+                args + [PAGE_SIZE, (page - 1) * PAGE_SIZE],
             )
         )
         plot = enrich(db.execute(cols + join + order + " LIMIT 500", args))
@@ -141,7 +143,7 @@ def region(gene_id, window=25000, trait="", page=1, export=False):
             "total_associations": total,
             "plot_count": len(plot),
             "page": page,
-            "page_size": 100,
+            "page_size": PAGE_SIZE,
             "trait_filter": trait,
             "interpretation": "Regional association evidence does not establish gene causality. Overlap refers to the gene span, including introns. Upstream/downstream follow gene strand.",
         }

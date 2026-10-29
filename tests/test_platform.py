@@ -57,6 +57,19 @@ class PlatformTests(unittest.TestCase):
         for g in d["neighbors"]:
             self.assertTrue(g["start"] <= d["end"] and g["end"] >= d["start"])
 
+    # Verify eight-row pages are distinct and keep every matching record available for export.
+    def test_eight_record_pagination(self):
+        first = app.region("Os03g0407400", 25000, page=1)
+        second = app.region("Os03g0407400", 25000, page=2)
+        self.assertEqual(first["page_size"], 8)
+        self.assertEqual(len(first["associations"]), 8)
+        self.assertEqual(len(second["associations"]), 8)
+        first_ids = {row["id"] for row in first["associations"]}
+        second_ids = {row["id"] for row in second["associations"]}
+        self.assertTrue(first_ids.isdisjoint(second_ids))
+        exported = app.region("Os03g0407400", 25000, export=True)
+        self.assertEqual(len(exported), first["total_associations"])
+
     # Verify that larger windows preserve evidence and trait filters restrict results.
     def test_window_expansion_and_trait_filter(self):
         small = app.region("Os03g0407400", 10000)

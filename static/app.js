@@ -207,9 +207,9 @@ async function loadRegion(geneId, page = 1) {
     bindGeneControls(byId("neighbors"));
 
     byId("prev").disabled = currentPage === 1;
-    byId("next").disabled = currentPage * 100 >= totalAssociations;
+    byId("next").disabled = currentPage * data.page_size >= totalAssociations;
     byId("page").textContent =
-      `Page ${currentPage} of ${Math.max(1, Math.ceil(totalAssociations / 100))}`;
+      `Page ${currentPage} of ${Math.max(1, Math.ceil(totalAssociations / data.page_size))}`;
     byId("export").href = `/api/export?${query}`;
     drawNeighborhood(data);
     history.replaceState(

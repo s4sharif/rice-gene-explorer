@@ -52,4 +52,4 @@ The prototype makes the proposed approach concrete. The next useful review is wh
 
 ## Prototype validation
 
-The source has 135,063 records: 132,767 are searchable and 2,296 quarantined. All accepted source coordinates and p-values were checked against the raw export; source hashes, row accounting, foreign keys and SQLite integrity passed. Six automated test groups cover gene resolution and core query behavior. Browser checks cover ambiguous symbols, window/trait changes, pagination and selecting a neighboring gene. Validation of source records against original publications remains a separate curation milestone.
+The source has 135,063 records: 132,767 are searchable and 2,296 quarantined. All accepted source coordinates and p-values were checked against the raw export; source hashes, row accounting, foreign keys and SQLite integrity passed. Seven automated test groups cover gene resolution and core query behavior. Browser checks cover ambiguous symbols, window/trait changes, pagination and selecting a neighboring gene. Validation of source records against original publications remains a separate curation milestone.

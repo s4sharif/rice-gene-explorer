@@ -31,7 +31,7 @@ The repository contains source code, documentation, a preview and provenance man
 - Plot gene positions and orientations with GWAS association strength; select a neighboring gene to investigate its region.
 - Filter associations by trait text. Show source p-values, available effect-allele information and R², study details, publication links and original reported locations.
 - Distinguish overlap, upstream and downstream using the selected gene's strand, with distance to the nearest gene boundary.
-- Paginate evidence in groups of 100 and export all matching associations as CSV. Plots show the 500 strongest records when a region has more than 500.
+- Paginate evidence in groups of 8 and export all matching associations as CSV. Plots show the 500 strongest records when a region has more than 500.
 
 ## Data loaded
 
@@ -75,7 +75,7 @@ python3 validate_data.py
 python3 -m unittest discover -s tests -v
 ```
 
-The fetcher verifies the included snapshot checksums and refuses silently changed downloads. The builder writes a replacement database before swapping it into place. Keep raw sources and `provenance.json` to reproduce this snapshot. `validate_data.py` compares every accepted coordinate and p-value against its source row, verifies that every source row is imported or quarantined, and checks database integrity and foreign keys. Six automated integration test groups cover identifier ambiguity/mappings, boundary/strand arithmetic, region/CSV consistency, window/trait filters, quarantine handling and invalid query input.
+The fetcher verifies the included snapshot checksums and refuses silently changed downloads. The builder writes a replacement database before swapping it into place. Keep raw sources and `provenance.json` to reproduce this snapshot. `validate_data.py` compares every accepted coordinate and p-value against its source row, verifies that every source row is imported or quarantined, and checks database integrity and foreign keys. Seven automated integration test groups cover identifier ambiguity/mappings, boundary/strand arithmetic, region/CSV consistency, eight-record pagination, window/trait filters, quarantine handling and invalid query input.
 
 ## Project documentation and next steps
 
