@@ -7,13 +7,495 @@
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
-    <header>
-      <span class="brand">RICE GENE EXPLORER</span><span class="tag">Wilkins Lab</span>
-      <h1>Follow the gene</h1>
-      <p>Search rice genes, published GWAS associations and nearby genomic regions.</p>
+    <header class="masthead">
+      <nav class="topbar" aria-label="Main navigation">
+        <a class="brand" href="#"
+          ><span class="brand-mark" aria-hidden="true">✳</span> RICE GENE EXPLORER</a
+        >
+        <div class="nav-links">
+          <a href="#search">Gene search</a><a href="#evidence">Association evidence</a>
+        </div>
+        <span class="tag">Wilkins Lab <span aria-hidden="true">↗</span></span>
+      </nav>
+      <div class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">RICE GENOMICS / EVIDENCE EXPLORER</p>
+          <h1>Follow<br /><em>the gene.</em></h1>
+          <p class="hero-description">
+            Search rice genes, published GWAS associations and nearby genomic regions.
+          </p>
+          <a class="hero-link" href="#search"
+            >Begin your search <span aria-hidden="true">↗</span></a
+          >
+        </div>
+        <div class="hero-art">
+          <svg class="botanical-visual" viewBox="0 0 560 500" aria-hidden="true">
+            <defs>
+              <radialGradient id="aura">
+                <stop stop-color="#b9cbdc" stop-opacity=".8" />
+                <stop offset="1" stop-color="#dce7ee" stop-opacity="0" />
+              </radialGradient>
+              <linearGradient id="grain" x1="0" y1="0" x2="1" y2="1">
+                <stop stop-color="#ffffff" stop-opacity=".95" />
+                <stop offset=".48" stop-color="#d3e5ec" stop-opacity=".8" />
+                <stop offset="1" stop-color="#8daec6" stop-opacity=".65" />
+              </linearGradient>
+            </defs>
+            <circle cx="290" cy="250" r="245" fill="url(#aura)" />
+            <g fill="none" stroke="#a9bdce" stroke-width=".6">
+              <circle cx="290" cy="240" r="175" />
+              <circle cx="290" cy="240" r="205" stroke-dasharray="2 9" />
+              <path d="M50 240H530M290 10V470" stroke-opacity=".4" />
+            </g>
+            <path
+              d="M290 460 Q408 275 260 90"
+              fill="none"
+              stroke="#71918c"
+              stroke-width="2.5"
+            />
+            <path
+              d="M294 443 Q169 372 196 280 Q269 320 294 443Z"
+              fill="url(#grain)"
+              stroke="#8ca9ab"
+            />
+            <path d="M295 444 Q225 370 196 280" fill="none" stroke="#8ca9ab" />
+            <path
+              d="M260.0,100.0 Q232.0,92.0 215.0,82.0"
+              fill="none"
+              stroke="#6682a2"
+              stroke-width="1.2"
+            />
+            <ellipse
+              cx="215.0"
+              cy="82.0"
+              rx="12"
+              ry="25"
+              transform="rotate(-35 215.0 82.0)"
+              fill="url(#grain)"
+              stroke="#8aa4b5"
+              stroke-opacity=".65"
+            />
+            <path
+              d="M260.0,100.0 Q288.0,92.0 305.0,82.0"
+              fill="none"
+              stroke="#6682a2"
+              stroke-width="1.2"
+            />
+            <ellipse
+              cx="305.0"
+              cy="82.0"
+              rx="12"
+              ry="25"
+              transform="rotate(35 305.0 82.0)"
+              fill="url(#grain)"
+              stroke="#8aa4b5"
+              stroke-opacity=".65"
+            />
+            <path
+              d="M275.7,123.0 Q239.3,115.0 222.3,105.0"
+              fill="none"
+              stroke="#6682a2"
+              stroke-width="1.2"
+            />
+            <ellipse
+              cx="222.3"
+              cy="105.0"
+              rx="12"
+              ry="25"
+              transform="rotate(-35 222.3 105.0)"
+              fill="url(#grain)"
+              stroke="#8aa4b5"
+              stroke-opacity=".65"
+            />
+            <path
+              d="M275.7,123.0 Q312.1,115.0 329.1,105.0"
+              fill="none"
+              stroke="#6682a2"
+              stroke-width="1.2"
+            />
+            <ellipse
+              cx="329.1"
+              cy="105.0"
+              rx="12"
+              ry="25"
+              transform="rotate(35 329.1 105.0)"
+              fill="url(#grain)"
+              stroke="#8aa4b5"
+              stroke-opacity=".65"
+            />
+            <path
+              d="M290.9,146.0 Q253.8,138.0 236.8,128.0"
+              fill="none"
+              stroke="#6682a2"
+              stroke-width="1.2"
+            />
+            <ellipse
+              cx="236.8"
+              cy="128.0"
+              rx="12"
+              ry="25"
+              transform="rotate(-35 236.8 128.0)"
+              fill="url(#grain)"
+              stroke="#8aa4b5"
+              stroke-opacity=".65"
+            />
+            <path
+              d="M290.9,146.0 Q328.0,138.0 345.0,128.0"
+              fill="none"
+              stroke="#6682a2"
+              stroke-width="1.2"
+            />
+            <ellipse
+              cx="345.0"
+              cy="128.0"
+              rx="12"
+              ry="25"
+              transform="rotate(35 345.0 128.0)"
+              fill="url(#grain)"
+              stroke="#8aa4b5"
+              stroke-opacity=".65"
+            />
+            <path
+              d="M305.1,169.0 Q275.7,161.0 258.7,151.0"
+              fill="none"
+              stroke="#6682a2"
+              stroke-width="1.2"
+            />
+            <ellipse
+              cx="258.7"
+              cy="151.0"
+              rx="12"
+              ry="25"
+              transform="rotate(-35 258.7 151.0)"
+              fill="url(#grain)"
+              stroke="#8aa4b5"
+              stroke-opacity=".65"
+            />
+            <path
+              d="M305.1,169.0 Q334.5,161.0 351.5,151.0"
+              fill="none"
+              stroke="#6682a2"
+              stroke-width="1.2"
+            />
+            <ellipse
+              cx="351.5"
+              cy="151.0"
+              rx="12"
+              ry="25"
+              transform="rotate(35 351.5 151.0)"
+              fill="url(#grain)"
+              stroke="#8aa4b5"
+              stroke-opacity=".65"
+            />
+            <path
+              d="M318.0,192.0 Q297.5,184.0 280.5,174.0"
+              fill="none"
+              stroke="#6682a2"
+              stroke-width="1.2"
+            />
+            <ellipse
+              cx="280.5"
+              cy="174.0"
+              rx="12"
+              ry="25"
+              transform="rotate(-35 280.5 174.0)"
+              fill="url(#grain)"
+              stroke="#8aa4b5"
+              stroke-opacity=".65"
+            />
+            <path
+              d="M318.0,192.0 Q338.4,184.0 355.4,174.0"
+              fill="none"
+              stroke="#6682a2"
+              stroke-width="1.2"
+            />
+            <ellipse
+              cx="355.4"
+              cy="174.0"
+              rx="12"
+              ry="25"
+              transform="rotate(35 355.4 174.0)"
+              fill="url(#grain)"
+              stroke="#8aa4b5"
+              stroke-opacity=".65"
+            />
+            <path
+              d="M329.1,215.0 Q310.7,207.0 293.7,197.0"
+              fill="none"
+              stroke="#6682a2"
+              stroke-width="1.2"
+            />
+            <ellipse
+              cx="293.7"
+              cy="197.0"
+              rx="12"
+              ry="25"
+              transform="rotate(-35 293.7 197.0)"
+              fill="url(#grain)"
+              stroke="#8aa4b5"
+              stroke-opacity=".65"
+            />
+            <path
+              d="M329.1,215.0 Q347.5,207.0 364.5,197.0"
+              fill="none"
+              stroke="#6682a2"
+              stroke-width="1.2"
+            />
+            <ellipse
+              cx="364.5"
+              cy="197.0"
+              rx="12"
+              ry="25"
+              transform="rotate(35 364.5 197.0)"
+              fill="url(#grain)"
+              stroke="#8aa4b5"
+              stroke-opacity=".65"
+            />
+            <path
+              d="M338.1,238.0 Q312.9,230.0 295.9,220.0"
+              fill="none"
+              stroke="#6682a2"
+              stroke-width="1.2"
+            />
+            <ellipse
+              cx="295.9"
+              cy="220.0"
+              rx="12"
+              ry="25"
+              transform="rotate(-35 295.9 220.0)"
+              fill="url(#grain)"
+              stroke="#8aa4b5"
+              stroke-opacity=".65"
+            />
+            <path
+              d="M338.1,238.0 Q363.3,230.0 380.3,220.0"
+              fill="none"
+              stroke="#6682a2"
+              stroke-width="1.2"
+            />
+            <ellipse
+              cx="380.3"
+              cy="220.0"
+              rx="12"
+              ry="25"
+              transform="rotate(35 380.3 220.0)"
+              fill="url(#grain)"
+              stroke="#8aa4b5"
+              stroke-opacity=".65"
+            />
+            <path
+              d="M344.7,261.0 Q310.1,253.0 293.1,243.0"
+              fill="none"
+              stroke="#6682a2"
+              stroke-width="1.2"
+            />
+            <ellipse
+              cx="293.1"
+              cy="243.0"
+              rx="12"
+              ry="25"
+              transform="rotate(-35 293.1 243.0)"
+              fill="url(#grain)"
+              stroke="#8aa4b5"
+              stroke-opacity=".65"
+            />
+            <path
+              d="M344.7,261.0 Q379.2,253.0 396.2,243.0"
+              fill="none"
+              stroke="#6682a2"
+              stroke-width="1.2"
+            />
+            <ellipse
+              cx="396.2"
+              cy="243.0"
+              rx="12"
+              ry="25"
+              transform="rotate(35 396.2 243.0)"
+              fill="url(#grain)"
+              stroke="#8aa4b5"
+              stroke-opacity=".65"
+            />
+            <path
+              d="M348.7,284.0 Q310.8,276.0 293.8,266.0"
+              fill="none"
+              stroke="#6682a2"
+              stroke-width="1.2"
+            />
+            <ellipse
+              cx="293.8"
+              cy="266.0"
+              rx="12"
+              ry="25"
+              transform="rotate(-35 293.8 266.0)"
+              fill="url(#grain)"
+              stroke="#8aa4b5"
+              stroke-opacity=".65"
+            />
+            <path
+              d="M348.7,284.0 Q386.6,276.0 403.6,266.0"
+              fill="none"
+              stroke="#6682a2"
+              stroke-width="1.2"
+            />
+            <ellipse
+              cx="403.6"
+              cy="266.0"
+              rx="12"
+              ry="25"
+              transform="rotate(35 403.6 266.0)"
+              fill="url(#grain)"
+              stroke="#8aa4b5"
+              stroke-opacity=".65"
+            />
+            <path
+              d="M350.0,307.0 Q317.9,299.0 300.9,289.0"
+              fill="none"
+              stroke="#6682a2"
+              stroke-width="1.2"
+            />
+            <ellipse
+              cx="300.9"
+              cy="289.0"
+              rx="12"
+              ry="25"
+              transform="rotate(-35 300.9 289.0)"
+              fill="url(#grain)"
+              stroke="#8aa4b5"
+              stroke-opacity=".65"
+            />
+            <path
+              d="M350.0,307.0 Q382.1,299.0 399.1,289.0"
+              fill="none"
+              stroke="#6682a2"
+              stroke-width="1.2"
+            />
+            <ellipse
+              cx="399.1"
+              cy="289.0"
+              rx="12"
+              ry="25"
+              transform="rotate(35 399.1 289.0)"
+              fill="url(#grain)"
+              stroke="#8aa4b5"
+              stroke-opacity=".65"
+            />
+            <path
+              d="M348.6,330.0 Q326.0,322.0 309.0,312.0"
+              fill="none"
+              stroke="#6682a2"
+              stroke-width="1.2"
+            />
+            <ellipse
+              cx="309.0"
+              cy="312.0"
+              rx="12"
+              ry="25"
+              transform="rotate(-35 309.0 312.0)"
+              fill="url(#grain)"
+              stroke="#8aa4b5"
+              stroke-opacity=".65"
+            />
+            <path
+              d="M348.6,330.0 Q371.1,322.0 388.1,312.0"
+              fill="none"
+              stroke="#6682a2"
+              stroke-width="1.2"
+            />
+            <ellipse
+              cx="388.1"
+              cy="312.0"
+              rx="12"
+              ry="25"
+              transform="rotate(35 388.1 312.0)"
+              fill="url(#grain)"
+              stroke="#8aa4b5"
+              stroke-opacity=".65"
+            />
+            <path
+              d="M344.4,353.0 Q326.4,345.0 309.4,335.0"
+              fill="none"
+              stroke="#6682a2"
+              stroke-width="1.2"
+            />
+            <ellipse
+              cx="309.4"
+              cy="335.0"
+              rx="12"
+              ry="25"
+              transform="rotate(-35 309.4 335.0)"
+              fill="url(#grain)"
+              stroke="#8aa4b5"
+              stroke-opacity=".65"
+            />
+            <path
+              d="M344.4,353.0 Q362.4,345.0 379.4,335.0"
+              fill="none"
+              stroke="#6682a2"
+              stroke-width="1.2"
+            />
+            <ellipse
+              cx="379.4"
+              cy="335.0"
+              rx="12"
+              ry="25"
+              transform="rotate(35 379.4 335.0)"
+              fill="url(#grain)"
+              stroke="#8aa4b5"
+              stroke-opacity=".65"
+            />
+            <path
+              d="M337.7,376.0 Q315.1,368.0 298.1,358.0"
+              fill="none"
+              stroke="#6682a2"
+              stroke-width="1.2"
+            />
+            <ellipse
+              cx="298.1"
+              cy="358.0"
+              rx="12"
+              ry="25"
+              transform="rotate(-35 298.1 358.0)"
+              fill="url(#grain)"
+              stroke="#8aa4b5"
+              stroke-opacity=".65"
+            />
+            <path
+              d="M337.7,376.0 Q360.3,368.0 377.3,358.0"
+              fill="none"
+              stroke="#6682a2"
+              stroke-width="1.2"
+            />
+            <ellipse
+              cx="377.3"
+              cy="358.0"
+              rx="12"
+              ry="25"
+              transform="rotate(35 377.3 358.0)"
+              fill="url(#grain)"
+              stroke="#8aa4b5"
+              stroke-opacity=".65"
+            />
+            <g fill="#647fa3">
+              <circle cx="113" cy="240" r="3" />
+              <circle cx="465" cy="240" r="3" />
+              <circle cx="290" cy="34" r="3" />
+            </g></svg
+          ><span class="art-caption"
+            >ORYZA SATIVA <span>GENE · REGION · TRAIT</span></span
+          >
+        </div>
+      </div>
+      <div class="hero-bottom">
+        <span>Connecting genes with published evidence.</span
+        ><span>EXPLORE BELOW <span aria-hidden="true">↓</span></span>
+      </div>
     </header>
     <main>
-      <section class="search">
+      <section class="search" aria-label="Gene search">
+        <div class="section-intro">
+          <span class="section-number">01 / SEARCH</span>
+          <p>Start with a gene.</p>
+        </div>
         <form id="search">
           <label for="query">Gene ID or symbol</label>
           <div class="searchline">
@@ -106,7 +588,7 @@
           </p>
         </section>
         <section class="panel">
-          <h2>Published association evidence</h2>
+          <h2 id="evidence">Published association evidence</h2>
           <p id="counts"></p>
           <div class="tablewrap">
             <table>

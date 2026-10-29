@@ -20,7 +20,7 @@ Use Python 3.11 or newer. The application and data importer use only the Python 
 
 The repository contains source code, documentation, a preview and provenance manifests. Downloaded third-party source files, the derived SQLite database and local caches are excluded from Git. The data scripts reproduce the database from the recorded source URLs and checksums. A private repository must be accessible to your GitHub account before cloning.
 
-![Evidence review preview](docs/review_preview.png)
+![Rice Gene Explorer interface](docs/design_preview.png)
 
 ## What is implemented
 

@@ -327,15 +327,15 @@ function drawNeighborhood(data) {
   for (let index = 0; index <= 4; index++) {
     const value = (maximum * index) / 4;
     markup += `
-      <line x1="${leftMargin}" x2="${width - rightMargin}" y1="${y(value)}" y2="${y(value)}" stroke="#dce3d9"/>
-      <text x="${leftMargin - 8}" y="${y(value) + 4}" text-anchor="end" font-size="11" fill="#586c63">${value.toFixed(1)}</text>
+      <line x1="${leftMargin}" x2="${width - rightMargin}" y1="${y(value)}" y2="${y(value)}" stroke="#e1e7ef"/>
+      <text x="${leftMargin - 8}" y="${y(value) + 4}" text-anchor="end" font-size="11" fill="#647086">${value.toFixed(1)}</text>
     `;
   }
   markup +=
-    '<text transform="translate(16,135) rotate(-90)" font-size="12" fill="#586c63">−log₁₀(p)</text>';
+    '<text transform="translate(16,135) rotate(-90)" font-size="12" fill="#647086">−log₁₀(p)</text>';
 
   for (const association of data.plot_associations) {
-    const color = association.relation === "overlaps gene" ? "#c9782b" : "#387a65";
+    const color = association.relation === "overlaps gene" ? "#536cad" : "#9baecc";
     markup += `
       <circle cx="${x(association.position)}" cy="${y(association.neg_log10_p)}" r="4" fill="${color}" opacity=".65">
         <title>${escapeHtml(association.trait)} · chr${association.chromosome}:${association.position} · p=${escapeHtml(association.p_value_text)}</title>
@@ -344,7 +344,7 @@ function drawNeighborhood(data) {
   }
   for (let index = 0; index <= 4; index++) {
     const position = Math.round(data.start + ((data.end - data.start) * index) / 4);
-    markup += `<text x="${x(position)}" y="210" text-anchor="middle" font-size="11" fill="#586c63">${position.toLocaleString()}</text>`;
+    markup += `<text x="${x(position)}" y="210" text-anchor="middle" font-size="11" fill="#647086">${position.toLocaleString()}</text>`;
   }
 
   const laneEnds = [];
@@ -354,7 +354,7 @@ function drawNeighborhood(data) {
     const lane = findAvailableLane(laneEnds, left);
     laneEnds[lane] = right;
     const centerY = 250 + lane * 42;
-    const color = gene.id === data.gene.id ? "#c9782b" : "#387a65";
+    const color = gene.id === data.gene.id ? "#536cad" : "#9baecc";
     const tip = Math.min(7, (right - left) / 2);
     const points =
       gene.strand === "+"
