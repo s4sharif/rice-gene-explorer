@@ -105,12 +105,30 @@ function renderGene(gene, aliases) {
 
 // Render one published association without substituting values for missing statistics.
 function renderAssociation(association) {
+  const reviewNotice = association.curation_note
+    ? `<small class="curation-warning">${escapeHtml(association.curation_note)}</small>`
+    : `<small>${escapeHtml(association.review_status)}</small>`;
   const allele = association.effect_allele
     ? `Effect allele: ${escapeHtml(association.effect_allele)}`
     : "Effect allele not reported";
   const frequency = association.effect_allele_frequency
     ? `Frequency: ${escapeHtml(association.effect_allele_frequency)}`
     : "Frequency not reported";
+  const repeatNotice =
+    association.source_record_count > 1
+      ? `${association.source_record_count} identical evidence rows grouped`
+      : "One source evidence row";
+  const effect =
+    association.effect_size == null
+      ? "Effect size not reported"
+      : `Effect size: ${escapeHtml(association.effect_size)}`;
+  const otherAllele =
+    association.other_allele == null
+      ? "Other allele not reported"
+      : `Other allele: ${escapeHtml(association.other_allele)}`;
+  const tableAlleles = association.original_minor_allele
+    ? `<br>Original Table 1: major ${escapeHtml(association.original_major_allele)} / minor ${escapeHtml(association.original_minor_allele)}; MAF ${escapeHtml(association.original_minor_allele_frequency)} (effect orientation unverified)`
+    : "";
   const variance = association.r2_percent
     ? `<br>Reported R²: ${escapeHtml(association.r2_percent)}%`
     : "";
@@ -122,17 +140,17 @@ function renderAssociation(association) {
 
   return `
     <tr>
-      <td>${escapeHtml(association.trait)}<small>${escapeHtml(association.ontology_id)}</small></td>
+      <td>${escapeHtml(association.trait)}<small>${escapeHtml(association.ontology_id)}</small>${reviewNotice}</td>
       <td>
         chr${association.chromosome}:${association.position.toLocaleString()}
-        <small>Source row ${association.source_row} · record ${escapeHtml(association.id)}</small>
+        <small>Source row ${association.source_row} · record ${escapeHtml(association.id)}<br>${repeatNotice}</small>
       </td>
       <td>
         ${escapeHtml(association.relation)}
         <small>${association.distance_bp.toLocaleString()} bp from gene span</small>
       </td>
-      <td>${escapeHtml(association.p_value_text)}</td>
-      <td>${allele}<small>${frequency}<br>Effect size: not supplied in export${variance}</small></td>
+      <td>${escapeHtml(association.p_value_text)}<small>${escapeHtml(association.statistic_kind)}</small></td>
+      <td>${allele}<small>${frequency}<br>${otherAllele}<br>${effect}${variance}${tableAlleles}</small></td>
       <td>
         ${escapeHtml(association.source_study_id)} · ${escapeHtml(association.model)}
         <small>
@@ -144,7 +162,7 @@ function renderAssociation(association) {
           <summary>Coordinate provenance</summary>
           Atlas reference: ${escapeHtml(association.source_reference)}<br>
           Original reported location: ${escapeHtml(association.reported_location)}<br>
-          <a href="${escapeHtml(association.source_url)}" target="_blank" rel="noopener">Source dataset</a>
+          <a href="${escapeHtml(association.source_url)}" target="_blank" rel="noopener">Source dataset</a> · <a href="${escapeHtml(association.source_record_url)}" target="_blank" rel="noopener">Original source row</a>
         </details>
       </td>
     </tr>
@@ -170,17 +188,27 @@ async function loadRegion(geneId, page = 1) {
   setStatus("Loading gene and regional evidence…");
 
   try {
+    if (geneId !== selectedGene) {
+      byId("study").value = "";
+      byId("publication").value = "";
+    }
     const query = new URLSearchParams({
       gene: geneId,
       window: byId("window").value,
       trait: byId("trait").value,
       page,
+      study: byId("study").value,
+      publication: byId("publication").value,
+      maximum_p: byId("maximum-p").value,
+      position: byId("position").value,
+      include_repeats: byId("include-repeats").checked,
     });
     const data = await fetchJson(`/api/region?${query}`);
     if (requestId !== latestRequest) return;
 
     selectedGene = geneId;
-    currentPage = page;
+    currentPage = data.page;
+    updateStudyOptions(data);
     totalAssociations = data.total_associations;
     byId("matches").replaceChildren();
     byId("result").hidden = false;
@@ -198,7 +226,7 @@ async function loadRegion(geneId, page = 1) {
 
     const traitNotice = data.trait_filter ? ` matching “${data.trait_filter}”` : "";
     byId("counts").textContent =
-      `${totalAssociations.toLocaleString()} curated association records${traitNotice}. ` +
+      `${totalAssociations.toLocaleString()} evidence records${traitNotice} from ${data.source_record_total.toLocaleString()} matching source rows; ${data.repeated_rows_hidden} exact repeats grouped. ` +
       "Records may share SNP positions, traits or study samples; counts are not independent replications.";
     byId("associations").innerHTML = data.associations.length
       ? data.associations.map(renderAssociation).join("")
@@ -210,6 +238,8 @@ async function loadRegion(geneId, page = 1) {
     byId("next").disabled = currentPage * data.page_size >= totalAssociations;
     byId("page").textContent =
       `Page ${currentPage} of ${Math.max(1, Math.ceil(totalAssociations / data.page_size))}`;
+    byId("page-number").value = currentPage;
+    byId("page-number").max = data.page_count;
     byId("export").href = `/api/export?${query}`;
     drawNeighborhood(data);
     history.replaceState(
@@ -220,6 +250,45 @@ async function loadRegion(geneId, page = 1) {
   } catch (error) {
     if (requestId === latestRequest) setStatus(error.message, true);
   }
+}
+
+// Populate region-specific study and publication choices without discarding active selections.
+function updateStudyOptions(data) {
+  const study = data.filters.study;
+  const publication = data.filters.publication;
+  byId("study").replaceChildren(new Option("All studies", ""));
+  for (const item of data.study_options) {
+    byId("study").add(new Option(`${item.source_study_id} · ${item.model}`, item.id));
+  }
+  byId("publication").replaceChildren(new Option("All publications", ""));
+  for (const item of data.publication_options) {
+    byId("publication").add(
+      new Option(`${item.pmid} · ${item.title.slice(0, 90)}`, item.pmid),
+    );
+  }
+  byId("study").value = study;
+  byId("publication").value = publication;
+}
+
+// Clear evidence filters while preserving the selected gene and genomic window.
+function resetFilters() {
+  byId("trait").value = "";
+  byId("study").value = "";
+  byId("publication").value = "";
+  byId("maximum-p").value = "1";
+  byId("position").value = "";
+  byId("include-repeats").checked = false;
+  applyFilters();
+}
+
+// Navigate to the requested evidence page within the available page range.
+function goToPage() {
+  const page = Number(byId("page-number").value);
+  if (!Number.isInteger(page) || page < 1) {
+    setStatus("Enter a positive whole page number.", true);
+    return;
+  }
+  loadRegion(selectedGene, page);
 }
 
 // Find a chart lane with enough horizontal space for the next gene label.
@@ -370,6 +439,8 @@ function restoreBookmark() {
 
 byId("search").onsubmit = submitSearch;
 byId("apply").onclick = applyFilters;
+byId("reset").onclick = resetFilters;
+byId("go-page").onclick = goToPage;
 byId("window").onchange = applyFilters;
 byId("prev").onclick = showPreviousPage;
 byId("next").onclick = showNextPage;

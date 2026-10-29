@@ -40,7 +40,7 @@ query_start = max(1, s - w)
 query_end   = e + w
 ```
 
-A neighboring gene overlaps the display region when `gene.start <= query_end AND gene.end >= query_start`. A SNP is included when its harmonized position lies within the inclusive display region on the same assembly and chromosome. Regions past chromosome ends currently return no extra genes/SNPs rather than clamping to independently verified chromosome lengths; chromosome-length validation is a planned curation check.
+A neighboring gene overlaps the display region when `gene.start <= query_end AND gene.end >= query_start`. A SNP is included when its harmonized position lies within the inclusive display region on the same assembly and chromosome. The import checks every position against the official RAP-DB chromosome lengths; display regions clamp to those lengths. Out-of-bounds source positions remain quarantined.
 
 Distance is zero for a SNP in [s,e]; otherwise it is the distance to the nearest gene boundary. For a positive-strand gene, left is upstream and right downstream; reverse those labels for negative-strand genes. Gene-body overlap is not exon/CDS overlap. No LD regions, credible sets, regulatory contacts, nearest-gene assignment or gene-based p-values are inferred.
 
@@ -55,3 +55,11 @@ The current import accepts explicit IRGSP-1.0 `Ref ver` labels and uses exported
 Add `expression_dataset`, `cell_type`, `expression_summary`, `gene_mapping` and `processing_method`. Each expression summary should key to a specific dataset, gene mapping and cell-type label and retain number of cells, number expressing, normalization method and summary unit. Tissue, cultivar, condition, assembly and annotation belong to the dataset. Preserve ambiguous/unmapped IDs with a mapping status. Later add sample/donor information if needed to interpret variability.
 
 Add `genomic_region` and `region_evidence` for source-defined loci, credible sets or QTL intervals, preserving how boundaries were established. Keep a user-selected display window separate from a source-defined association region. Optional CATCH outputs should be stored as versioned analysis results linked to input datasets and methods, separately from published SNP association evidence.
+
+## Evidence grouping and review overlays
+
+`evidence_summary` stores the representative source row and repeat count for a fingerprint over every source field except GaP ID. `association_display` exposes one representative per exact evidence group. The original `association` and `quarantine` tables retain source rows unchanged. The API offers `include_repeats=true` to retrieve all accepted source rows.
+
+A versioned `publication_review.json` overlay records selected original-paper comparisons by association ID. It identifies checked statistic types and metadata conflicts without overwriting original traits or models. `validate_data.py` checks that the overlay refers to the same GWAS source checksum and existing accepted records. These selected checks do not validate unmatched records.
+
+The original-row endpoint `/api/association?id=...` returns the complete imported source assertion and any primary-table review. Study/publication/trait/statistic/position filters apply consistently to the table, chart and CSV; gene neighbors continue to describe the selected reference window.

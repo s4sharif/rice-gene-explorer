@@ -13,6 +13,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 ASSEMBLY = "Os-Nipponbare-Reference-IRGSP-1.0"
+CHROMOSOMES = json.loads((ROOT / "data/chromosomes.json").read_text())
+CHROMOSOME_LENGTHS = {int(k): v for k, v in CHROMOSOMES["lengths"].items()}
 RAP = "https://rapdb.dna.naro.go.jp/download/archive/"
 SOURCES = {
     "rap_loci": (
@@ -97,6 +99,11 @@ def build():
                     continue
                 a = dict(x.split("=", 1) for x in attrs.split(";") if "=" in x)
                 gene = a["ID"]
+                chromosome = int(chrom.removeprefix("chr"))
+                if not 1 <= int(start) <= int(end) <= CHROMOSOME_LENGTHS[chromosome]:
+                    raise ValueError(
+                        f"Gene coordinates outside chromosome bounds: {gene}"
+                    )
                 db.execute(
                     "INSERT INTO gene VALUES (?,?,?,?,?,?,?,?,?)",
                     (
@@ -173,13 +180,24 @@ def build():
                 chrom = int(row["Chr"].removeprefix("chr"))
                 pos = int(row["Pos"])
                 p = float(row["P-value"].replace("−", "-"))
-                if chrom not in range(1, 13) or pos < 1:
-                    raise ValueError("Invalid genomic coordinate")
+                if (
+                    chrom not in CHROMOSOME_LENGTHS
+                    or not 1 <= pos <= CHROMOSOME_LENGTHS[chrom]
+                ):
+                    raise ValueError(
+                        "Genomic coordinate outside reference chromosome bounds"
+                    )
                 if not math.isfinite(p) or not 0 < p <= 1:
                     raise ValueError("P-value outside (0,1]")
             except (ValueError, TypeError) as exc:
                 reason = str(exc)
             raw = json.dumps(row, ensure_ascii=False, sort_keys=True)
+            evidence_fields = {
+                key: value for key, value in row.items() if key != "#GaP_id"
+            }
+            evidence_key = hashlib.sha256(
+                json.dumps(evidence_fields, sort_keys=True).encode()
+            ).hexdigest()
             if reason:
                 db.execute(
                     "INSERT INTO quarantine VALUES (?,?,?,?)",
@@ -245,11 +263,16 @@ def build():
                 row["Reported location"],
                 clean(row["Reported gene(S)"]),
                 raw,
+                evidence_key,
             )
             db.execute(
                 "INSERT INTO association VALUES (" + ",".join("?" * len(values)) + ")",
                 values,
             )
+    db.execute(
+        "INSERT INTO evidence_summary SELECT evidence_key,MIN(source_row),COUNT(*) "
+        "FROM association GROUP BY evidence_key"
+    )
     db.commit()
     assert db.execute("PRAGMA integrity_check").fetchone()[0] == "ok"
     assert not db.execute("PRAGMA foreign_key_check").fetchall()
@@ -266,6 +289,13 @@ def build():
         ]
     }
     assert counts["association"] + counts["quarantine"] == total
+    counts["unique_evidence"] = db.execute(
+        "SELECT count(*) FROM evidence_summary"
+    ).fetchone()[0]
+    manifest["chromosome_reference"] = {
+        **CHROMOSOMES,
+        "sha256": sha(ROOT / "data/chromosomes.json"),
+    }
     manifest["audit"] = {
         "counts": counts,
         "source_association_rows": total,

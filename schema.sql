@@ -84,7 +84,8 @@ CREATE TABLE association (
     source_reference TEXT NOT NULL,
     reported_location TEXT,
     reported_gene TEXT,
-    raw_json TEXT NOT NULL
+    raw_json TEXT NOT NULL,
+    evidence_key TEXT NOT NULL
 );
 
 CREATE INDEX association_region ON association(assembly_id,chromosome,position);
@@ -98,3 +99,17 @@ CREATE TABLE quarantine (
     raw_json TEXT NOT NULL,
     PRIMARY KEY(source_id,source_row)
 );
+
+CREATE INDEX association_evidence ON association(evidence_key);
+
+CREATE TABLE evidence_summary (
+    evidence_key TEXT PRIMARY KEY,
+    representative_row INTEGER NOT NULL,
+    source_record_count INTEGER NOT NULL
+);
+
+CREATE VIEW association_display AS
+SELECT a.*, e.source_record_count
+FROM association a
+JOIN evidence_summary e ON e.evidence_key = a.evidence_key
+WHERE a.source_row = e.representative_row;

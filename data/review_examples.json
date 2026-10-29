@@ -1,0 +1,62 @@
+[
+  {
+    "gene": {
+      "id": "Os03g0407400",
+      "assembly_id": "Os-Nipponbare-Reference-IRGSP-1.0",
+      "annotation_id": "rap_loci",
+      "chromosome": 3,
+      "start": 16729501,
+      "end": 16735109,
+      "strand": "-",
+      "symbol": "LK3",
+      "description": "Protein with plant-specific organ size regulation (OSR) domain, transmembrane region, TNFR/NGFR family cysteine-rich domain and VWFC module, Regulator of grain size and organ size"
+    },
+    "association": {
+      "id": "26425:46530",
+      "position": 16733441,
+      "p_value_text": "3.40E-43",
+      "label": "grain width",
+      "publication_id": "33367255"
+    }
+  },
+  {
+    "gene": {
+      "id": "Os05g0187500",
+      "assembly_id": "Os-Nipponbare-Reference-IRGSP-1.0",
+      "annotation_id": "rap_loci",
+      "chromosome": 5,
+      "start": 5365122,
+      "end": 5366701,
+      "strand": "+",
+      "symbol": "GW5",
+      "description": "IQ calmodulin-binding motif family protein, Positive regulator of brassinosteroid signalling, Regulation of grain width and weight"
+    },
+    "association": {
+      "id": "26427:79249",
+      "position": 5371686,
+      "p_value_text": "9.30E-34",
+      "label": "grain width",
+      "publication_id": "33367255"
+    }
+  },
+  {
+    "gene": {
+      "id": "Os06g0133000",
+      "assembly_id": "Os-Nipponbare-Reference-IRGSP-1.0",
+      "annotation_id": "rap_loci",
+      "chromosome": 6,
+      "start": 1765622,
+      "end": 1770653,
+      "strand": "+",
+      "symbol": "WX1",
+      "description": "Granule-bound starch synthase 1, Starch biosynthesis"
+    },
+    "association": {
+      "id": "26428:82139",
+      "position": 1765761,
+      "p_value_text": "6.40E-08",
+      "label": "rice endosperm type trait",
+      "publication_id": "33367255"
+    }
+  }
+]

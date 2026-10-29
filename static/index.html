@@ -54,7 +54,37 @@
             >Trait contains<input
               id="trait"
               placeholder="All available traits" /></label
-          ><button id="apply">Apply filters</button
+          ><label
+            >Study<select id="study">
+              <option value="">All studies</option>
+            </select></label
+          >
+          <label
+            >Publication<select id="publication">
+              <option value="">All publications</option>
+            </select></label
+          >
+          <label
+            >Maximum p-value<select id="maximum-p">
+              <option value="1">All reported values</option>
+              <option value="0.00001">≤ 10⁻⁵</option>
+              <option value="0.00000001">≤ 10⁻⁸</option>
+            </select></label
+          >
+          <label
+            >Position<select id="position">
+              <option value="">All positions</option>
+              <option value="overlap">Overlaps gene</option>
+              <option value="upstream">Upstream</option>
+              <option value="downstream">Downstream</option>
+            </select></label
+          >
+          <label class="checkbox"
+            ><input type="checkbox" id="include-repeats" />Include repeated source
+            rows</label
+          >
+          <button id="reset" class="secondary">Reset filters</button>
+          <button id="apply">Apply filters</button
           ><a id="export" class="button secondary">Export evidence CSV</a>
         </div>
         <div class="notice">
@@ -99,7 +129,14 @@
           </div>
           <div class="pagination">
             <button id="prev">← Previous</button><span id="page"></span
-            ><button id="next">Next →</button>
+            ><button id="next">Next →</button
+            ><label
+              >Go to page<input
+                id="page-number"
+                type="number"
+                min="1"
+                value="1" /></label
+            ><button id="go-page" class="secondary">Go</button>
           </div>
         </section>
         <section class="panel">

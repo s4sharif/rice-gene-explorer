@@ -11,9 +11,13 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
+from build_database import CHROMOSOME_LENGTHS
+
 ROOT = Path(__file__).resolve().parent
 DB = ROOT / "data/rice.sqlite"
 PAGE_SIZE = 8
+PUBLICATION_REVIEW = json.loads((ROOT / "data/publication_review.json").read_text())
+PUBLICATION_REVIEWS = PUBLICATION_REVIEW["records"]
 
 
 # Open a read-only database connection and close it after the query finishes.
@@ -69,20 +73,37 @@ def relation(gene, position):
 
 
 # Retrieve a gene neighborhood and its matching published association evidence.
-def region(gene_id, window=25000, trait="", page=1, export=False):
+def region(
+    gene_id,
+    window=25000,
+    trait="",
+    page=1,
+    export=False,
+    study="",
+    publication="",
+    maximum_p=1.0,
+    position_filter="",
+    include_repeats=False,
+):
     if not 0 <= window <= 1000000:
         raise ValueError("Window must be between 0 and 1,000,000 bp on each side.")
     if page < 1 or page > 100000:
         raise ValueError("Invalid results page.")
     if len(trait) > 200:
         raise ValueError("Trait filter too long.")
+    if len(study) > 100 or (publication and not publication.isdigit()):
+        raise ValueError("Select a valid study or publication.")
+    if not math.isfinite(maximum_p) or not 0 < maximum_p <= 1:
+        raise ValueError("Maximum p-value must be greater than zero and at most one.")
+    if position_filter not in {"", "overlap", "upstream", "downstream"}:
+        raise ValueError("Select a recognized position filter.")
     with connect() as db:
         row = db.execute("SELECT * FROM gene WHERE id=?", (gene_id,)).fetchone()
         if not row:
             raise ValueError("Select a recognized RAP gene ID from the search results.")
         gene = dict(row)
         start = max(1, gene["start"] - window)
-        end = gene["end"] + window
+        end = min(CHROMOSOME_LENGTHS[gene["chromosome"]], gene["end"] + window)
         genes = [
             dict(r)
             for r in db.execute(
@@ -92,15 +113,69 @@ def region(gene_id, window=25000, trait="", page=1, export=False):
         ]
         args = [gene["assembly_id"], gene["chromosome"], start, end]
         where = "a.assembly_id=? AND a.chromosome=? AND a.position BETWEEN ? AND ?"
+        base_args = args.copy()
+        base_where = where
         if trait:
             where += " AND instr(lower(t.label),lower(?))>0"
             args.append(trait)
+        if study:
+            where += " AND s.id=?"
+            args.append(study)
+        if publication:
+            where += " AND p.pmid=?"
+            args.append(publication)
+        where += " AND a.p_value<=?"
+        args.append(maximum_p)
+        if position_filter == "overlap":
+            where += " AND a.position BETWEEN ? AND ?"
+            args.extend([gene["start"], gene["end"]])
+        elif position_filter:
+            left = (position_filter == "upstream") == (gene["strand"] == "+")
+            where += " AND a.position" + ("<?" if left else ">?")
+            args.append(gene["start"] if left else gene["end"])
+        table = "association" if include_repeats else "association_display"
         join = (
-            " FROM association a JOIN trait t ON t.id=a.trait_id JOIN study s ON s.id=a.study_id LEFT JOIN publication p ON p.pmid=s.publication_id WHERE "
+            " FROM "
+            + table
+            + " a JOIN trait t ON t.id=a.trait_id JOIN study s ON s.id=a.study_id LEFT JOIN publication p ON p.pmid=s.publication_id WHERE "
             + where
         )
         total = db.execute("SELECT count(*)" + join, args).fetchone()[0]
-        cols = "SELECT a.id,a.chromosome,a.position,a.p_value,a.p_value_text,a.effect_allele,a.effect_allele_frequency,a.other_allele,a.effect_size,a.r2_percent,a.reported_location,a.source_reference,a.source_row,t.label AS trait,t.ontology_id,s.source_study_id,s.model,s.sample_size,s.population,s.environment,s.tissue,p.pmid,p.title,p.url AS publication_url"
+        source_total = db.execute(
+            "SELECT count(*)"
+            + join.replace(" FROM " + table + " a ", " FROM association a "),
+            args,
+        ).fetchone()[0]
+        options_join = (
+            " FROM association a JOIN study s ON s.id=a.study_id LEFT JOIN publication p ON p.pmid=s.publication_id WHERE "
+            + base_where
+        )
+        study_options = [
+            dict(r)
+            for r in db.execute(
+                "SELECT DISTINCT s.id,s.source_study_id,s.model"
+                + options_join
+                + " ORDER BY s.source_study_id,s.id",
+                base_args,
+            )
+        ]
+        publication_options = [
+            dict(r)
+            for r in db.execute(
+                "SELECT DISTINCT p.pmid,p.title"
+                + options_join
+                + " AND p.pmid IS NOT NULL ORDER BY p.pmid",
+                base_args,
+            )
+        ]
+        page_count = max(1, math.ceil(total / PAGE_SIZE))
+        page = min(page, page_count)
+        repeat_count = "1" if include_repeats else "a.source_record_count"
+        cols = (
+            "SELECT "
+            + repeat_count
+            + " AS source_record_count,a.id,a.chromosome,a.position,a.p_value,a.p_value_text,a.effect_allele,a.effect_allele_frequency,a.other_allele,a.effect_size,a.r2_percent,a.reported_location,a.source_reference,a.source_row,t.label AS trait,t.ontology_id,s.source_study_id,s.model,s.sample_size,s.population,s.environment,s.tissue,p.pmid,p.title,p.url AS publication_url"
+        )
 
         # Add gene-relative distances, plot values and source links to association records.
         def enrich(rows):
@@ -111,6 +186,28 @@ def region(gene_id, window=25000, trait="", page=1, export=False):
                 a["neg_log10_p"] = -math.log10(a["p_value"])
                 a["assembly"] = gene["assembly_id"]
                 a["source_url"] = "https://ngdc.cncb.ac.cn/gwas/download"
+                a["source_record_url"] = "/api/association?id=" + a["id"]
+                review = PUBLICATION_REVIEWS.get(a["id"], {})
+                a["review_status"] = (
+                    "conflict"
+                    if review.get("conflicts")
+                    else (
+                        "coordinate/statistic checked"
+                        if review
+                        else "not independently reviewed"
+                    )
+                )
+                a["statistic_kind"] = review.get(
+                    "statistic_kind", "Adjustment status not independently checked"
+                )
+                a["curation_note"] = " ".join(review.get("conflicts", []))
+                a["original_table_trait"] = review.get("original_trait")
+                a["original_table_url"] = review.get("original_source_url")
+                a["original_major_allele"] = review.get("major_allele")
+                a["original_minor_allele"] = review.get("minor_allele")
+                a["original_minor_allele_frequency"] = review.get(
+                    "minor_allele_frequency"
+                )
                 result.append(a)
             return result
 
@@ -145,6 +242,18 @@ def region(gene_id, window=25000, trait="", page=1, export=False):
             "page": page,
             "page_size": PAGE_SIZE,
             "trait_filter": trait,
+            "page_count": page_count,
+            "source_record_total": source_total,
+            "repeated_rows_hidden": source_total - total,
+            "study_options": study_options,
+            "publication_options": publication_options,
+            "filters": {
+                "study": study,
+                "publication": publication,
+                "maximum_p": maximum_p,
+                "position": position_filter,
+                "include_repeats": include_repeats,
+            },
             "interpretation": "Regional association evidence does not establish gene causality. Overlap refers to the gene span, including introns. Upstream/downstream follow gene strand.",
         }
 
@@ -164,6 +273,11 @@ class Handler(BaseHTTPRequestHandler):
                     q.get("trait", ""),
                     int(q.get("page", 1)),
                     parsed.path == "/api/export",
+                    study=q.get("study", ""),
+                    publication=q.get("publication", ""),
+                    maximum_p=float(q.get("maximum_p", 1)),
+                    position_filter=q.get("position", ""),
+                    include_repeats=q.get("include_repeats", "false") == "true",
                 )
                 if parsed.path == "/api/export":
                     out = io.StringIO()
@@ -188,6 +302,21 @@ class Handler(BaseHTTPRequestHandler):
                         attachment="rice_region_associations.csv",
                     )
                 return self.send_json(result)
+            if parsed.path == "/api/association":
+                with connect() as db:
+                    record = db.execute(
+                        "SELECT * FROM association WHERE id=?", (q.get("id", ""),)
+                    ).fetchone()
+                    if not record:
+                        return self.send_json(
+                            {"error": "Association record not found."}, 404
+                        )
+                    record = dict(record)
+                    record["primary_table_review"] = PUBLICATION_REVIEWS.get(
+                        record["id"]
+                    )
+                    record["original_source_row"] = json.loads(record.pop("raw_json"))
+                    return self.send_json(record)
             if parsed.path == "/api/status":
                 manifest = json.loads((ROOT / "data/provenance.json").read_text())
                 return self.send_json(manifest)

@@ -243,3 +243,30 @@ svg .clickgene {
     padding: 18px;
   }
 }
+
+.controls select {
+  max-width: 260px;
+}
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 12px;
+}
+.controls .checkbox input {
+  margin: 0;
+}
+.pagination {
+  flex-wrap: wrap;
+}
+.pagination input {
+  width: 80px;
+  margin-left: 8px;
+}
+
+.curation-warning {
+  color: #8b3d20;
+  background: #fff0e4;
+  padding: 8px;
+  border-radius: 4px;
+}

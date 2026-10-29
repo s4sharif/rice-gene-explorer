@@ -27,15 +27,36 @@
     "file": "rice_associations.txt.gz",
     "sha256": "fc243ce64d551add237f3db8f1de62dd421feedb2547e67115e2baa4e68e9a2a"
   },
+  "chromosome_reference": {
+    "assembly": "Os-Nipponbare-Reference-IRGSP-1.0",
+    "source_url": "https://rapdb.dna.naro.go.jp/genome-wide_variations/genome-wide_var_workflow_v2.html",
+    "source_section": "Reference data: chromosome_list.csv; second field is sequence length",
+    "lengths": {
+      "1": 43270923,
+      "2": 35937250,
+      "3": 36413819,
+      "4": 35502694,
+      "5": 29958434,
+      "6": 31248787,
+      "7": 29697621,
+      "8": 28443022,
+      "9": 23012720,
+      "10": 23207287,
+      "11": 29021106,
+      "12": 27531856
+    },
+    "sha256": "1ffa23c6e935f6fcbd66dfd37e8a60f44318ddb0b5e0c25b9e90f87547368109"
+  },
   "audit": {
     "counts": {
       "gene": 36061,
       "alias": 195087,
-      "association": 132767,
+      "association": 132765,
       "publication": 152,
       "study": 828,
       "trait": 357,
-      "quarantine": 2296
+      "quarantine": 2298,
+      "unique_evidence": 129962
     },
     "source_association_rows": 135063,
     "accepted_reference_labels": [
@@ -45,6 +66,7 @@
       "Nipponbare (IRGSP 1.0)"
     ],
     "quarantine_reasons": {
+      "Genomic coordinate outside reference chromosome bounds": 2,
       "P-value outside (0,1]": 5,
       "Unresolved reference label: 1": 2291
     },

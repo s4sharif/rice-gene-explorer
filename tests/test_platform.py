@@ -45,7 +45,7 @@ class PlatformTests(unittest.TestCase):
         d = app.region("Os03g0407400", 25000)
         with app.connect() as db:
             n = db.execute(
-                "SELECT count(*) FROM association WHERE assembly_id=? AND chromosome=? AND position BETWEEN ? AND ?",
+                "SELECT count(*) FROM association_display WHERE assembly_id=? AND chromosome=? AND position BETWEEN ? AND ?",
                 (d["gene"]["assembly_id"], 3, d["start"], d["end"]),
             ).fetchone()[0]
         self.assertGreater(n, 0)
@@ -103,6 +103,75 @@ class PlatformTests(unittest.TestCase):
             )
             self.assertEqual(db.execute("PRAGMA integrity_check").fetchone()[0], "ok")
             self.assertEqual(db.execute("PRAGMA foreign_key_check").fetchall(), [])
+
+    # Verify study, publication, p-value and strand-aware position filters agree with exports.
+    def test_evidence_filters(self):
+        baseline = app.region("Os03g0407400", 25000)
+        publication = "33367255"
+        study = baseline["study_options"][0]["id"]
+        for filters in [
+            {"publication": publication},
+            {"study": study},
+            {"maximum_p": 1e-10},
+            {"position_filter": "upstream"},
+            {"position_filter": "overlap"},
+        ]:
+            result = app.region("Os03g0407400", 25000, **filters)
+            exported = app.region("Os03g0407400", 25000, export=True, **filters)
+            self.assertEqual(result["total_associations"], len(exported))
+            for row in exported:
+                if "publication" in filters:
+                    self.assertEqual(row["pmid"], publication)
+                if "maximum_p" in filters:
+                    self.assertLessEqual(row["p_value"], filters["maximum_p"])
+                if "position_filter" in filters:
+                    expected = (
+                        "overlaps gene"
+                        if filters["position_filter"] == "overlap"
+                        else filters["position_filter"]
+                    )
+                    self.assertEqual(row["relation"], expected)
+
+    # Verify repeat grouping preserves all source rows and exposes an explicit expansion option.
+    def test_repeat_grouping(self):
+        grouped = app.region("Os03g0407400", 25000)
+        raw = app.region("Os03g0407400", 25000, include_repeats=True)
+        self.assertGreater(raw["total_associations"], grouped["total_associations"])
+        exported = app.region("Os03g0407400", 25000, export=True)
+        self.assertEqual(
+            sum(row["source_record_count"] for row in exported),
+            raw["total_associations"],
+        )
+
+    # Verify out-of-range pages clamp safely and chromosome edges bound every search window.
+    def test_page_and_chromosome_edges(self):
+        last = app.region("Os03g0407400", 25000, page=9999)
+        self.assertEqual(last["page"], last["page_count"])
+        self.assertLessEqual(len(last["associations"]), 8)
+        first_gene = app.region("Os01g0100100", 1000000)
+        self.assertEqual(first_gene["start"], 1)
+        with app.connect() as db:
+            last_gene = db.execute(
+                "SELECT id FROM gene WHERE chromosome=1 ORDER BY end DESC LIMIT 1"
+            ).fetchone()[0]
+        last_gene_region = app.region(last_gene, 1000000)
+        self.assertEqual(last_gene_region["end"], 43270923)
+        empty = app.region("Os03g0407400", trait="no-such-trait", page=9999)
+        self.assertEqual(
+            (empty["page"], empty["page_count"], empty["associations"]), (1, 1, [])
+        )
+
+    # Verify original-paper conflicts and adjusted statistics remain visible in record exports.
+    def test_publication_review_flags(self):
+        records = app.region("Os03g0407400", 25000, publication="33367255", export=True)
+        conflicts = [row for row in records if row["review_status"] == "conflict"]
+        self.assertTrue(conflicts)
+        self.assertTrue(
+            any("Trait conflict" in row["curation_note"] for row in conflicts)
+        )
+        self.assertTrue(
+            any(row["statistic_kind"] == "FDR-adjusted p-value" for row in records)
+        )
 
     # Reject invalid windows and treat query text as literal data.
     def test_validation_and_literal_queries(self):
