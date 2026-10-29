@@ -22,18 +22,20 @@ body {
     "Helvetica Neue",
     Arial,
     sans-serif;
-  padding: 22px;
+  padding: 0;
 }
 a {
   color: var(--green);
 }
 .masthead {
-  max-width: 1480px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   margin: 0 auto;
   background: #e8edf1;
   padding: 0 34px;
-  border: 1px solid #dce2e9;
-  border-radius: 5px;
+  border: 0;
+  border-radius: 0;
   overflow: hidden;
 }
 .topbar {
@@ -83,6 +85,7 @@ a {
   padding-left: 22px;
 }
 .hero {
+  flex: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
   position: relative;
@@ -136,21 +139,9 @@ h1 em {
 }
 .botanical-visual {
   width: 100%;
-  max-width: 560px;
+  max-width: 760px;
   min-width: 0;
   height: auto;
-}
-.art-caption {
-  position: absolute;
-  bottom: 23px;
-  left: 15%;
-  right: 4%;
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  font-size: 9px;
-  letter-spacing: 0.15em;
-  color: #697f96;
 }
 .art-caption span {
   color: #8593a5;
@@ -159,7 +150,6 @@ h1 em {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-top: 1px solid #cdd6e0;
   padding: 16px 0;
   font-size: 11px;
   color: #657184;
@@ -173,7 +163,8 @@ h1 em {
   font-size: 17px;
 }
 main {
-  max-width: 1480px;
+  width: 100%;
+  padding: 0 clamp(8px, 1.5vw, 24px);
   margin: 14px auto 0;
 }
 .search,
@@ -431,7 +422,7 @@ summary {
 }
 @media (max-width: 850px) {
   body {
-    padding: 12px;
+    padding: 0;
   }
   .masthead {
     padding: 0 24px;
@@ -451,10 +442,6 @@ summary {
   }
   .hero-copy {
     padding: 35px 0;
-  }
-  .art-caption {
-    left: 0;
-    font-size: 8px;
   }
   .art-caption span {
     display: none;
@@ -479,7 +466,7 @@ summary {
 }
 @media (max-width: 560px) {
   body {
-    padding: 8px;
+    padding: 0;
   }
   .masthead {
     padding: 0 20px;
@@ -527,11 +514,6 @@ summary {
   .botanical-visual {
     height: 280px;
     width: 100%;
-  }
-  .art-caption {
-    bottom: 2px;
-    left: 0;
-    right: 0;
   }
   .art-caption span {
     display: inline;
