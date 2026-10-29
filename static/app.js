@@ -355,22 +355,6 @@ function chooseExample(event) {
   searchGenes();
 }
 
-// Display dataset coverage and provenance counts reported by the local database.
-async function loadCoverage() {
-  try {
-    const data = await fetchJson("/api/status");
-    const counts = data.audit.counts;
-    byId("coverage").textContent =
-      `${counts.gene.toLocaleString()} supported rice genes · ` +
-      `${counts.association.toLocaleString()} searchable published associations · ` +
-      `${counts.publication.toLocaleString()} publications · ` +
-      `${counts.quarantine.toLocaleString()} records held out for unresolved references or invalid values. ` +
-      "Source snapshots are identified by checksums.";
-  } catch (error) {
-    setStatus(error.message, true);
-  }
-}
-
 // Restore a bookmarked gene and supported window before starting the first search.
 function restoreBookmark() {
   const initial = new URLSearchParams(location.hash.slice(1));
@@ -393,5 +377,4 @@ for (const button of document.querySelectorAll("[data-example]")) {
   button.onclick = chooseExample;
 }
 restoreBookmark();
-loadCoverage();
 searchGenes();

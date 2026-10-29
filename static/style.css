@@ -52,8 +52,7 @@ main {
 }
 .search,
 .panel,
-#gene,
-footer {
+#gene {
   background: white;
   border: 1px solid var(--line);
   border-radius: 12px;
@@ -190,11 +189,7 @@ a {
   gap: 20px;
   margin-top: 20px;
 }
-footer {
-  margin-top: 30px;
-  background: #eaf0e5;
-  font-size: 13px;
-}
+
 .chartscroll {
   overflow-x: auto;
 }
