@@ -1,4 +1,4 @@
-# Rice Gene Explorer
+# RiceLENS
 
 A working local prototype for searching rice genes, exploring neighboring genes and viewing published GWAS evidence. Single-cell expression is reserved for a later stage. Searches query preloaded data; they do not run GWAS or CATCH.
 
@@ -14,13 +14,13 @@ python3 -m unittest discover -s tests -v
 python3 app.py --port 8766
 ```
 
-Open [Rice Gene Explorer](http://127.0.0.1:8766) in a browser after starting the server. This address runs on your own computer. Keep the terminal open; Ctrl+C stops the server. After the first database build, subsequent launches need only `python3 app.py --port 8766`. If that port is occupied, use `python3 app.py --port 8767` and open [port 8767](http://127.0.0.1:8767) instead. On macOS, `Launch.command` starts the default port, [8765](http://127.0.0.1:8765).
+Open [RiceLENS](http://127.0.0.1:8766) in a browser after starting the server. This address runs on your own computer. Keep the terminal open; Ctrl+C stops the server. After the first database build, subsequent launches need only `python3 app.py --port 8766`. If that port is occupied, use `python3 app.py --port 8767` and open [port 8767](http://127.0.0.1:8767) instead. On macOS, `Launch.command` starts the default port, [8765](http://127.0.0.1:8765).
 
 Use Python 3.11 or newer. The application and data importer use only the Python standard library; no Python packages, Node.js, Docker or HPC service are required to run the prototype. Internet access is needed for the initial source downloads, approximately 21 MB compressed. The database occupies approximately 224 MB after building; allow additional space while rebuilding. Development tools are described in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 The repository contains source code, documentation, a preview and provenance manifests. Downloaded third-party source files, the derived SQLite database and local caches are excluded from Git. The data scripts reproduce the database from the recorded source URLs and checksums. A private repository must be accessible to your GitHub account before cloning.
 
-![Rice Gene Explorer interface](docs/design_preview.png)
+![RiceLENS interface](docs/ricelens_search.jpg)
 
 ## What is implemented
 

@@ -29,6 +29,37 @@ class PlatformTests(unittest.TestCase):
             )
         self.assertEqual(app.search(gene.lower())["matches"][0]["id"], gene)
 
+    # Preserve shared SD1 aliases while prioritizing the exact display symbol and returning descriptions.
+    def test_sd1_ambiguity_is_explained(self):
+        with app.connect() as db:
+            duplicate = db.execute(
+                "SELECT MIN(name) FROM alias GROUP BY gene_id,lower(name) HAVING COUNT(*)>1 LIMIT 1"
+            ).fetchone()[0]
+        matches = app.search(duplicate)["matches"]
+        self.assertEqual(len(matches), len({g["id"] for g in matches}))
+        result = app.search("SD1")
+        self.assertEqual(result["match_type"], "exact")
+        self.assertEqual(result["matches"][0]["id"], "Os01g0883800")
+        self.assertIn("Os03g0130100", [g["id"] for g in result["matches"]])
+        for gene in result["matches"]:
+            self.assertEqual(gene["matched_identifier"].lower(), "sd1")
+            self.assertTrue(gene["description"])
+
+    # Keep unverified adjustment status distinct from verified FDR values in plots and exports.
+    def test_adjustment_status_and_coordinate_provenance(self):
+        data = app.region("Os03g0407400", 25000)
+        rows = data["plot_associations"]
+        self.assertTrue(
+            any(a["adjustment_status"] == "verified_fdr_adjusted" for a in rows)
+        )
+        self.assertTrue(any(a["adjustment_status"] == "unverified" for a in rows))
+        for row in app.region("Os03g0407400", 25000, export=True):
+            self.assertIn("IRGSP-1.0", row["coordinate_status"])
+            if row["adjustment_status"] == "verified_fdr_adjusted":
+                self.assertEqual(row["statistic_kind"], "FDR-adjusted p-value")
+            else:
+                self.assertEqual(row["adjustment_status"], "unverified")
+
     # Check inclusive gene boundaries and strand-aware upstream and downstream labels.
     def test_coordinate_boundaries_and_strand(self):
         g = {"start": 100, "end": 200, "strand": "+"}

@@ -66,11 +66,15 @@ async function searchGenes() {
 
     const limitNotice = data.truncated ? " (first 50; refine your search)" : "";
     setStatus(
-      `${data.matches.length} matching genes${limitNotice}. Select one to continue.`,
+      `${data.matches.length} matching genes${limitNotice}. Symbols can be shared aliases; compare IDs and descriptions before selecting.`,
     );
     for (const gene of data.matches) {
       const button = document.createElement("button");
-      button.textContent = `${gene.id} · ${gene.symbol || "unnamed"} · chr${gene.chromosome}`;
+      const matched = gene.matched_identifier
+        ? `Matched ${gene.matched_identifier} (${gene.matched_identifier_kind}); `
+        : "";
+      button.className = "gene-choice";
+      button.innerHTML = `<strong>${escapeHtml(gene.id)} · ${escapeHtml(gene.symbol || "unnamed")} · chr${gene.chromosome}</strong><span>${escapeHtml(matched)}${escapeHtml(gene.description)}</span>`;
       button.dataset.gene = gene.id;
       button.onclick = chooseGene;
       byId("matches").append(button);
@@ -160,6 +164,8 @@ function renderAssociation(association) {
         ${publication}
         <details>
           <summary>Coordinate provenance</summary>
+          Display assembly: ${escapeHtml(association.assembly)}<br>
+          ${escapeHtml(association.coordinate_status)}<br>
           Atlas reference: ${escapeHtml(association.source_reference)}<br>
           Original reported location: ${escapeHtml(association.reported_location)}<br>
           <a href="${escapeHtml(association.source_url)}" target="_blank" rel="noopener">Source dataset</a> · <a href="${escapeHtml(association.source_record_url)}" target="_blank" rel="noopener">Original source row</a>
@@ -224,7 +230,9 @@ async function loadRegion(geneId, page = 1) {
       `${data.neighbors.length} genes · ${totalAssociations.toLocaleString()} association records. ` +
       `Plot shows ${data.plot_count.toLocaleString()}${plotNotice}.`;
 
-    const traitNotice = data.trait_filter ? ` matching “${data.trait_filter}”` : "";
+    const traitNotice = data.trait_filter
+      ? ` matching “${data.trait_filter}”`
+      : "";
     byId("counts").textContent =
       `${totalAssociations.toLocaleString()} evidence records${traitNotice} from ${data.source_record_total.toLocaleString()} matching source rows; ${data.repeated_rows_hidden} exact repeats grouped. ` +
       "Records may share SNP positions, traits or study samples; counts are not independent replications.";
@@ -258,7 +266,9 @@ function updateStudyOptions(data) {
   const publication = data.filters.publication;
   byId("study").replaceChildren(new Option("All studies", ""));
   for (const item of data.study_options) {
-    byId("study").add(new Option(`${item.source_study_id} · ${item.model}`, item.id));
+    byId("study").add(
+      new Option(`${item.source_study_id} · ${item.model}`, item.id),
+    );
   }
   byId("publication").replaceChildren(new Option("All publications", ""));
   for (const item of data.publication_options) {
@@ -332,18 +342,22 @@ function drawNeighborhood(data) {
     `;
   }
   markup +=
-    '<text transform="translate(16,135) rotate(-90)" font-size="12" fill="#647086">−log₁₀(p)</text>';
+    '<text transform="translate(16,135) rotate(-90)" font-size="12" fill="#647086">−log₁₀(reported p)</text>';
 
   for (const association of data.plot_associations) {
-    const color = association.relation === "overlaps gene" ? "#536cad" : "#9baecc";
-    markup += `
-      <circle cx="${x(association.position)}" cy="${y(association.neg_log10_p)}" r="4" fill="${color}" opacity=".65">
-        <title>${escapeHtml(association.trait)} · chr${association.chromosome}:${association.position} · p=${escapeHtml(association.p_value_text)}</title>
-      </circle>
-    `;
+    const adjusted = association.adjustment_status === "verified_fdr_adjusted";
+    const cx = x(association.position);
+    const cy = y(association.neg_log10_p);
+    const shape = adjusted
+      ? `<polygon points="${cx},${cy - 5} ${cx + 5},${cy} ${cx},${cy + 5} ${cx - 5},${cy}" fill="#a64b00"/>`
+      : `<circle cx="${cx}" cy="${cy}" r="4" fill="#52616f"/>`;
+    const label = `${association.trait} · chr${association.chromosome}:${association.position} · reported p=${association.p_value_text} · ${association.statistic_kind} · ${association.review_status} · ${association.relation}`;
+    markup += `<g tabindex="0" role="img" aria-label="${escapeHtml(label)}">${shape}<title>${escapeHtml(label)}</title></g>`;
   }
   for (let index = 0; index <= 4; index++) {
-    const position = Math.round(data.start + ((data.end - data.start) * index) / 4);
+    const position = Math.round(
+      data.start + ((data.end - data.start) * index) / 4,
+    );
     markup += `<text x="${x(position)}" y="210" text-anchor="middle" font-size="11" fill="#647086">${position.toLocaleString()}</text>`;
   }
 
@@ -354,7 +368,7 @@ function drawNeighborhood(data) {
     const lane = findAvailableLane(laneEnds, left);
     laneEnds[lane] = right;
     const centerY = 250 + lane * 42;
-    const color = gene.id === data.gene.id ? "#536cad" : "#9baecc";
+    const color = gene.id === data.gene.id ? "#005a8d" : "#52616f";
     const tip = Math.min(7, (right - left) / 2);
     const points =
       gene.strand === "+"

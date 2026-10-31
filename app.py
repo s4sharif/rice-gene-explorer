@@ -38,8 +38,8 @@ def search(query):
         raise ValueError("Enter a gene identifier or symbol (maximum 120 characters).")
     with connect() as db:
         exact = db.execute(
-            "SELECT DISTINCT g.* FROM gene g JOIN alias a ON a.gene_id=g.id WHERE a.name=? COLLATE NOCASE ORDER BY g.id",
-            (query,),
+            "SELECT g.*,MIN(a.name) AS matched_identifier,MIN(a.kind) AS matched_identifier_kind FROM gene g JOIN alias a ON a.gene_id=g.id WHERE a.name=? COLLATE NOCASE GROUP BY g.id ORDER BY CASE WHEN g.symbol=? COLLATE NOCASE THEN 0 ELSE 1 END,g.id",
+            (query, query),
         ).fetchall()
         if exact:
             return {
@@ -199,6 +199,14 @@ def region(
                 )
                 a["statistic_kind"] = review.get(
                     "statistic_kind", "Adjustment status not independently checked"
+                )
+                a["adjustment_status"] = (
+                    "verified_fdr_adjusted"
+                    if a["statistic_kind"] == "FDR-adjusted p-value"
+                    else "unverified"
+                )
+                a["coordinate_status"] = (
+                    "Source-labelled IRGSP-1.0; original-study remapping not independently verified"
                 )
                 a["curation_note"] = " ".join(review.get("conflicts", []))
                 a["original_table_trait"] = review.get("original_trait")
@@ -369,5 +377,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
     if not DB.exists():
         raise SystemExit("Run python3 build_database.py first.")
-    print(f"Rice Gene Explorer: http://127.0.0.1:{args.port}", flush=True)
+    print(f"RiceLENS: http://127.0.0.1:{args.port}", flush=True)
     ThreadingHTTPServer(("127.0.0.1", args.port), Handler).serve_forever()

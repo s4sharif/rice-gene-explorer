@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Rice Gene Explorer · Wilkins Lab</title>
+    <title>RiceLENS · Wilkins Lab</title>
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
     <header class="masthead">
       <nav class="topbar" aria-label="Main navigation">
         <a class="brand" href="#"
-          ><span class="brand-mark" aria-hidden="true">✳</span> RICE GENE EXPLORER</a
+          ><span class="brand-mark" aria-hidden="true">✳</span> RiceLENS</a
         >
         <span class="tag">Wilkins Lab <span aria-hidden="true">↗</span></span>
       </nav>
@@ -19,14 +19,19 @@
           <p class="eyebrow">RICE GENOMICS / EVIDENCE EXPLORER</p>
           <h1>Follow<br /><em>the gene.</em></h1>
           <p class="hero-description">
-            Search rice genes, published GWAS associations and nearby genomic regions.
+            Search rice genes, published GWAS associations and nearby genomic
+            regions.
           </p>
           <a class="hero-link" href="#search"
             >Begin your search <span aria-hidden="true">↗</span></a
           >
         </div>
         <div class="hero-art">
-          <svg class="botanical-visual" viewBox="0 0 560 500" aria-hidden="true">
+          <svg
+            class="botanical-visual"
+            viewBox="0 0 560 500"
+            aria-hidden="true"
+          >
             <defs>
               <radialGradient id="aura">
                 <stop stop-color="#b9cbdc" stop-opacity=".8" />
@@ -502,8 +507,10 @@
             /><button>Find gene →</button>
           </div>
           <p class="muted">
-            RAP loci, transcripts, mapped MSU identifiers and annotated symbols. Try
-            <button type="button" class="link" data-example="GS3">GS3</button> or
+            RAP loci, transcripts, mapped MSU identifiers and annotated symbols.
+            Try
+            <button type="button" class="link" data-example="GS3">GS3</button>
+            or
             <button type="button" class="link" data-example="SD1">SD1</button>.
           </p>
         </form>
@@ -552,21 +559,45 @@
             </select></label
           >
           <label class="checkbox"
-            ><input type="checkbox" id="include-repeats" />Include repeated source
-            rows</label
+            ><input type="checkbox" id="include-repeats" />Include repeated
+            source rows</label
           >
           <button id="reset" class="secondary">Reset filters</button>
           <button id="apply">Apply filters</button
           ><a id="export" class="button secondary">Export evidence CSV</a>
         </div>
         <div class="notice">
-          A nearby GWAS signal is regional evidence. It does not establish that the
-          selected gene is causal. No GWAS or single-cell analysis runs during this
-          search.
+          A nearby GWAS signal is regional evidence. It does not establish that
+          the selected gene is causal. These are curated published associations,
+          not complete genome-wide SNP results. Significance thresholds vary by
+          study; RiceLENS does not apply a common significance threshold. No
+          GWAS or single-cell analysis runs during this search.
         </div>
         <section class="panel">
           <h2>Genomic neighborhood</h2>
           <p id="region" class="muted"></p>
+          <p class="plot-legend">
+            <span
+              ><b class="legend-diamond" aria-hidden="true">◆</b> Verified
+              FDR-adjusted p-value</span
+            >
+            <span
+              ><b class="legend-circle" aria-hidden="true">●</b> Adjustment
+              status unverified</span
+            >
+          </p>
+          <p class="muted">
+            The vertical axis uses each study's reported value. Adjusted and
+            unverified values are not equivalent evidence scales. Point details
+            include the statistic type; no shared significance line is drawn.
+          </p>
+          <p class="muted">
+            Gene and displayed SNP coordinates use IRGSP-1.0 (1-based,
+            inclusive). SNP assembly is taken from the source's explicit
+            reference label; remapping from each original study has not been
+            independently verified. Unresolved reference labels and out-of-range
+            coordinates are excluded.
+          </p>
           <div class="chartscroll">
             <svg
               id="chart"
@@ -576,9 +607,9 @@
             ></svg>
           </div>
           <p class="muted">
-            Click a gene arrow or its name to explore it. Gene orientation follows the
-            reference strand. Plot points show association records, which may share a
-            position.
+            Click a gene arrow or its name to explore it. Gene orientation
+            follows the reference strand. Plot points show association records,
+            which may share a position.
           </p>
         </section>
         <section class="panel">
@@ -630,8 +661,7 @@
         <section class="panel">
           <h2>Single-cell expression</h2>
           <p>
-            Planned for the next stage. No expression datasets have been imported into
-            this prototype.
+            Baseline expression datasets will be added in a separate update.
           </p>
         </section>
       </section>

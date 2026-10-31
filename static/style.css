@@ -67,7 +67,7 @@ a {
   text-decoration: none;
 }
 .tag {
-  background: #748ab6;
+  background: #526da8;
   color: white;
   padding: 9px 17px;
   border-radius: 3px;
@@ -221,7 +221,7 @@ a:focus-visible {
 }
 button,
 .button {
-  background: #677fb0;
+  background: #526da8;
   color: white;
   border: 1px solid transparent;
   border-radius: 3px;
@@ -568,4 +568,40 @@ summary {
 #message:empty,
 #matches:empty {
   display: none;
+}
+
+.gene-choice {
+  text-align: left;
+  background: #fff;
+  color: #202c40;
+  border: 1px solid #657184;
+}
+.gene-choice strong,
+.gene-choice span {
+  display: block;
+}
+.gene-choice span {
+  margin-top: 7px;
+  font-size: 14px;
+  font-weight: 400;
+}
+.plot-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-size: 14px;
+}
+.legend-diamond {
+  color: #a64b00;
+}
+.legend-circle {
+  color: #52616f;
+}
+:focus-visible {
+  outline: 3px solid #005a8d;
+  outline-offset: 4px;
+}
+
+.gene-choice:hover {
+  background: #e7ecf5;
 }
