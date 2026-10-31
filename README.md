@@ -1,6 +1,6 @@
 # RiceLENS
 
-A working local prototype for searching rice genes, exploring neighboring genes and viewing published GWAS evidence. Single-cell expression is reserved for a later stage. Searches query preloaded data; they do not run GWAS or CATCH.
+A working local prototype for searching rice genes, exploring neighboring genes and viewing published GWAS evidence. Optional baseline-expression datasets provide cell-type plots, detection percentages and neighboring-gene comparisons, with each study viewed separately. Searches query precomputed data; they do not run GWAS or CATCH.
 
 ## Clone and run
 
@@ -20,7 +20,7 @@ Use Python 3.11 or newer. The application and data importer use only the Python 
 
 The repository contains source code, documentation, a preview and provenance manifests. Downloaded third-party source files, the derived SQLite database and local caches are excluded from Git. The data scripts reproduce the database from the recorded source URLs and checksums. A private repository must be accessible to your GitHub account before cloning.
 
-![RiceLENS interface](docs/ricelens_search.jpg)
+![RiceLENS search choices](docs/ricelens_search.jpg)
 
 ## What is implemented
 
@@ -101,3 +101,5 @@ To repeat the optional primary-table review, run `python3 audit_publications.py 
 Every Python and JavaScript function has a one-sentence comment immediately above it. The repository includes pinned development tools, formatting configuration and automated checks for that convention. GitHub Actions checks source formatting, function comments, downloads, import validation and application tests. See [CONTRIBUTING.md](CONTRIBUTING.md) for the commands.
 
 No software license has been selected for the project. Upstream datasets retain their own reuse terms; downloading data for this local academic prototype does not grant permission to redistribute it. The original email correspondence and prior CATCH work are outside this repository.
+
+Expression methods and source-specific coverage are described in [the project documentation](docs/). Each study is enabled by its versioned manifest; reverting an individual dataset commit hides it even if downloaded data remain locally.

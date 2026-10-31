@@ -1,0 +1,378 @@
+{
+  "id": "robertson_2026_control",
+  "citation": "Robertson et al. (2026)",
+  "publication_url": "https://doi.org/10.1111/nph.71378",
+  "repository_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE313726",
+  "organ": "Developing third leaf (~6 cm)",
+  "condition": "Well-watered controls only",
+  "assay": "single-nucleus RNA-seq",
+  "reference": "IRGSP1.0",
+  "n_cells": 36455,
+  "n_samples": 3,
+  "n_features": 33438,
+  "n_mapped_features": 32017,
+  "metric_description": "Mean log1p(10,000 \u00d7 RNA UMI count / processed-matrix RNA library size), including zero-count nuclei. Detection = RNA count > 0. Replicates are pooled with nuclei-weighted means; ranks use that mean within this study.",
+  "coverage_note": "All available processed control-matrix features are included, not only markers or variable genes. Features absent from a replicate are excluded from its denominator, not imputed zero. Source processing and annotation filtering limit coverage.",
+  "source_sha256": "753a6569e46d4a6d52a0dc0fa9356c234b0325f1f0a19184e97b73456152d724",
+  "extraction": {
+    "eligible_samples": [
+      "Well.Watered.Rep1",
+      "Well.Watered.Rep2",
+      "Well.Watered.Rep3"
+    ],
+    "n_cells": 36455,
+    "groups": [
+      {
+        "cell_type": "Bundle.Sheath",
+        "tissue_system": "Vasculature",
+        "n_cells": 666
+      },
+      {
+        "cell_type": "Epidermal.Precursor",
+        "tissue_system": "Epidermis",
+        "n_cells": 5489
+      },
+      {
+        "cell_type": "Epidermis",
+        "tissue_system": "Epidermis",
+        "n_cells": 4467
+      },
+      {
+        "cell_type": "Fibre",
+        "tissue_system": "Vasculature",
+        "n_cells": 288
+      },
+      {
+        "cell_type": "Large.Parenchyma",
+        "tissue_system": "Mesophyll",
+        "n_cells": 2010
+      },
+      {
+        "cell_type": "Meristem",
+        "tissue_system": "Meristem",
+        "n_cells": 5087
+      },
+      {
+        "cell_type": "Mesophyll",
+        "tissue_system": "Mesophyll",
+        "n_cells": 4490
+      },
+      {
+        "cell_type": "Mesophyll.Precursor",
+        "tissue_system": "Mesophyll",
+        "n_cells": 7140
+      },
+      {
+        "cell_type": "Mestome.Sheath",
+        "tissue_system": "Vasculature",
+        "n_cells": 163
+      },
+      {
+        "cell_type": "Phloem.CC",
+        "tissue_system": "Vasculature",
+        "n_cells": 386
+      },
+      {
+        "cell_type": "Phloem.SE",
+        "tissue_system": "Vasculature",
+        "n_cells": 477
+      },
+      {
+        "cell_type": "Procambium",
+        "tissue_system": "Vasculature",
+        "n_cells": 5017
+      },
+      {
+        "cell_type": "Xylem",
+        "tissue_system": "Vasculature",
+        "n_cells": 503
+      },
+      {
+        "cell_type": "Xylem.Parenchyma",
+        "tissue_system": "Vasculature",
+        "n_cells": 272
+      }
+    ],
+    "sample_groups": [
+      {
+        "sample": "Well.Watered.Rep1",
+        "cell_type": "Bundle.Sheath",
+        "tissue_system": "Vasculature",
+        "n_cells": 176
+      },
+      {
+        "sample": "Well.Watered.Rep1",
+        "cell_type": "Epidermal.Precursor",
+        "tissue_system": "Epidermis",
+        "n_cells": 1821
+      },
+      {
+        "sample": "Well.Watered.Rep1",
+        "cell_type": "Epidermis",
+        "tissue_system": "Epidermis",
+        "n_cells": 1275
+      },
+      {
+        "sample": "Well.Watered.Rep1",
+        "cell_type": "Fibre",
+        "tissue_system": "Vasculature",
+        "n_cells": 79
+      },
+      {
+        "sample": "Well.Watered.Rep1",
+        "cell_type": "Large.Parenchyma",
+        "tissue_system": "Mesophyll",
+        "n_cells": 487
+      },
+      {
+        "sample": "Well.Watered.Rep1",
+        "cell_type": "Meristem",
+        "tissue_system": "Meristem",
+        "n_cells": 1630
+      },
+      {
+        "sample": "Well.Watered.Rep1",
+        "cell_type": "Mesophyll",
+        "tissue_system": "Mesophyll",
+        "n_cells": 1023
+      },
+      {
+        "sample": "Well.Watered.Rep1",
+        "cell_type": "Mesophyll.Precursor",
+        "tissue_system": "Mesophyll",
+        "n_cells": 2336
+      },
+      {
+        "sample": "Well.Watered.Rep1",
+        "cell_type": "Mestome.Sheath",
+        "tissue_system": "Vasculature",
+        "n_cells": 44
+      },
+      {
+        "sample": "Well.Watered.Rep1",
+        "cell_type": "Phloem.CC",
+        "tissue_system": "Vasculature",
+        "n_cells": 131
+      },
+      {
+        "sample": "Well.Watered.Rep1",
+        "cell_type": "Phloem.SE",
+        "tissue_system": "Vasculature",
+        "n_cells": 155
+      },
+      {
+        "sample": "Well.Watered.Rep1",
+        "cell_type": "Procambium",
+        "tissue_system": "Vasculature",
+        "n_cells": 1965
+      },
+      {
+        "sample": "Well.Watered.Rep1",
+        "cell_type": "Xylem",
+        "tissue_system": "Vasculature",
+        "n_cells": 171
+      },
+      {
+        "sample": "Well.Watered.Rep1",
+        "cell_type": "Xylem.Parenchyma",
+        "tissue_system": "Vasculature",
+        "n_cells": 146
+      },
+      {
+        "sample": "Well.Watered.Rep2",
+        "cell_type": "Bundle.Sheath",
+        "tissue_system": "Vasculature",
+        "n_cells": 240
+      },
+      {
+        "sample": "Well.Watered.Rep2",
+        "cell_type": "Epidermal.Precursor",
+        "tissue_system": "Epidermis",
+        "n_cells": 1532
+      },
+      {
+        "sample": "Well.Watered.Rep2",
+        "cell_type": "Epidermis",
+        "tissue_system": "Epidermis",
+        "n_cells": 1354
+      },
+      {
+        "sample": "Well.Watered.Rep2",
+        "cell_type": "Fibre",
+        "tissue_system": "Vasculature",
+        "n_cells": 93
+      },
+      {
+        "sample": "Well.Watered.Rep2",
+        "cell_type": "Large.Parenchyma",
+        "tissue_system": "Mesophyll",
+        "n_cells": 783
+      },
+      {
+        "sample": "Well.Watered.Rep2",
+        "cell_type": "Meristem",
+        "tissue_system": "Meristem",
+        "n_cells": 1421
+      },
+      {
+        "sample": "Well.Watered.Rep2",
+        "cell_type": "Mesophyll",
+        "tissue_system": "Mesophyll",
+        "n_cells": 1784
+      },
+      {
+        "sample": "Well.Watered.Rep2",
+        "cell_type": "Mesophyll.Precursor",
+        "tissue_system": "Mesophyll",
+        "n_cells": 2100
+      },
+      {
+        "sample": "Well.Watered.Rep2",
+        "cell_type": "Mestome.Sheath",
+        "tissue_system": "Vasculature",
+        "n_cells": 42
+      },
+      {
+        "sample": "Well.Watered.Rep2",
+        "cell_type": "Phloem.CC",
+        "tissue_system": "Vasculature",
+        "n_cells": 111
+      },
+      {
+        "sample": "Well.Watered.Rep2",
+        "cell_type": "Phloem.SE",
+        "tissue_system": "Vasculature",
+        "n_cells": 157
+      },
+      {
+        "sample": "Well.Watered.Rep2",
+        "cell_type": "Procambium",
+        "tissue_system": "Vasculature",
+        "n_cells": 1549
+      },
+      {
+        "sample": "Well.Watered.Rep2",
+        "cell_type": "Xylem",
+        "tissue_system": "Vasculature",
+        "n_cells": 154
+      },
+      {
+        "sample": "Well.Watered.Rep2",
+        "cell_type": "Xylem.Parenchyma",
+        "tissue_system": "Vasculature",
+        "n_cells": 87
+      },
+      {
+        "sample": "Well.Watered.Rep3",
+        "cell_type": "Bundle.Sheath",
+        "tissue_system": "Vasculature",
+        "n_cells": 250
+      },
+      {
+        "sample": "Well.Watered.Rep3",
+        "cell_type": "Epidermal.Precursor",
+        "tissue_system": "Epidermis",
+        "n_cells": 2136
+      },
+      {
+        "sample": "Well.Watered.Rep3",
+        "cell_type": "Epidermis",
+        "tissue_system": "Epidermis",
+        "n_cells": 1838
+      },
+      {
+        "sample": "Well.Watered.Rep3",
+        "cell_type": "Fibre",
+        "tissue_system": "Vasculature",
+        "n_cells": 116
+      },
+      {
+        "sample": "Well.Watered.Rep3",
+        "cell_type": "Large.Parenchyma",
+        "tissue_system": "Mesophyll",
+        "n_cells": 740
+      },
+      {
+        "sample": "Well.Watered.Rep3",
+        "cell_type": "Meristem",
+        "tissue_system": "Meristem",
+        "n_cells": 2036
+      },
+      {
+        "sample": "Well.Watered.Rep3",
+        "cell_type": "Mesophyll",
+        "tissue_system": "Mesophyll",
+        "n_cells": 1683
+      },
+      {
+        "sample": "Well.Watered.Rep3",
+        "cell_type": "Mesophyll.Precursor",
+        "tissue_system": "Mesophyll",
+        "n_cells": 2704
+      },
+      {
+        "sample": "Well.Watered.Rep3",
+        "cell_type": "Mestome.Sheath",
+        "tissue_system": "Vasculature",
+        "n_cells": 77
+      },
+      {
+        "sample": "Well.Watered.Rep3",
+        "cell_type": "Phloem.CC",
+        "tissue_system": "Vasculature",
+        "n_cells": 144
+      },
+      {
+        "sample": "Well.Watered.Rep3",
+        "cell_type": "Phloem.SE",
+        "tissue_system": "Vasculature",
+        "n_cells": 165
+      },
+      {
+        "sample": "Well.Watered.Rep3",
+        "cell_type": "Procambium",
+        "tissue_system": "Vasculature",
+        "n_cells": 1503
+      },
+      {
+        "sample": "Well.Watered.Rep3",
+        "cell_type": "Xylem",
+        "tissue_system": "Vasculature",
+        "n_cells": 178
+      },
+      {
+        "sample": "Well.Watered.Rep3",
+        "cell_type": "Xylem.Parenchyma",
+        "tissue_system": "Vasculature",
+        "n_cells": 39
+      }
+    ],
+    "join_report": {
+      "Well.Watered.Rep1": {
+        "matrix_cells": 12682,
+        "annotated_baseline_cells": 11439,
+        "unmatched_annotation_cells": 0,
+        "excluded_unannotated_matrix_cells": 1243
+      },
+      "Well.Watered.Rep2": {
+        "matrix_cells": 12625,
+        "annotated_baseline_cells": 11407,
+        "unmatched_annotation_cells": 0,
+        "excluded_unannotated_matrix_cells": 1218
+      },
+      "Well.Watered.Rep3": {
+        "matrix_cells": 15776,
+        "annotated_baseline_cells": 13609,
+        "unmatched_annotation_cells": 0,
+        "excluded_unannotated_matrix_cells": 2167
+      }
+    },
+    "features_per_sample": {
+      "Well.Watered.Rep1": 30387,
+      "Well.Watered.Rep2": 31823,
+      "Well.Watered.Rep3": 32111
+    },
+    "normalization": "log1p CP10K; library sizes use all features available in each processed MEX matrix",
+    "feature_missingness": "Features absent from a sample matrix are unavailable for that sample, not imputed zero"
+  }
+}

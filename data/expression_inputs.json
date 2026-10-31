@@ -1,0 +1,131 @@
+{
+  "accession": "GSE313726",
+  "sources": [
+    {
+      "filename": "GSE313726_OsLeafStressIntegrated.rds",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE313nnn/GSE313726/suppl/GSE313726_OsLeafStressIntegrated.rds",
+      "bytes": 897951595,
+      "sha256": "753a6569e46d4a6d52a0dc0fa9356c234b0325f1f0a19184e97b73456152d724"
+    },
+    {
+      "filename": "GSM9373072.soft",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM9373072&targ=self&form=text&view=full",
+      "bytes": 6754,
+      "sha256": "e69d79cf216899040ce43391343a9818915890bf2bed30785088d5a0aa180a61"
+    },
+    {
+      "filename": "GSM9373072_Well.Watered.Rep1.barcodes.tsv.gz",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM9373nnn/GSM9373072/suppl/GSM9373072_Well.Watered.Rep1.barcodes.tsv.gz",
+      "bytes": 51387,
+      "sha256": "bf1a13f80f0a8d322c9ca78c512661e65a341d34103efd441f984916ac66e7c5"
+    },
+    {
+      "filename": "GSM9373072_Well.Watered.Rep1.genes.tsv.gz",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM9373nnn/GSM9373072/suppl/GSM9373072_Well.Watered.Rep1.genes.tsv.gz",
+      "bytes": 157236,
+      "sha256": "17ee5cb8e6368fbad9eda995a12ca5948e51c099069ac76c8e50b8fd2b4be1b6"
+    },
+    {
+      "filename": "GSM9373072_Well.Watered.Rep1.matrix.mtx.gz",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM9373nnn/GSM9373072/suppl/GSM9373072_Well.Watered.Rep1.matrix.mtx.gz",
+      "bytes": 40192950,
+      "sha256": "e2698166d6e38dc3f015a534870456b193d101a59661648bfa8254cd674ed99d"
+    },
+    {
+      "filename": "GSM9373073.soft",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM9373073&targ=self&form=text&view=full",
+      "bytes": 6754,
+      "sha256": "2263a4b56da8555935f756feb5ceaa8f496906b6a623f71fad039571fc01d781"
+    },
+    {
+      "filename": "GSM9373073_Well.Watered.Rep2.barcodes.tsv.gz",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM9373nnn/GSM9373073/suppl/GSM9373073_Well.Watered.Rep2.barcodes.tsv.gz",
+      "bytes": 50990,
+      "sha256": "c4008bfdc1cd410df1030633e0f3ec45a9edffbfb61644384551f5cb387956ed"
+    },
+    {
+      "filename": "GSM9373073_Well.Watered.Rep2.genes.tsv.gz",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM9373nnn/GSM9373073/suppl/GSM9373073_Well.Watered.Rep2.genes.tsv.gz",
+      "bytes": 164342,
+      "sha256": "259573d46b62fb2bc0cc0c439763ec52d1e7c979387a5bfc634ba8ee4fd1336c"
+    },
+    {
+      "filename": "GSM9373073_Well.Watered.Rep2.matrix.mtx.gz",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM9373nnn/GSM9373073/suppl/GSM9373073_Well.Watered.Rep2.matrix.mtx.gz",
+      "bytes": 61286503,
+      "sha256": "a02134b356effe897d526b443ebb5a53e9785e904ebfac1b9b0dc051ef0da749"
+    },
+    {
+      "filename": "GSM9373074.soft",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM9373074&targ=self&form=text&view=full",
+      "bytes": 6754,
+      "sha256": "e010567b6da32984e91fc3baa02c6b0f29cdc7a13bb914c7028085729b1088e5"
+    },
+    {
+      "filename": "GSM9373074_Well.Watered.Rep3.barcodes.tsv.gz",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM9373nnn/GSM9373074/suppl/GSM9373074_Well.Watered.Rep3.barcodes.tsv.gz",
+      "bytes": 62910,
+      "sha256": "d40bf6e47c0624a7071e69afe5918ed2173fc586e06ab02cb08350548fd2813f"
+    },
+    {
+      "filename": "GSM9373074_Well.Watered.Rep3.genes.tsv.gz",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM9373nnn/GSM9373074/suppl/GSM9373074_Well.Watered.Rep3.genes.tsv.gz",
+      "bytes": 165985,
+      "sha256": "6e8e04c2f0b2133411824b721b4980ed25a0575c6eb628dd16fe5b9bc9cec539"
+    },
+    {
+      "filename": "GSM9373074_Well.Watered.Rep3.matrix.mtx.gz",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM9373nnn/GSM9373074/suppl/GSM9373074_Well.Watered.Rep3.matrix.mtx.gz",
+      "bytes": 80153539,
+      "sha256": "a4f5b169990a67dd643650691d1b14e5c1629aa072c40481e763073a43069c60"
+    },
+    {
+      "filename": "GSM9373075.soft",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM9373075&targ=self&form=text&view=full",
+      "bytes": 6756,
+      "sha256": "54bf99ae86350d8d4898ba942f53a647d1c64b43f65318c858ba1f1e89ae1b4f"
+    },
+    {
+      "filename": "GSM9373076.soft",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM9373076&targ=self&form=text&view=full",
+      "bytes": 6756,
+      "sha256": "f6a2abec891b8e394ab466f5064a341354f5a4c7275a55818e055a1d548aa6b2"
+    },
+    {
+      "filename": "GSM9373077.soft",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM9373077&targ=self&form=text&view=full",
+      "bytes": 6778,
+      "sha256": "93c92c2144dc5c8d81751ea6015e9419518773e802bcf02a1a173340a57063a1"
+    },
+    {
+      "filename": "GSM9373078.soft",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM9373078&targ=self&form=text&view=full",
+      "bytes": 6778,
+      "sha256": "548de362b67e0afdaffe5b8ee7cbdae07ef46d97771fe2503ad1ef4be89dd71d"
+    },
+    {
+      "filename": "GSM9373079.soft",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM9373079&targ=self&form=text&view=full",
+      "bytes": 6766,
+      "sha256": "7a6828d05a10f5cb56e86e6c64faff2e4599160bddfa1e4ae20cec8949817498"
+    },
+    {
+      "filename": "GSM9373080.soft",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM9373080&targ=self&form=text&view=full",
+      "bytes": 6766,
+      "sha256": "f1bb814796adace062a1b37e77778d7f4ce518f7d33f41de54113ec046300edc"
+    },
+    {
+      "filename": "GSM9373081.soft",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM9373081&targ=self&form=text&view=full",
+      "bytes": 6790,
+      "sha256": "20571cac3a0dae6d28803ae079de37d5c46f04ab224d066753ef0ac7d87ba914"
+    },
+    {
+      "filename": "GSM9373082.soft",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM9373082&targ=self&form=text&view=full",
+      "bytes": 6790,
+      "sha256": "41f40c0275035b40ae9545a32533feb4059a2d7ce67cea9b4cdb95767df359d8"
+    }
+  ]
+}

@@ -12,6 +12,7 @@ from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
 from build_database import CHROMOSOME_LENGTHS
+from expression import expression_datasets, expression_evidence
 
 ROOT = Path(__file__).resolve().parent
 DB = ROOT / "data/rice.sqlite"
@@ -272,6 +273,87 @@ class Handler(BaseHTTPRequestHandler):
         try:
             parsed = urlparse(self.path)
             q = {k: v[0] for k, v in parse_qs(parsed.query).items()}
+            if parsed.path == "/api/expression/datasets":
+                return self.send_json({"datasets": expression_datasets()})
+            if parsed.path in {"/api/expression", "/api/expression/export"}:
+                genes = q.get("genes", "").split(",")
+                with connect() as db:
+                    for gene in genes:
+                        if not db.execute(
+                            "SELECT 1 FROM gene WHERE id=?", (gene,)
+                        ).fetchone():
+                            raise ValueError("Select recognized RAP gene identifiers.")
+                data = expression_evidence(
+                    genes, q.get("dataset", "robertson_2026_control")
+                )
+                if parsed.path.endswith("/export"):
+                    if not data["available"]:
+                        raise ValueError(data["message"])
+                    out = io.StringIO()
+                    fields = [
+                        "gene_id",
+                        "status",
+                        "source_feature_id",
+                        "mapping_status",
+                        "cell_type",
+                        "tissue_system",
+                        "rank",
+                        "mean_log",
+                        "n_expressing",
+                        "n_cells",
+                        "percent_expressing",
+                        "n_samples",
+                        "dataset",
+                        "publication_url",
+                        "metric",
+                        "annotation_source",
+                        "annotation_source_url",
+                        "annotation_publication_url",
+                        "annotation_note",
+                    ]
+                    writer = csv.DictWriter(out, fieldnames=fields)
+                    writer.writeheader()
+                    for gene in data["genes"]:
+                        for group in gene["groups"] or [{}]:
+                            writer.writerow(
+                                {
+                                    **group,
+                                    "gene_id": gene["gene_id"],
+                                    "status": gene["status"],
+                                    "source_feature_id": (gene["feature"] or {}).get(
+                                        "feature_id"
+                                    ),
+                                    "mapping_status": (gene["feature"] or {}).get(
+                                        "mapping_status"
+                                    ),
+                                    "dataset": data["dataset"]["id"],
+                                    "publication_url": data["dataset"][
+                                        "publication_url"
+                                    ],
+                                    "metric": data["dataset"]["metric_description"],
+                                    "annotation_source": data["dataset"].get(
+                                        "annotation_source_name",
+                                        "Original deposited annotations",
+                                    ),
+                                    "annotation_source_url": data["dataset"].get(
+                                        "annotation_source_url",
+                                        data["dataset"]["repository_url"],
+                                    ),
+                                    "annotation_publication_url": data["dataset"].get(
+                                        "annotation_publication_url",
+                                        data["dataset"]["publication_url"],
+                                    ),
+                                    "annotation_note": data["dataset"].get(
+                                        "annotation_note", ""
+                                    ),
+                                }
+                            )
+                    return self.respond(
+                        out.getvalue().encode(),
+                        "text/csv; charset=utf-8",
+                        attachment="ricelens_baseline_expression.csv",
+                    )
+                return self.send_json(data)
             if parsed.path == "/api/search":
                 return self.send_json(search(q.get("q", "")))
             if parsed.path in {"/api/region", "/api/export"}:

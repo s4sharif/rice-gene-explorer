@@ -24,6 +24,11 @@ let selectedGene = "";
 let currentPage = 1;
 let totalAssociations = 0;
 let latestRequest = 0;
+let expressionRequest = 0;
+let expressionCatalogLoaded = false;
+let initialExpressionDataset = new URLSearchParams(location.hash.slice(1)).get(
+  "expression",
+);
 
 // Fetch a JSON response and report readable API errors to the caller.
 async function fetchJson(path) {
@@ -230,9 +235,7 @@ async function loadRegion(geneId, page = 1) {
       `${data.neighbors.length} genes · ${totalAssociations.toLocaleString()} association records. ` +
       `Plot shows ${data.plot_count.toLocaleString()}${plotNotice}.`;
 
-    const traitNotice = data.trait_filter
-      ? ` matching “${data.trait_filter}”`
-      : "";
+    const traitNotice = data.trait_filter ? ` matching “${data.trait_filter}”` : "";
     byId("counts").textContent =
       `${totalAssociations.toLocaleString()} evidence records${traitNotice} from ${data.source_record_total.toLocaleString()} matching source rows; ${data.repeated_rows_hidden} exact repeats grouped. ` +
       "Records may share SNP positions, traits or study samples; counts are not independent replications.";
@@ -250,6 +253,8 @@ async function loadRegion(geneId, page = 1) {
     byId("page-number").max = data.page_count;
     byId("export").href = `/api/export?${query}`;
     drawNeighborhood(data);
+    renderExpressionControls(data.neighbors);
+    loadExpression();
     history.replaceState(
       null,
       "",
@@ -266,9 +271,7 @@ function updateStudyOptions(data) {
   const publication = data.filters.publication;
   byId("study").replaceChildren(new Option("All studies", ""));
   for (const item of data.study_options) {
-    byId("study").add(
-      new Option(`${item.source_study_id} · ${item.model}`, item.id),
-    );
+    byId("study").add(new Option(`${item.source_study_id} · ${item.model}`, item.id));
   }
   byId("publication").replaceChildren(new Option("All publications", ""));
   for (const item of data.publication_options) {
@@ -355,9 +358,7 @@ function drawNeighborhood(data) {
     markup += `<g tabindex="0" role="img" aria-label="${escapeHtml(label)}">${shape}<title>${escapeHtml(label)}</title></g>`;
   }
   for (let index = 0; index <= 4; index++) {
-    const position = Math.round(
-      data.start + ((data.end - data.start) * index) / 4,
-    );
+    const position = Math.round(data.start + ((data.end - data.start) * index) / 4);
     markup += `<text x="${x(position)}" y="210" text-anchor="middle" font-size="11" fill="#647086">${position.toLocaleString()}</text>`;
   }
 
@@ -463,3 +464,146 @@ for (const button of document.querySelectorAll("[data-example]")) {
 }
 restoreBookmark();
 searchGenes();
+
+// Offer explicit comparison choices for genes in the selected genomic neighborhood.
+function renderExpressionControls(neighbors) {
+  let html = "<fieldset><legend>Compare neighboring genes (up to 12)</legend>";
+  for (const gene of neighbors) {
+    html += `<label class="expression-choice"><input type="checkbox" value="${escapeHtml(gene.id)}" ${gene.id === selectedGene ? "checked" : ""}> ${escapeHtml(gene.symbol || gene.id)} <small>${escapeHtml(gene.id)}</small></label>`;
+  }
+  byId("expression-controls").innerHTML =
+    html +
+    '</fieldset><button id="compare-expression" type="button">Update expression comparison</button>';
+  byId("compare-expression").onclick = loadExpression;
+}
+
+// Retrieve baseline expression separately so a dataset problem cannot hide GWAS results.
+async function loadExpression() {
+  const requestId = ++expressionRequest;
+  if (!expressionCatalogLoaded) {
+    try {
+      const catalog = await fetchJson("/api/expression/datasets");
+      if (requestId !== expressionRequest) return;
+      byId("expression-dataset").replaceChildren();
+      for (const study of catalog.datasets)
+        byId("expression-dataset").add(
+          new Option(`${study.citation} · ${study.organ}`, study.id),
+        );
+      if (initialExpressionDataset) {
+        for (const option of byId("expression-dataset").options)
+          if (option.value === initialExpressionDataset)
+            byId("expression-dataset").value = initialExpressionDataset;
+        initialExpressionDataset = "";
+      }
+      expressionCatalogLoaded = true;
+    } catch (error) {
+      byId("expression-status").textContent = error.message;
+      return;
+    }
+  }
+  const datasetId = byId("expression-dataset").value || "robertson_2026_control";
+  const geneIds = [];
+  for (const input of byId("expression-controls").querySelectorAll("input:checked"))
+    geneIds.push(input.value);
+  if (geneIds.includes(selectedGene)) {
+    geneIds.splice(geneIds.indexOf(selectedGene), 1);
+    geneIds.unshift(selectedGene);
+  }
+  if (!geneIds.length || geneIds.length > 12) {
+    byId("expression-status").textContent = "Select between one and twelve genes.";
+    return;
+  }
+  byId("expression-status").textContent = "Loading baseline expression…";
+  byId("expression-content").replaceChildren();
+  try {
+    const data = await fetchJson(
+      `/api/expression?genes=${encodeURIComponent(geneIds.join(","))}&dataset=${encodeURIComponent(datasetId)}`,
+    );
+    if (requestId !== expressionRequest) return;
+    if (!data.available) {
+      byId("expression-status").textContent = data.message;
+      return;
+    }
+    byId("expression-status").textContent =
+      `${data.dataset.citation} · ${data.dataset.organ} · ${data.dataset.condition} · ${data.dataset.n_cells.toLocaleString()} ${data.dataset.cell_unit || "nuclei"} · ${data.dataset.n_samples} replicates`;
+    renderExpression(data);
+    const bookmark = new URLSearchParams(location.hash.slice(1));
+    bookmark.set("expression", datasetId);
+    history.replaceState(null, "", "#" + bookmark);
+    const exportLink = document.createElement("a");
+    exportLink.className = "button secondary";
+    exportLink.textContent = "Export expression CSV";
+    exportLink.href = `/api/expression/export?genes=${encodeURIComponent(geneIds.join(","))}&dataset=${encodeURIComponent(datasetId)}`;
+    byId("expression-content").prepend(exportLink);
+  } catch (error) {
+    if (requestId === expressionRequest)
+      byId("expression-status").textContent = error.message;
+  }
+}
+
+// Render study-specific dot plots and numeric tables without substituting zero for missing genes.
+function renderExpression(data) {
+  const dataset = data.dataset;
+  let html = `<p><a href="${escapeHtml(dataset.publication_url)}" target="_blank" rel="noopener">${escapeHtml(dataset.citation)}</a> · <a href="${escapeHtml(dataset.repository_url)}" target="_blank" rel="noopener">Source data</a></p><p class="muted">${escapeHtml(dataset.metric_description)} ${escapeHtml(dataset.coverage_note)} Values are descriptive and comparable within this dataset only. No stress or differential-expression analysis is shown.</p>`;
+  if (dataset.annotation_source_url) {
+    html += `<p class="notice">Cell annotations: <a href="${escapeHtml(dataset.annotation_source_url)}" target="_blank" rel="noopener">${escapeHtml(dataset.annotation_source_name)}</a> · <a href="${escapeHtml(dataset.annotation_publication_url)}" target="_blank" rel="noopener">Curation publication</a>. ${escapeHtml(dataset.annotation_note)}</p>`;
+  }
+  const measured = [];
+  for (const gene of data.genes) {
+    if (gene.status === "measured") measured.push(gene);
+    else
+      html += `<p>${escapeHtml(gene.gene_id)}: not available in the retained source features; this does not mean zero expression.</p>`;
+  }
+  if (!measured.length) {
+    byId("expression-content").innerHTML = html;
+    return;
+  }
+  const first = measured[0];
+  const order = [];
+  for (const row of first.groups) order.push(row.cell_type);
+  for (const group of data.cell_groups)
+    if (!order.includes(group.cell_type)) order.push(group.cell_type);
+  let maximum = 0;
+  for (const gene of measured)
+    for (const row of gene.groups) maximum = Math.max(maximum, row.mean_log);
+  const width = Math.max(1100, 260 + measured.length * 145);
+  const height = 115 + order.length * 32;
+  const columnSpacing = (width - 260) / measured.length;
+  let svg = `<svg class="expression-plot" viewBox="0 0 ${width} ${height}" role="img" aria-label="Within-study baseline expression; numeric values follow in the table">`;
+  for (let col = 0; col < measured.length; col++) {
+    const gene = measured[col];
+    svg += `<text x="${260 + columnSpacing * (col + 0.5)}" y="22" text-anchor="middle" font-size="11">${escapeHtml(gene.gene_id)}</text>`;
+    for (let index = 0; index < order.length; index++) {
+      const row = gene.groups.find(findExpressionGroup, order[index]);
+      const cx = 260 + columnSpacing * (col + 0.5);
+      const cy = 65 + index * 32;
+      if (!row) {
+        svg += `<text x="${cx}" y="${cy + 4}" text-anchor="middle" font-size="11">NA<title>Feature unavailable for the samples representing this cell type</title></text>`;
+        continue;
+      }
+      const radius = 11 * Math.sqrt(row.percent_expressing / 100);
+      const shade = maximum ? row.mean_log / maximum : 0;
+      const red = Math.round(225 - shade * 225);
+      const green = Math.round(238 - shade * 148);
+      const blue = Math.round(247 - shade * 106);
+      svg += `<circle cx="${cx}" cy="${cy}" r="${radius}" fill="rgb(${red},${green},${blue})" stroke="#52616f" stroke-width=".7"><title>${escapeHtml(row.cell_type)} · ${escapeHtml(gene.gene_id)} · mean ${row.mean_log.toFixed(3)} · ${row.percent_expressing.toFixed(1)}% detected</title></circle>`;
+    }
+  }
+  for (let index = 0; index < order.length; index++)
+    svg += `<text x="225" y="${69 + index * 32}" text-anchor="end" font-size="12">${escapeHtml(order[index])}</text>`;
+  svg += "</svg>";
+  html += `<p>Cell types ordered by expression of ${escapeHtml(first.gene_id)}. Dot area = percentage detected; darker blue = higher mean expression on one shared scale for this comparison. NA = feature unavailable for this cell type’s samples; no dot = measured zero detection.</p><div class="expression-legend"><svg viewBox="0 0 650 55" role="img" aria-label="Dot area represents percentage detected: ten, fifty and one hundred percent. Color goes from zero to the displayed maximum mean expression."><defs><linearGradient id="expression-gradient"><stop offset="0%" stop-color="#e1eef7"/><stop offset="100%" stop-color="#005a8d"/></linearGradient></defs><circle cx="20" cy="20" r="${11 * Math.sqrt(0.1)}" fill="#52616f"/><text x="35" y="24">10%</text><circle cx="100" cy="20" r="${11 * Math.sqrt(0.5)}" fill="#52616f"/><text x="118" y="24">50%</text><circle cx="190" cy="20" r="11" fill="#52616f"/><text x="208" y="24">100%</text><rect x="300" y="10" width="150" height="20" fill="url(#expression-gradient)"/><text x="295" y="49">0</text><text x="450" y="49" text-anchor="end">${maximum.toFixed(3)}</text><text x="470" y="24">Mean log expression</text></svg></div><div class="chartscroll">${svg}</div>`;
+  html += `<details open><summary>Expression values and within-study ranks (small groups require caution)</summary><div class="tablewrap expression-table"><table><thead><tr><th>Gene</th><th>Cell type</th><th>Tissue system / organ</th><th>Rank</th><th>Mean log expression</th><th>Expressing ${escapeHtml(dataset.cell_unit || "nuclei")}</th><th>Percentage</th><th>Replicates represented</th></tr></thead><tbody>`;
+  for (const gene of measured)
+    for (const row of gene.groups)
+      html += `<tr><td>${escapeHtml(gene.gene_id)}</td><td>${escapeHtml(row.cell_type)}</td><td>${escapeHtml(row.tissue_system)}</td><td>${row.rank}</td><td>${row.mean_log.toFixed(4)}</td><td>${row.n_expressing.toLocaleString()} / ${row.n_cells.toLocaleString()}</td><td>${row.percent_expressing.toFixed(2)}%</td><td>${row.n_samples} / ${dataset.n_samples}</td></tr>`;
+  html += "</tbody></table></div></details>";
+  byId("expression-content").innerHTML = html;
+}
+
+// Match a cell-type summary to the row label requested by the current plot.
+function findExpressionGroup(row) {
+  return row.cell_type === String(this);
+}
+
+byId("expression-dataset").onchange = loadExpression;

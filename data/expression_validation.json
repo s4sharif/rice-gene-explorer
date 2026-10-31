@@ -1,0 +1,12 @@
+{
+  "integrity": "pass",
+  "summary_bounds": "pass",
+  "independent_gene_sample_group_checks": 168,
+  "genes": [
+    "Os01g0100100",
+    "Os03g0407400",
+    "Os07g0141400",
+    "Os12g0528400"
+  ],
+  "normalization": "log1p CP10K calculated directly from source MEX counts, independently of R summaries"
+}

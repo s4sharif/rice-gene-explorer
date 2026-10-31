@@ -605,3 +605,51 @@ summary {
 .gene-choice:hover {
   background: #e7ecf5;
 }
+
+.expression-choice {
+  display: inline-block;
+  margin: 8px 18px 8px 0;
+  font-size: 13px;
+}
+.expression-choice small {
+  display: block;
+  margin-left: 22px;
+}
+#expression-controls fieldset {
+  border: 1px solid var(--line);
+  margin: 16px 0;
+  max-height: 220px;
+  overflow: auto;
+}
+.expression-table {
+  max-height: 440px;
+  overflow: auto;
+}
+.expression-plot {
+  min-width: 600px;
+  width: 100%;
+  max-width: 1300px;
+  fill: var(--ink);
+}
+.expression-legend {
+  font-size: 13px;
+  margin: 16px 0;
+}
+.expression-legend span {
+  margin-right: 14px;
+}
+
+.expression-legend svg {
+  width: 100%;
+  max-width: 650px;
+  height: auto;
+  fill: var(--ink);
+  font-size: 13px;
+}
+
+#expression-content {
+  margin-top: 16px;
+}
+.expression-plot {
+  min-width: 800px;
+}

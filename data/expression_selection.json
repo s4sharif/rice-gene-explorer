@@ -1,0 +1,11 @@
+{
+  "sample_column": "Identity",
+  "sample_values": {
+    "Well.Watered.Rep1": "Well.Watered.R1",
+    "Well.Watered.Rep2": "Well.Watered.R2",
+    "Well.Watered.Rep3": "Well.Watered.R3"
+  },
+  "barcode_column": "rownames",
+  "barcode_remove_prefix": "^[0-9]+_",
+  "required_condition": "Well.Watered"
+}
