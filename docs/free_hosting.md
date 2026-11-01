@@ -1,6 +1,6 @@
 # Free private review deployment
 
-RiceLENS is prepared for a **Render Free Python web service**, using the private GitHub repository and the included `render.yaml`. This is a reviewer prototype, not an always-available production service. No hosting account or service has been created by this preparation.
+RiceLENS is prepared for a **Render Free Python web service**, using the private GitHub repository and the included `render.yaml`. This is a reviewer prototype, not an always-available production service. The first review service is now live at [ricelens-review.onrender.com](https://ricelens-review.onrender.com) on the Free plan. The hosted health check returns ready; unauthenticated page, asset, search, expression and CSV requests are blocked. Reviewer credentials are configured in Render and are not stored in this repository.
 
 ## What is included
 
@@ -58,4 +58,4 @@ Push the commits, then use **Manual Deploy → Deploy latest commit** in Render.
 
 ## Local checks completed
 
-The production WSGI interface is tested for authentication on HTML/assets/API/CSV routes, missing-secret rejection, malformed credentials, read-only methods and HEAD behavior. Snapshot tests cover corruption, path safety, metadata mismatch and restart restoration. The actual Gunicorn server was exercised against restored snapshots, including all four expression dataset versions and CSV provenance. Remote build, TLS, private-browser behavior and restart behavior must still be verified after the first Render deployment.
+The production WSGI interface is tested for authentication on HTML/assets/API/CSV routes, missing-secret rejection, malformed credentials, read-only methods and HEAD behavior. Snapshot tests cover corruption, path safety, metadata mismatch and restart restoration. The actual Gunicorn server was exercised against restored snapshots, including all four expression dataset versions and CSV provenance. The remote build, HTTPS readiness and unauthenticated access checks have now passed. Logs confirm restoration of all five snapshots and a successful live deployment. An authenticated browser walkthrough and a future idle-wake/restart check remain to be completed by a reviewer using the configured credentials.

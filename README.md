@@ -106,4 +106,4 @@ Expression methods and source-specific coverage are described in [the project do
 
 ## Private prototype hosting
 
-A zero-cost Render review deployment is prepared in `render.yaml`, with mandatory reviewer authentication and bundled read-only database snapshots. See [the deployment guide](docs/free_hosting.md). The local command remains unchanged; hosted credentials belong only in Render environment secrets.
+The private review prototype is hosted at [ricelens-review.onrender.com](https://ricelens-review.onrender.com). Its Free plan configuration is tracked in `render.yaml`, with mandatory reviewer authentication and bundled read-only database snapshots. See [the deployment guide](docs/free_hosting.md). The local command remains unchanged; hosted credentials belong only in Render environment secrets.
