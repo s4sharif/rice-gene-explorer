@@ -73,9 +73,7 @@
     }
   ],
   "unresolved": [
-    "Jing processed-file and cell annotation accessions",
-    "Liu processed-file and cell annotation accessions",
-    "Li barcode-to-cell-type annotation file",
-    "Direct object validation of Wang and Robertson metadata and full feature coverage"
+    "Jing downloadable raw-RNA object and full barcode metadata; comprehensive ZH11 gene mapping",
+    "Liu final barcode-to-cell-type annotation table or annotated object"
   ]
 }

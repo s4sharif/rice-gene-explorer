@@ -13,6 +13,7 @@ from urllib.parse import parse_qs, urlparse
 
 from build_database import CHROMOSOME_LENGTHS
 from expression import expression_datasets, expression_evidence
+from source_coverage import source_coverage
 
 ROOT = Path(__file__).resolve().parent
 DB = ROOT / "data/rice.sqlite"
@@ -273,6 +274,8 @@ class Handler(BaseHTTPRequestHandler):
         try:
             parsed = urlparse(self.path)
             q = {k: v[0] for k, v in parse_qs(parsed.query).items()}
+            if parsed.path == "/api/expression/sources":
+                return self.send_json(source_coverage(q.get("gene", "")))
             if parsed.path == "/api/expression/datasets":
                 return self.send_json({"datasets": expression_datasets()})
             if parsed.path in {"/api/expression", "/api/expression/export"}:

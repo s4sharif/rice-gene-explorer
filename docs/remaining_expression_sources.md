@@ -15,12 +15,12 @@ The inspected smallest D7 archive contains barcodes, features and a count matrix
 
 The deposit pages also cite an earlier OsBZR4 paper, but the JIPB statement explicitly names these accessions. Any reused samples must retain their original identifiers and cannot be counted as independent replication across publications. SJ2 must not be labelled Nipponbare.
 
-## Jing et al. (2026), lifecycle atlas
+## Jing et al. (online 2026; Cell 2027), lifecycle atlas
 
-The [paper](https://doi.org/10.1016/j.cell.2026.09.023) identifies the authors' [Rice Spatio Temporal Atlas](https://db.genomics.cn/stomics/rice/) and CNSA CNP0008591. [STOmicsDB dataset STDS0000421](https://db.cngb.org/stomics/datasets/STDS0000421/data) lists an original `ZH11_SC.h5ad` object of approximately **79.85 GB**. This confirms a processed object exists; it has not been downloaded or inspected locally.
+The supplied full text and Table S1 are now inspected. Sample/cell-type definitions and a conservative partial gene crosswalk are integrated as supporting metadata. There are 1,639 unique accepted RAP mappings; marker statistics are not used as baseline expression. See [Jing integration and remaining inputs](jing_metadata.md).
 
-A suitable subset or documented all-gene cell-type summary export would be needed for this machine. The T2T reference and ZH11 cultivar also require a verified mapping to RiceLENS gene identifiers; no name-only coordinate transfer should be attempted. Spatial bins must not be treated as individual nuclei. No Jing expression values have been imported.
+The original 79.85 GB H5AD is listed, but the inspected download interfaces expose no direct download path. The public visualization values are rounded and have not been verified against the raw RNA assay. No quantitative Jing expression is imported.
 
 ## Li et al. (2023)
 
-A usable curated annotation source was found in scPlantDB and the diploid subset is now implemented. See [the Li import](li_expression.md). Original-author final cell annotations remain unverified, and the 1N library remains separate and unimported.
+The supplied Table S2 provides the original author annotations and has now been joined exactly to the original diploid GEO matrices. The author version retains 8,077 pistil nuclei after excluding 96 stamen residues. See [author import and validation](li_author_expression.md). The earlier [scPlantDB-curated version](li_expression.md) is preserved separately; these are two versions of the same libraries, not independent replication.

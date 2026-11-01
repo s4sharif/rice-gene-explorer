@@ -653,3 +653,19 @@ summary {
 .expression-plot {
   min-width: 800px;
 }
+
+.study-coverage {
+  margin: 1rem 0 1.5rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--line, #d5deea);
+  border-bottom: 1px solid var(--line, #d5deea);
+}
+.study-coverage article + article {
+  margin-top: 1.5rem;
+}
+.study-coverage h3 {
+  margin-bottom: 0.5rem;
+}
+.source-links a {
+  margin-right: 1rem;
+}

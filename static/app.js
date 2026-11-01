@@ -480,6 +480,7 @@ function renderExpressionControls(neighbors) {
 // Retrieve baseline expression separately so a dataset problem cannot hide GWAS results.
 async function loadExpression() {
   const requestId = ++expressionRequest;
+  loadStudyCoverage(requestId);
   if (!expressionCatalogLoaded) {
     try {
       const catalog = await fetchJson("/api/expression/datasets");
@@ -538,6 +539,36 @@ async function loadExpression() {
   } catch (error) {
     if (requestId === expressionRequest)
       byId("expression-status").textContent = error.message;
+  }
+}
+
+// Show source availability separately so supporting tables cannot be mistaken for measured expression.
+async function loadStudyCoverage(requestId) {
+  const container = byId("study-coverage");
+  container.replaceChildren();
+  try {
+    const data = await fetchJson(
+      `/api/expression/sources?gene=${encodeURIComponent(selectedGene)}`,
+    );
+    if (requestId !== expressionRequest) return;
+    if (!data.sources.length) return;
+    let html =
+      '<details class="study-coverage"><summary>Additional studies and data coverage</summary>';
+    for (const source of data.sources) {
+      html += `<article><h3><a href="${escapeHtml(source.publication_url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.citation)}</a></h3><p><strong>${escapeHtml(source.status)}</strong></p><p>${escapeHtml(source.message)}</p>`;
+      for (const mapping of source.gene_mappings || [])
+        html += `<p>Author cross-reference: ${escapeHtml(data.gene_id)} ↔ ${escapeHtml(mapping.msu_ids.join(", "))} ↔ ${escapeHtml(mapping.source_gene_id)}.</p>`;
+      if (source.mapping_note) html += `<p>${escapeHtml(source.mapping_note)}</p>`;
+      html += '<p class="source-links">';
+      for (const link of source.links)
+        html += `<a href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(link.label)}</a> `;
+      html += "</p></article>";
+    }
+    container.innerHTML = html + "</details>";
+  } catch (error) {
+    if (requestId === expressionRequest)
+      container.textContent =
+        "Additional study coverage could not be loaded. Expression results remain available below.";
   }
 }
 
