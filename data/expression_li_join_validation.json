@@ -1,0 +1,28 @@
+{
+  "source_curated_nuclei": 11443,
+  "included_nuclei": 9769,
+  "included_groups": 11,
+  "included_by_sample": {
+    "GSM6346350": 4081,
+    "GSM6346349": 5688
+  },
+  "exclusions": {
+    "haploid_1N_library": 1003,
+    "label: Stamen residue": 222,
+    "label: Unknow": 447,
+    "curated_barcode_absent_from_GEO_matrix": 2
+  },
+  "unmatched_barcodes": [
+    {
+      "sample": "GSM6346349",
+      "source_barcode": "SRX16335164@@_AACCACACAAGTGATA-1",
+      "label": "S-Ovule"
+    },
+    {
+      "sample": "GSM6346349",
+      "source_barcode": "SRX16335164@@_ATCTTCATCCGATAGT-1",
+      "label": "S-Ovule"
+    }
+  ],
+  "annotation_source": "scPlantDB SRP386976; original labels retained"
+}

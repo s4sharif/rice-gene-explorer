@@ -1,0 +1,240 @@
+{
+  "id": "li_2023_pistil_2n_scplantdb",
+  "citation": "Li et al. (2023) \u00b7 scPlantDB-curated",
+  "publication_url": "https://doi.org/10.1016/j.devcel.2023.03.004",
+  "repository_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE208432",
+  "organ": "Pistil \u00b7 diploid (2N) nuclei",
+  "condition": "Wild-type Nipponbare, before flowering; 1N library excluded",
+  "assay": "single-nucleus RNA-seq",
+  "reference": "IRGSP1.0; exact gene IDs or unambiguous frozen MSU crosswalk",
+  "n_cells": 9769,
+  "n_samples": 2,
+  "n_features": 38726,
+  "n_mapped_features": 35797,
+  "metric_description": "Mean log1p(10,000 \u00d7 original GEO RNA count / per-nucleus library size), including zeros. Detection = count > 0. Two 2N replicates are pooled with nuclei-weighted means; ranks are within this curated dataset only.",
+  "coverage_note": "All features in the original GEO matrices are retained for nuclei with matched scPlantDB annotations. No marker-only or variable-gene restriction; absent features are unavailable rather than zero.",
+  "source_sha256": "38a59587da953713379b9fdd48fbcc2f83325176199929343767590d9a841890",
+  "extraction": {
+    "eligible_samples": [
+      "GSM6346349",
+      "GSM6346350"
+    ],
+    "n_cells": 9769,
+    "groups": [
+      {
+        "cell_type": "CT-Ovule",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 546
+      },
+      {
+        "cell_type": "Inner ovary wall/Outer integument",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 831
+      },
+      {
+        "cell_type": "Integument",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 768
+      },
+      {
+        "cell_type": "Nucellus",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 904
+      },
+      {
+        "cell_type": "Outer ovary wall",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 2112
+      },
+      {
+        "cell_type": "Ovary wall",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 708
+      },
+      {
+        "cell_type": "Ovule",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 208
+      },
+      {
+        "cell_type": "S-Ovule",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 778
+      },
+      {
+        "cell_type": "Stigma",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 692
+      },
+      {
+        "cell_type": "Style",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 2131
+      },
+      {
+        "cell_type": "Vascular tissue",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 91
+      }
+    ],
+    "sample_groups": [
+      {
+        "sample": "GSM6346349",
+        "cell_type": "CT-Ovule",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 337
+      },
+      {
+        "sample": "GSM6346349",
+        "cell_type": "Inner ovary wall/Outer integument",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 474
+      },
+      {
+        "sample": "GSM6346349",
+        "cell_type": "Integument",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 447
+      },
+      {
+        "sample": "GSM6346349",
+        "cell_type": "Nucellus",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 461
+      },
+      {
+        "sample": "GSM6346349",
+        "cell_type": "Outer ovary wall",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 1470
+      },
+      {
+        "sample": "GSM6346349",
+        "cell_type": "Ovary wall",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 370
+      },
+      {
+        "sample": "GSM6346349",
+        "cell_type": "Ovule",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 117
+      },
+      {
+        "sample": "GSM6346349",
+        "cell_type": "S-Ovule",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 330
+      },
+      {
+        "sample": "GSM6346349",
+        "cell_type": "Stigma",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 349
+      },
+      {
+        "sample": "GSM6346349",
+        "cell_type": "Style",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 1293
+      },
+      {
+        "sample": "GSM6346349",
+        "cell_type": "Vascular tissue",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 40
+      },
+      {
+        "sample": "GSM6346350",
+        "cell_type": "CT-Ovule",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 209
+      },
+      {
+        "sample": "GSM6346350",
+        "cell_type": "Inner ovary wall/Outer integument",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 357
+      },
+      {
+        "sample": "GSM6346350",
+        "cell_type": "Integument",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 321
+      },
+      {
+        "sample": "GSM6346350",
+        "cell_type": "Nucellus",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 443
+      },
+      {
+        "sample": "GSM6346350",
+        "cell_type": "Outer ovary wall",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 642
+      },
+      {
+        "sample": "GSM6346350",
+        "cell_type": "Ovary wall",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 338
+      },
+      {
+        "sample": "GSM6346350",
+        "cell_type": "Ovule",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 91
+      },
+      {
+        "sample": "GSM6346350",
+        "cell_type": "S-Ovule",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 448
+      },
+      {
+        "sample": "GSM6346350",
+        "cell_type": "Stigma",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 343
+      },
+      {
+        "sample": "GSM6346350",
+        "cell_type": "Style",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 838
+      },
+      {
+        "sample": "GSM6346350",
+        "cell_type": "Vascular tissue",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 51
+      }
+    ],
+    "features_per_sample": {
+      "GSM6346349": 38726,
+      "GSM6346350": 38726
+    },
+    "join_report": {
+      "GSM6346349": {
+        "original_matrix_nuclei": 6784,
+        "matched_curated_nuclei": 5688,
+        "unmatched_annotation_nuclei": 0,
+        "excluded_without_curated_label": 1096
+      },
+      "GSM6346350": {
+        "original_matrix_nuclei": 8232,
+        "matched_curated_nuclei": 4081,
+        "unmatched_annotation_nuclei": 0,
+        "excluded_without_curated_label": 4151
+      }
+    },
+    "annotation_source": "scPlantDB SRP386976",
+    "selection": "Two wild-type diploid libraries only; haploid library excluded",
+    "normalization": "log1p CP10K from all original GEO matrix features"
+  },
+  "annotation_source_name": "scPlantDB \u00b7 SRP386976",
+  "annotation_source_url": "https://biobigdata.nju.edu.cn/scplantdb/",
+  "annotation_publication_url": "https://doi.org/10.1093/nar/gkad706",
+  "annotation_note": "Labels and retained cells come from the scPlantDB-curated version, not a verified copy of the authors' final barcode annotation. Sampling is enriched for 2N nuclei; expression results do not estimate natural cell-type proportions."
+}

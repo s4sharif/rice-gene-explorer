@@ -1,0 +1,15 @@
+{
+  "prefixes": {
+    "GSM6346349": "GSM6346349_Pistil-2N-replicate1",
+    "GSM6346350": "GSM6346350_Pistil-2N-replicate2"
+  },
+  "experiments": {
+    "SRX16335164": "GSM6346349",
+    "SRX16335165": "GSM6346350"
+  },
+  "excluded_labels": [
+    "Unknow",
+    "Stamen residue"
+  ],
+  "scope": "Normal wild-type diploid pistil nuclei with curated labels and exact original-count barcode matches"
+}
