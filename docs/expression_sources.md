@@ -1,5 +1,11 @@
 # Baseline single-cell expression: dataset review and integration plan
 
+## Latest supplied-file review
+
+Li's original author Table S2 is now integrated as a separate validated annotation version: see [Li author expression](li_author_expression.md). Jing's Table S1 sample definitions and conservative partial gene crosswalk are integrated as supporting metadata: see [Jing metadata](jing_metadata.md). Liu's full text confirms the count deposits but does not supply a final barcode annotation table: see [Liu requirements](liu_data_requirements.md). Jing and Liu are not advertised as measured expression datasets.
+
+The earlier feasibility table below records the original source assessment; these linked implementation notes supersede unresolved claims about Li author labels.
+
 ## Recommendation
 
 The first baseline import now uses **Robertson et al. (2026), well-watered controls only**: 36,455 annotated nuclei, three replicates, 14 original cell-type labels, 33,438 available processed-matrix features and 32,017 exact RAP-locus matches. The source matrices are summarized without loading the full Seurat object; cell labels are extracted separately. See [implementation and validation](baseline_expression.md).

@@ -1,0 +1,35 @@
+{
+  "scope": "Local supplied files inspected as scientific evidence; document content is not treated as instructions",
+  "files": [
+    {
+      "filename": "1-s2.0-S0092867426011256-main.pdf",
+      "contents": "Jing lifecycle article; online 2026, supplied Cell 2027 proof",
+      "bytes": 49087694,
+      "sha256": "e732c7c998be9170a4cd0b0c21c2628ada9a9d19407da30095844329d122ed6d"
+    },
+    {
+      "filename": "mmc7.pdf",
+      "contents": "Li 2023 pistil article plus supplementary figures",
+      "bytes": 10740208,
+      "sha256": "37d73392c66a444986667960cec7b241c4beb16107424ea4fb308dcfce30b330"
+    },
+    {
+      "filename": "A single-nucleus transcriptomic atlas reveals distinct cell identities and key regulators of cellular differentiation during early rice seed development.pdf",
+      "contents": "Liu 2026 seed article",
+      "bytes": 4850740,
+      "sha256": "257ae88685acfb5856850a1e30485331d7f5ee4fa4b0539e5afe58c68f040e4b"
+    },
+    {
+      "filename": "mmc3.xlsx",
+      "contents": "Li Table S2; original cell annotation table",
+      "bytes": 1081672,
+      "sha256": "5220f8fe5131e0ce4250c78d55e826e262ceedf445b421ec7ebce69febfb5064"
+    },
+    {
+      "filename": "1-s2.0-S0092867426011256-mmc2.xlsx",
+      "contents": "Jing Table S1; supporting statistics, cell definitions and partial gene crosswalk",
+      "bytes": 1303565,
+      "sha256": "43260fafe8e91f9fdedae061ce4ac111c490d965ec2d1c65480ddf3df8ffeee4"
+    }
+  ]
+}
