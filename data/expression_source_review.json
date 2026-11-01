@@ -1,0 +1,81 @@
+{
+  "scope": "Dataset feasibility review; imported baseline subsets are documented in the separate expression manifests",
+  "sources": [
+    {
+      "id": "wang",
+      "url": "https://www.nature.com/articles/s41586-025-09251-0",
+      "bytes": 450198,
+      "sha256": "e1bfe4147e2c047099828696b3dc2cde6f9b98465ef9c3a5de9d12b8938e3821",
+      "scope": "metadata only; no expression matrix content inspected"
+    },
+    {
+      "id": "GSE232863",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE232863&targ=self&form=text&view=full",
+      "bytes": 3832,
+      "sha256": "71fa8ee6dace3f4dc34bb35f8b32c8327f0bb026f332eefed78e7a8b8840db4b",
+      "scope": "metadata only; no expression matrix content inspected"
+    },
+    {
+      "id": "wang_manifest",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE232nnn/GSE232863/suppl/filelist.txt",
+      "bytes": 1894,
+      "sha256": "127745997c5b80f2d017a3bc6f60df2b79170f1680984f5f082b710adeb3ea17",
+      "scope": "metadata only; no expression matrix content inspected"
+    },
+    {
+      "id": "GSE208432",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE208432&targ=self&form=text&view=full",
+      "bytes": 2092,
+      "sha256": "c52a23cea699dd364d650c4ea5911d44181c185a81d7ea96f8d1697045021537",
+      "scope": "metadata only; no expression matrix content inspected"
+    },
+    {
+      "id": "li_files",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE208nnn/GSE208432/suppl/filelist.txt",
+      "bytes": 845,
+      "sha256": "dad331f31b354cc8ebbf5f1bcba827f4045e2ebdcffea3a41d92dd29505cabec",
+      "scope": "metadata only; no expression matrix content inspected"
+    },
+    {
+      "id": "geo_robertson",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE313726&targ=self&form=text&view=full",
+      "bytes": 3599,
+      "sha256": "22a09ace79ba5726a9c2d6eed9ee51fffa364a9ec154ab61acedec66d661f9d7",
+      "scope": "metadata only; no expression matrix content inspected"
+    },
+    {
+      "id": "GSM9373072",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM9373072&targ=self&form=text&view=full",
+      "bytes": 6754,
+      "sha256": "e69d79cf216899040ce43391343a9818915890bf2bed30785088d5a0aa180a61",
+      "scope": "metadata only; no expression matrix content inspected"
+    },
+    {
+      "id": "GSM9373073",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM9373073&targ=self&form=text&view=full",
+      "bytes": 6754,
+      "sha256": "2263a4b56da8555935f756feb5ceaa8f496906b6a623f71fad039571fc01d781",
+      "scope": "metadata only; no expression matrix content inspected"
+    },
+    {
+      "id": "liu",
+      "url": "https://www.jipb.net/EN/10.1111/jipb.70373",
+      "bytes": 54633,
+      "sha256": "96480b9cd3aabbbbbca979a149cd6cbe7e7c64913ac6ce9be7c81d3d1c710985",
+      "scope": "metadata only; no expression matrix content inspected"
+    },
+    {
+      "id": "jing_pubmed",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?format=json&resultType=core&query=EXT_ID:42838048",
+      "bytes": 19872,
+      "sha256": "72cdb5236cfd545b4626c97f53a293ee623908e94d9d2e756de059bdbfe048f3",
+      "scope": "metadata only; no expression matrix content inspected"
+    }
+  ],
+  "unresolved": [
+    "Jing processed-file and cell annotation accessions",
+    "Liu processed-file and cell annotation accessions",
+    "Li barcode-to-cell-type annotation file",
+    "Direct object validation of Wang and Robertson metadata and full feature coverage"
+  ]
+}

@@ -31,4 +31,4 @@ Only selected records in two original papers received a direct coordinate/statis
 
 The excluded records have a documented disposition: 2,291 unresolved reference labels, five zero p-values with unknown underflow/censoring semantics, and two out-of-bounds positions. They remain in quarantine. They have not been guessed into the searchable collection.
 
-A shared public service, comprehensive original-study curation, additional data sources, processed rice single-cell expression and optional CATCH analysis remain separate stages. No percentage in this checklist implies those are complete.
+A shared public service, comprehensive original-study curation, additional data sources, additional expression atlases and optional CATCH analysis remain separate stages. A first Robertson baseline leaf-expression module is now implemented; see baseline_expression.md. No percentage in this checklist implies those are complete.
