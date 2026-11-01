@@ -13,10 +13,11 @@ from urllib.parse import parse_qs, urlparse
 
 from build_database import CHROMOSOME_LENGTHS
 from expression import expression_datasets, expression_evidence
+from runtime_data import DATA_DIR
 from source_coverage import source_coverage
 
 ROOT = Path(__file__).resolve().parent
-DB = ROOT / "data/rice.sqlite"
+DB = DATA_DIR / "rice.sqlite"
 PAGE_SIZE = 8
 PUBLICATION_REVIEW = json.loads((ROOT / "data/publication_review.json").read_text())
 PUBLICATION_REVIEWS = PUBLICATION_REVIEW["records"]

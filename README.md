@@ -103,3 +103,7 @@ Every Python and JavaScript function has a one-sentence comment immediately abov
 No software license has been selected for the project. Upstream datasets retain their own reuse terms; downloading data for this local academic prototype does not grant permission to redistribute it. The original email correspondence and prior CATCH work are outside this repository.
 
 Expression methods and source-specific coverage are described in [the project documentation](docs/). Each study is enabled by its versioned manifest; reverting an individual dataset commit hides it even if downloaded data remain locally.
+
+## Private prototype hosting
+
+A zero-cost Render review deployment is prepared in `render.yaml`, with mandatory reviewer authentication and bundled read-only database snapshots. See [the deployment guide](docs/free_hosting.md). The local command remains unchanged; hosted credentials belong only in Render environment secrets.

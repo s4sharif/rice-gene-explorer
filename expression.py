@@ -5,11 +5,12 @@ import sqlite3
 from contextlib import closing
 from pathlib import Path
 
-EXPRESSION_DB = Path(__file__).resolve().parent / "data/expression.sqlite"
+from runtime_data import DATA_DIR
 
-WANG_DB = Path(__file__).resolve().parent / "data/expression_wang.sqlite"
-LI_AUTHOR_DB = Path(__file__).resolve().parent / "data/expression_li_author.sqlite"
-LI_DB = Path(__file__).resolve().parent / "data/expression_li.sqlite"
+EXPRESSION_DB = DATA_DIR / "expression.sqlite"
+WANG_DB = DATA_DIR / "expression_wang.sqlite"
+LI_AUTHOR_DB = DATA_DIR / "expression_li_author.sqlite"
+LI_DB = DATA_DIR / "expression_li.sqlite"
 
 
 # Resolve a study identifier to its own database without accepting arbitrary paths.

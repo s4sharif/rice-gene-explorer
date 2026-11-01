@@ -1,5 +1,7 @@
 # Private RiceLENS hosting
 
+The selected first-review budget is **free only**. A Render Free deployment package is now prepared with bundled read-only snapshots and mandatory reviewer authentication; see [free deployment steps](free_hosting.md). No service is deployed yet.
+
 The current localhost address works only on Sharif's Mac. A private GitHub repository does not make a deployed website private: advisor access must be enforced for the website, API and CSV endpoints.
 
 | Option                                                           | Potential cost                                                                                                                                                                        | Suitability                                                                                                                        |
@@ -11,11 +13,11 @@ The current localhost address works only on Sharif's Mac. A private GitHub repos
 
 Pricing is in USD, before applicable taxes or currency conversion. Railway's minimum is not a fixed all-inclusive quote. No provider account, subscription or deployment has been created.
 
-## Recommended review setup
+## Earlier paid/institutional options
 
 Use a lab-owned university service if available; otherwise start a small cloud review deployment with a spending limit and access restricted to named reviewers. Put an institutional/OIDC access gateway in front of every route, or use an equivalent authenticated reverse proxy. Test that an unauthenticated visitor cannot retrieve HTML, search JSON, source records or CSV exports. A hard-to-guess URL and robots exclusion are not authentication.
 
-The present Python standard-library server is a local prototype. Deployment preparation still needs a production-serving adapter or reverse proxy, host/PORT configuration, HTTPS, an explicit database path, read-only permissions and a reproducible build or persisted snapshot. Preserve the approximately 224 MB SQLite database across deploys or rebuild it during deployment. Keep raw single-cell matrices in offline processing storage; serve compact gene-by-cell-type summaries rather than loading an atlas into each web request. Verify restart behavior, authenticated search and exports before sharing the address with Lisa.
+The local standard-library server remains a local prototype. A separate authenticated Gunicorn entry point, PORT configuration, external database directory and reproducible compact snapshots are now prepared for Render Free. Remote deployment still needs account setup and verification. The complete serving snapshot restores to approximately 386 MB, including current expression data. Keep raw single-cell matrices in offline processing storage; serve compact gene-by-cell-type summaries rather than loading an atlas into each web request. Verify restart behavior, authenticated search and exports before sharing the address with Lisa.
 
 ## Official references
 

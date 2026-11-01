@@ -1,0 +1,104 @@
+{
+  "purpose": "Read-only reviewer snapshot; raw matrices and offline sample summaries excluded",
+  "files": [
+    {
+      "filename": "rice.sqlite",
+      "bytes": 262684672,
+      "sha256": "afe8c312cc998e25d88506bd97cd593c5ca2fd37393db986bdb5138fbcb51ec8",
+      "compressed_bytes": 39697019,
+      "compressed_sha256": "10b1c34b47152fe8dfc096efcb5faa6d43a15878707e817348c7fbe6816df8ac",
+      "source_sha256": "19b92b080a993ea71c0aee0e89a337f9d0d54d0f721845229747bdda98363580",
+      "metadata_file": "provenance.json",
+      "metadata_sha256": "450ff11205590347ae3079116609e8474e0b74fb75a578b7bb51d355a5c77c66",
+      "retained_tables": {
+        "assembly": 1,
+        "source": 4,
+        "gene": 36061,
+        "alias": 195087,
+        "publication": 152,
+        "study": 828,
+        "trait": 357,
+        "association": 132765,
+        "quarantine": 2298,
+        "evidence_summary": 129962
+      },
+      "excluded_tables": []
+    },
+    {
+      "filename": "expression.sqlite",
+      "bytes": 39198720,
+      "sha256": "cf2491b98928de4eea1f8a1e2ae0b60cd6c651593fa8bd3ea176e64e3fc1b74e",
+      "compressed_bytes": 11183297,
+      "compressed_sha256": "bcf869e937c29293bcbc71db06f68a6c115157501288bda8d626d829586e67dd",
+      "source_sha256": "2a5b9500b789934bf113ef7b061a3219dfa744a70b9027ffb9bf0465c8397cbf",
+      "metadata_file": "expression_manifest.json",
+      "metadata_sha256": "e1471b3b20202fb2b981c1772e657033894abc96b1474394a80064b41079a6f8",
+      "retained_tables": {
+        "metadata": 1,
+        "feature": 33438,
+        "cell_group": 14,
+        "summary": 448238
+      },
+      "excluded_tables": [
+        "sample_summary"
+      ]
+    },
+    {
+      "filename": "expression_wang.sqlite",
+      "bytes": 23232512,
+      "sha256": "7169eb2f3ba1f99db3c936a55af22b0bd10a24533555404d2bd6c3d06b1270a0",
+      "compressed_bytes": 6629482,
+      "compressed_sha256": "a2445c0958a9a01799665a1a052ae3956628914f6ff71869cb5c9a146d755066",
+      "source_sha256": "45c1019136bfb0b0c31131670dd034a93e0e98d196517edcb9db8e2caa350c32",
+      "metadata_file": "expression_wang_manifest.json",
+      "metadata_sha256": "36741b1e1fabc783d75adff2815344f091855f9b1b12f4fd00669fea38212ac4",
+      "retained_tables": {
+        "metadata": 1,
+        "feature": 30206,
+        "cell_group": 9,
+        "summary": 257724
+      },
+      "excluded_tables": [
+        "sample_summary"
+      ]
+    },
+    {
+      "filename": "expression_li.sqlite",
+      "bytes": 34209792,
+      "sha256": "bb5fd111ae075dbbbf02730b5db7384cdb0039da65e48d2d5a77f173f25bb9e1",
+      "compressed_bytes": 8972871,
+      "compressed_sha256": "fd0f372bc4b66f447073cea2bfcc296f5cdc5b52264bcca0b5f9b3fb1539dec4",
+      "source_sha256": "37a52e8b49fc5c770a24b916db7f0e0e9e913c79a10f5ef85fb8b1d0f311363a",
+      "metadata_file": "expression_li_manifest.json",
+      "metadata_sha256": "70e5491a346a5a60f62121f8decfc305b918c502a522198774b1c6202e66512d",
+      "retained_tables": {
+        "metadata": 1,
+        "feature": 38726,
+        "cell_group": 11,
+        "summary": 393767
+      },
+      "excluded_tables": [
+        "sample_summary"
+      ]
+    },
+    {
+      "filename": "expression_li_author.sqlite",
+      "bytes": 27029504,
+      "sha256": "66628a0561eb4f1d691ad074fe8d01ad25780fb5af83fb74ea4908a89cfb1552",
+      "compressed_bytes": 6590350,
+      "compressed_sha256": "de6394edb057849fa278a69e5031c612436cc106b709ca7c16227433cc30635d",
+      "source_sha256": "5972b209f59802d217555109f5e0d0c1d42e243637496f34367d09e13351a237",
+      "metadata_file": "expression_li_author_manifest.json",
+      "metadata_sha256": "cc39bf3629e356db367494e5cf6bf2b52429ccfbccde77d4c0d625931bf36a94",
+      "retained_tables": {
+        "metadata": 1,
+        "feature": 38726,
+        "cell_group": 8,
+        "summary": 286376
+      },
+      "excluded_tables": [
+        "sample_summary"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: ricelens-review
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements-hosting.txt
+    startCommand: python3 scripts/restore_hosting_data.py && gunicorn wsgi:application --config gunicorn.conf.py
+    healthCheckPath: /healthz
+    autoDeployTrigger: "off"
+    envVars:
+      - key: RICELENS_DATA_DIR
+        value: /tmp/ricelens-data
+      - key: RICELENS_USERNAME
+        sync: false
+      - key: RICELENS_PASSWORD
+        sync: false
