@@ -23,7 +23,7 @@ def sha256_file(path):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--study", choices=["robertson", "wang", "li"], default="robertson"
+        "--study", choices=["robertson", "wang", "li", "li_author"], default="robertson"
     )
     study = parser.parse_args().study
     suffix = "" if study == "robertson" else "_" + study
@@ -43,6 +43,10 @@ def main():
         if path.exists() and sha256_file(path) == source["sha256"]:
             print(f"Verified {path.name}", flush=True)
             continue
+        if "url" not in source:
+            raise ValueError(
+                f"Place the supplied publisher supplement at {path} and rerun."
+            )
         temporary = path.with_suffix(path.suffix + ".part")
         with (
             urllib.request.urlopen(source["url"], timeout=60) as incoming,

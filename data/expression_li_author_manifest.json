@@ -1,0 +1,189 @@
+{
+  "id": "li_2023_pistil_2n_author",
+  "citation": "Li et al. (2023) \u00b7 author annotations",
+  "publication_url": "https://doi.org/10.1016/j.devcel.2023.03.004",
+  "repository_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE208432",
+  "organ": "Pistil \u00b7 diploid (2N) nuclei",
+  "condition": "Wild-type Nipponbare, before flowering; 1N library excluded",
+  "assay": "single-nucleus RNA-seq",
+  "reference": "IRGSP1.0; exact gene IDs or unambiguous frozen MSU crosswalk",
+  "n_cells": 8077,
+  "n_samples": 2,
+  "n_features": 38726,
+  "n_mapped_features": 35797,
+  "metric_description": "Mean log1p(10,000 \u00d7 original GEO RNA count / per-nucleus library size), including zeros. Detection = count > 0. Two 2N replicates are pooled with nuclei-weighted means; ranks are within this author-annotated dataset only.",
+  "coverage_note": "All 38,726 original count-matrix features are retained for author-annotated pistil nuclei. No marker or variable-gene restriction; source mappings remain explicit. This is the published author cell selection, rather than the scPlantDB re-curation.",
+  "source_sha256": "5220f8fe5131e0ce4250c78d55e826e262ceedf445b421ec7ebce69febfb5064",
+  "extraction": {
+    "eligible_samples": [
+      "GSM6346349",
+      "GSM6346350"
+    ],
+    "n_cells": 8077,
+    "groups": [
+      {
+        "cell_type": "Chalaza (ch)",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 504
+      },
+      {
+        "cell_type": "Cluster 12 (C12)",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 66
+      },
+      {
+        "cell_type": "Cluster 13 (C13)",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 47
+      },
+      {
+        "cell_type": "Epidermis (ep)",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 2573
+      },
+      {
+        "cell_type": "Nucellus (nu)",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 1237
+      },
+      {
+        "cell_type": "Ovary wall (ow)",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 1952
+      },
+      {
+        "cell_type": "Ovule (ov)",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 1031
+      },
+      {
+        "cell_type": "Stigma (sti)",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 667
+      }
+    ],
+    "sample_groups": [
+      {
+        "sample": "GSM6346349",
+        "cell_type": "Chalaza (ch)",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 380
+      },
+      {
+        "sample": "GSM6346349",
+        "cell_type": "Cluster 12 (C12)",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 36
+      },
+      {
+        "sample": "GSM6346349",
+        "cell_type": "Cluster 13 (C13)",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 29
+      },
+      {
+        "sample": "GSM6346349",
+        "cell_type": "Epidermis (ep)",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 2022
+      },
+      {
+        "sample": "GSM6346349",
+        "cell_type": "Nucellus (nu)",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 1002
+      },
+      {
+        "sample": "GSM6346349",
+        "cell_type": "Ovary wall (ow)",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 1335
+      },
+      {
+        "sample": "GSM6346349",
+        "cell_type": "Ovule (ov)",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 701
+      },
+      {
+        "sample": "GSM6346349",
+        "cell_type": "Stigma (sti)",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 434
+      },
+      {
+        "sample": "GSM6346350",
+        "cell_type": "Chalaza (ch)",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 124
+      },
+      {
+        "sample": "GSM6346350",
+        "cell_type": "Cluster 12 (C12)",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 30
+      },
+      {
+        "sample": "GSM6346350",
+        "cell_type": "Cluster 13 (C13)",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 18
+      },
+      {
+        "sample": "GSM6346350",
+        "cell_type": "Epidermis (ep)",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 551
+      },
+      {
+        "sample": "GSM6346350",
+        "cell_type": "Nucellus (nu)",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 235
+      },
+      {
+        "sample": "GSM6346350",
+        "cell_type": "Ovary wall (ow)",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 617
+      },
+      {
+        "sample": "GSM6346350",
+        "cell_type": "Ovule (ov)",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 330
+      },
+      {
+        "sample": "GSM6346350",
+        "cell_type": "Stigma (sti)",
+        "tissue_system": "Pistil (2N)",
+        "n_cells": 233
+      }
+    ],
+    "features_per_sample": {
+      "GSM6346349": 38726,
+      "GSM6346350": 38726
+    },
+    "join_report": {
+      "GSM6346349": {
+        "original_matrix_nuclei": 6784,
+        "matched_curated_nuclei": 5939,
+        "unmatched_annotation_nuclei": 0,
+        "excluded_without_curated_label": 845
+      },
+      "GSM6346350": {
+        "original_matrix_nuclei": 8232,
+        "matched_curated_nuclei": 2138,
+        "unmatched_annotation_nuclei": 0,
+        "excluded_without_curated_label": 6094
+      }
+    },
+    "annotation_source": "Li et al. Table S2",
+    "selection": "Two wild-type diploid libraries only; haploid library excluded",
+    "normalization": "log1p CP10K from all original GEO matrix features"
+  },
+  "annotation_source_name": "Author Table S2 \u00b7 Rice_Pistil_index",
+  "annotation_source_url": "https://doi.org/10.1016/j.devcel.2023.03.004",
+  "annotation_publication_url": "https://doi.org/10.1016/j.devcel.2023.03.004",
+  "annotation_note": "Exact original barcodes and author cell-type labels from Table S2; 96 stamen-residue nuclei excluded. C12 and C13 remain author cluster labels. This shares original libraries with the scPlantDB version and is not independent replication. Sampling is enriched for 2N nuclei."
+}

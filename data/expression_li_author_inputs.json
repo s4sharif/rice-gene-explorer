@@ -1,0 +1,60 @@
+{
+  "scope": "Original diploid GEO counts with author Table S2 annotations; stamen residues excluded",
+  "sources": [
+    {
+      "filename": "GSM6346349.soft",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM6346349&targ=self&form=text&view=full",
+      "bytes": 3102,
+      "sha256": "dcb03fee0c19ae24c0f64185bfdd525141971145d55a2e897f62dc8fc705da61"
+    },
+    {
+      "filename": "GSM6346350.soft",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM6346350&targ=self&form=text&view=full",
+      "bytes": 3102,
+      "sha256": "9c24532d26b00246870bf11dbd482fecee8881345a419d420b9b2ca54c9142e8"
+    },
+    {
+      "filename": "GSM6346349_Pistil-2N-replicate1_barcodes.tsv.gz",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6346nnn/GSM6346349/suppl/GSM6346349_Pistil-2N-replicate1_barcodes.tsv.gz",
+      "bytes": 35238,
+      "sha256": "1f5951066f344c11c0dc6cf77f2ccbfddba4101ccc0374e78a30917c97082d24"
+    },
+    {
+      "filename": "GSM6346349_Pistil-2N-replicate1_features.tsv.gz",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6346nnn/GSM6346349/suppl/GSM6346349_Pistil-2N-replicate1_features.tsv.gz",
+      "bytes": 316257,
+      "sha256": "8329a71c5e99a6574930bf08635f20830448dcb74edea886e7398e4d1d01bd74"
+    },
+    {
+      "filename": "GSM6346349_Pistil-2N-replicate1_matrix.mtx.gz",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6346nnn/GSM6346349/suppl/GSM6346349_Pistil-2N-replicate1_matrix.mtx.gz",
+      "bytes": 20831788,
+      "sha256": "fa994d8cc3d0c254d9795c6b0fdb66e348bad9c59d01144a342484ff5b9d4b66"
+    },
+    {
+      "filename": "GSM6346350_Pistil-2N-replicate2_barcodes.tsv.gz",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6346nnn/GSM6346350/suppl/GSM6346350_Pistil-2N-replicate2_barcodes.tsv.gz",
+      "bytes": 42380,
+      "sha256": "b83b7061ce550888262ab215772f2ebf7a49110176cfbd0c4dceb9398bc9a717"
+    },
+    {
+      "filename": "GSM6346350_Pistil-2N-replicate2_features.tsv.gz",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6346nnn/GSM6346350/suppl/GSM6346350_Pistil-2N-replicate2_features.tsv.gz",
+      "bytes": 316257,
+      "sha256": "0548cce37b2d729b7e0f12bbad4fce44700d60ebcf55be570d25a75147f03497"
+    },
+    {
+      "filename": "GSM6346350_Pistil-2N-replicate2_matrix.mtx.gz",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM6346nnn/GSM6346350/suppl/GSM6346350_Pistil-2N-replicate2_matrix.mtx.gz",
+      "bytes": 11543655,
+      "sha256": "75146b13c5899b9e4a1eafcf2b9a844196a9614278694d51e9211844da43cbf9"
+    },
+    {
+      "filename": "mmc3.xlsx",
+      "acquisition": "user-supplied publisher supplement",
+      "publication_url": "https://doi.org/10.1016/j.devcel.2023.03.004",
+      "bytes": 1081672,
+      "sha256": "5220f8fe5131e0ce4250c78d55e826e262ceedf445b421ec7ebce69febfb5064"
+    }
+  ]
+}

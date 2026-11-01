@@ -2,7 +2,9 @@
 # annotations.
 library(Matrix)
 library(jsonlite)
-root <- "data/raw/li"
+args <- commandArgs(trailingOnly = TRUE)
+author <- length(args) > 0 && args[[1]] == "author"
+root <- if (author) "data/raw/li_author" else "data/raw/li"
 metadata <- read.delim(file.path(root, "matched_cells.tsv"), stringsAsFactors = FALSE)
 controls <- c("GSM6346349", "GSM6346350")
 stopifnot(all(metadata$sample %in% controls), !anyDuplicated(paste(metadata$sample, metadata$count_barcode)),
@@ -56,6 +58,6 @@ for (label in sort(unique(metadata$cell_type))) groups[[length(groups) + 1]] <- 
 write.table(data.frame(feature_id = sort(features_all)), file.path(root, "features.tsv"),
   sep = "\t", quote = FALSE, row.names = FALSE)
 write_json(list(eligible_samples = controls, n_cells = nrow(metadata), groups = groups, sample_groups = sample_groups,
-  features_per_sample = features_per_sample, join_report = join_report, annotation_source = "scPlantDB SRP386976",
+  features_per_sample = features_per_sample, join_report = join_report, annotation_source = if (author) "Li et al. Table S2" else "scPlantDB SRP386976",
   selection = "Two wild-type diploid libraries only; haploid library excluded", normalization = "log1p CP10K from all original GEO matrix features"),
   file.path(root, "extraction.json"), pretty = TRUE, auto_unbox = TRUE, digits = 15)

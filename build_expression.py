@@ -30,7 +30,7 @@ def file_hash(path):
 # Load validated per-sample summaries and retain unmapped features explicitly.
 def build_expression(study="robertson"):
     wang = study == "wang"
-    li = study == "li"
+    li = study in {"li", "li_author"}
     suffix = "" if study == "robertson" else "_" + study
     raw = ROOT / "data/raw" / ("expression" if study == "robertson" else study)
     output = ROOT / f"data/expression{suffix}.sqlite"
@@ -44,6 +44,7 @@ def build_expression(study="robertson"):
         "robertson": ["Well.Watered.Rep1", "Well.Watered.Rep2", "Well.Watered.Rep3"],
         "wang": ["NIP_G_1", "NIP_G_2"],
         "li": ["GSM6346349", "GSM6346350"],
+        "li_author": ["GSM6346349", "GSM6346350"],
     }[study]
     if report["eligible_samples"] != expected_samples:
         raise ValueError("Unexpected baseline sample selection.")
@@ -158,6 +159,7 @@ def build_expression(study="robertson"):
                     "robertson": "GSE313726_OsLeafStressIntegrated.rds",
                     "wang": "GSE273875_LTP_NIP_label_240622.rds.gz",
                     "li": "SRP386976.rds.gz",
+                    "li_author": "mmc3.xlsx",
                 }[study]
             ),
             "extraction": report,
@@ -197,6 +199,19 @@ def build_expression(study="robertson"):
                     "annotation_note": "Labels and retained cells come from the scPlantDB-curated version, not a verified copy of the authors' final barcode annotation. Sampling is enriched for 2N nuclei; expression results do not estimate natural cell-type proportions.",
                 }
             )
+        if study == "li_author":
+            dataset.update(
+                {
+                    "id": "li_2023_pistil_2n_author",
+                    "citation": "Li et al. (2023) · author annotations",
+                    "annotation_source_name": "Author Table S2 · Rice_Pistil_index",
+                    "annotation_source_url": "https://doi.org/10.1016/j.devcel.2023.03.004",
+                    "annotation_publication_url": "https://doi.org/10.1016/j.devcel.2023.03.004",
+                    "annotation_note": "Exact original barcodes and author cell-type labels from Table S2; 96 stamen-residue nuclei excluded. C12 and C13 remain author cluster labels. This shares original libraries with the scPlantDB version and is not independent replication. Sampling is enriched for 2N nuclei.",
+                    "metric_description": "Mean log1p(10,000 × original GEO RNA count / per-nucleus library size), including zeros. Detection = count > 0. Two 2N replicates are pooled with nuclei-weighted means; ranks are within this author-annotated dataset only.",
+                    "coverage_note": "All 38,726 original count-matrix features are retained for author-annotated pistil nuclei. No marker or variable-gene restriction; source mappings remain explicit. This is the published author cell selection, rather than the scPlantDB re-curation.",
+                }
+            )
         db.execute("INSERT INTO metadata VALUES('dataset',?)", (json.dumps(dataset),))
         if (
             db.execute("PRAGMA integrity_check").fetchone()[0] != "ok"
@@ -226,6 +241,6 @@ def build_expression(study="robertson"):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--study", choices=["robertson", "wang", "li"], default="robertson"
+        "--study", choices=["robertson", "wang", "li", "li_author"], default="robertson"
     )
     build_expression(parser.parse_args().study)

@@ -116,6 +116,9 @@ class ExpressionTests(unittest.TestCase):
                 patch.object(
                     expression, "LI_DB", Path(directory) / "not_imported.sqlite"
                 ),
+                patch.object(
+                    expression, "LI_AUTHOR_DB", Path(directory) / "author_absent.sqlite"
+                ),
             ):
                 leaf = expression.expression_evidence(["gene"], ids[0])
                 root = expression.expression_evidence(["gene"], ids[1])

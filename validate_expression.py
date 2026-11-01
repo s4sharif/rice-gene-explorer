@@ -19,7 +19,7 @@ TARGETS = {"Os03g0407400", "Os12g0528400", "Os07g0141400", "Os01g0100100"}
 # Recalculate selected genes directly from each original control count matrix.
 def main(study="robertson"):
     wang = study == "wang"
-    li = study == "li"
+    li = study in {"li", "li_author"}
     suffix = "" if study == "robertson" else "_" + study
     raw = ROOT / "data/raw" / ("expression" if study == "robertson" else study)
     if not wang:
@@ -175,6 +175,6 @@ def main(study="robertson"):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--study", choices=["robertson", "wang", "li"], default="robertson"
+        "--study", choices=["robertson", "wang", "li", "li_author"], default="robertson"
     )
     main(parser.parse_args().study)

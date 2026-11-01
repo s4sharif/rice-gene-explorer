@@ -8,6 +8,7 @@ from pathlib import Path
 EXPRESSION_DB = Path(__file__).resolve().parent / "data/expression.sqlite"
 
 WANG_DB = Path(__file__).resolve().parent / "data/expression_wang.sqlite"
+LI_AUTHOR_DB = Path(__file__).resolve().parent / "data/expression_li_author.sqlite"
 LI_DB = Path(__file__).resolve().parent / "data/expression_li.sqlite"
 
 
@@ -17,6 +18,8 @@ def dataset_path(dataset_id):
         return EXPRESSION_DB
     if dataset_id == "wang_2025_normal_root":
         return WANG_DB
+    if dataset_id == "li_2023_pistil_2n_author":
+        return LI_AUTHOR_DB
     if dataset_id == "li_2023_pistil_2n_scplantdb":
         return LI_DB
     raise ValueError("Select a recognized expression dataset.")
@@ -28,6 +31,7 @@ def dataset_enabled(dataset_id):
         "robertson_2026_control": "expression_manifest.json",
         "wang_2025_normal_root": "expression_wang_manifest.json",
         "li_2023_pistil_2n_scplantdb": "expression_li_manifest.json",
+        "li_2023_pistil_2n_author": "expression_li_author_manifest.json",
     }
     return (Path(__file__).resolve().parent / "data" / filenames[dataset_id]).exists()
 
@@ -38,6 +42,7 @@ def expression_datasets():
     for dataset_id in [
         "robertson_2026_control",
         "wang_2025_normal_root",
+        "li_2023_pistil_2n_author",
         "li_2023_pistil_2n_scplantdb",
     ]:
         path = dataset_path(dataset_id)

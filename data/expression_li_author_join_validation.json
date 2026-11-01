@@ -1,0 +1,15 @@
+{
+  "source_author_nuclei": 8173,
+  "included_nuclei": 8077,
+  "included_groups": 8,
+  "included_by_sample": {
+    "GSM6346349": 5939,
+    "GSM6346350": 2138
+  },
+  "exclusions": {
+    "stamen_residue": 96
+  },
+  "unmatched_barcodes": 0,
+  "annotation_source": "Li et al. (2023), Table S2, Rice_Pistil_index",
+  "source_sha256": "5220f8fe5131e0ce4250c78d55e826e262ceedf445b421ec7ebce69febfb5064"
+}
