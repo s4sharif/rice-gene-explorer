@@ -1,0 +1,189 @@
+{
+  "id": "wang_2025_normal_root",
+  "citation": "Wang et al. (2025)",
+  "publication_url": "https://doi.org/10.1038/s41586-025-09251-0",
+  "repository_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE273875",
+  "organ": "Root (normal Nipponbare subset)",
+  "condition": "Normal wild-type Nipponbare only; mutants excluded",
+  "assay": "single-cell RNA-seq",
+  "reference": "Source alignment MSU7; deposited features already RAP-labelled; exact ID matching, no coordinate transfer",
+  "n_cells": 18180,
+  "n_samples": 2,
+  "n_features": 30206,
+  "n_mapped_features": 28636,
+  "metric_description": "Mean log1p(10,000 \u00d7 RNA UMI count / retained RNA-count library size), including zero-count cells. Detection = RNA count > 0. Two normal replicates are pooled with cell-weighted means; ranks are within this study only.",
+  "coverage_note": "All features in the original RNA count assay are retained, not only markers or variable genes. Unmapped and ambiguous gene mappings are unavailable in the RAP search. This is the paper's normal-root experiment, not the full eight-organ atlas.",
+  "source_sha256": "26f2d653e88f8704ff8ecb74cfa36f8000da6d144b3a0a70bb02fa9fa086a228",
+  "extraction": {
+    "eligible_samples": [
+      "NIP_G_1",
+      "NIP_G_2"
+    ],
+    "n_cells": 18180,
+    "groups": [
+      {
+        "cell_type": "cortex",
+        "tissue_system": "Root",
+        "n_cells": 3780
+      },
+      {
+        "cell_type": "endodermis",
+        "tissue_system": "Root",
+        "n_cells": 896
+      },
+      {
+        "cell_type": "epidermis",
+        "tissue_system": "Root",
+        "n_cells": 1690
+      },
+      {
+        "cell_type": "epidermis (neat root hair)",
+        "tissue_system": "Root",
+        "n_cells": 814
+      },
+      {
+        "cell_type": "exodermis",
+        "tissue_system": "Root",
+        "n_cells": 2636
+      },
+      {
+        "cell_type": "meristem",
+        "tissue_system": "Root",
+        "n_cells": 1389
+      },
+      {
+        "cell_type": "root cap",
+        "tissue_system": "Root",
+        "n_cells": 2192
+      },
+      {
+        "cell_type": "sclerenchyma",
+        "tissue_system": "Root",
+        "n_cells": 885
+      },
+      {
+        "cell_type": "vascular",
+        "tissue_system": "Root",
+        "n_cells": 3898
+      }
+    ],
+    "sample_groups": [
+      {
+        "sample": "NIP_G_1",
+        "cell_type": "cortex",
+        "tissue_system": "Root",
+        "n_cells": 1644
+      },
+      {
+        "sample": "NIP_G_1",
+        "cell_type": "endodermis",
+        "tissue_system": "Root",
+        "n_cells": 392
+      },
+      {
+        "sample": "NIP_G_1",
+        "cell_type": "epidermis",
+        "tissue_system": "Root",
+        "n_cells": 860
+      },
+      {
+        "sample": "NIP_G_1",
+        "cell_type": "epidermis (neat root hair)",
+        "tissue_system": "Root",
+        "n_cells": 362
+      },
+      {
+        "sample": "NIP_G_1",
+        "cell_type": "exodermis",
+        "tissue_system": "Root",
+        "n_cells": 1253
+      },
+      {
+        "sample": "NIP_G_1",
+        "cell_type": "meristem",
+        "tissue_system": "Root",
+        "n_cells": 663
+      },
+      {
+        "sample": "NIP_G_1",
+        "cell_type": "root cap",
+        "tissue_system": "Root",
+        "n_cells": 1047
+      },
+      {
+        "sample": "NIP_G_1",
+        "cell_type": "sclerenchyma",
+        "tissue_system": "Root",
+        "n_cells": 428
+      },
+      {
+        "sample": "NIP_G_1",
+        "cell_type": "vascular",
+        "tissue_system": "Root",
+        "n_cells": 1778
+      },
+      {
+        "sample": "NIP_G_2",
+        "cell_type": "cortex",
+        "tissue_system": "Root",
+        "n_cells": 2136
+      },
+      {
+        "sample": "NIP_G_2",
+        "cell_type": "endodermis",
+        "tissue_system": "Root",
+        "n_cells": 504
+      },
+      {
+        "sample": "NIP_G_2",
+        "cell_type": "epidermis",
+        "tissue_system": "Root",
+        "n_cells": 830
+      },
+      {
+        "sample": "NIP_G_2",
+        "cell_type": "epidermis (neat root hair)",
+        "tissue_system": "Root",
+        "n_cells": 452
+      },
+      {
+        "sample": "NIP_G_2",
+        "cell_type": "exodermis",
+        "tissue_system": "Root",
+        "n_cells": 1383
+      },
+      {
+        "sample": "NIP_G_2",
+        "cell_type": "meristem",
+        "tissue_system": "Root",
+        "n_cells": 726
+      },
+      {
+        "sample": "NIP_G_2",
+        "cell_type": "root cap",
+        "tissue_system": "Root",
+        "n_cells": 1145
+      },
+      {
+        "sample": "NIP_G_2",
+        "cell_type": "sclerenchyma",
+        "tissue_system": "Root",
+        "n_cells": 457
+      },
+      {
+        "sample": "NIP_G_2",
+        "cell_type": "vascular",
+        "tissue_system": "Root",
+        "n_cells": 2120
+      }
+    ],
+    "features_per_sample": {
+      "NIP_G_1": 30206,
+      "NIP_G_2": 30206
+    },
+    "normalization": "log1p CP10K from original RNA counts",
+    "selection": "orig.ident NIP_G_1/NIP_G_2 and condition WT; both mutant replicates excluded",
+    "feature_missingness": "All features in the joined original RNA count assay; no marker/HVG selection"
+  },
+  "cell_unit": "cells"
+}

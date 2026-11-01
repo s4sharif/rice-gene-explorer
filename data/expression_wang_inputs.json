@@ -1,0 +1,42 @@
+{
+  "accession": "GSE273875",
+  "scope": "Normal Nipponbare root replicates only; not the complete eight-organ atlas",
+  "sources": [
+    {
+      "filename": "GSE273875_LTP_NIP_label_240622.rds.gz",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE273nnn/GSE273875/suppl/GSE273875_LTP_NIP_label_240622.rds.gz",
+      "bytes": 409043555,
+      "sha256": "26f2d653e88f8704ff8ecb74cfa36f8000da6d144b3a0a70bb02fa9fa086a228"
+    },
+    {
+      "filename": "GSM8438488.soft",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM8438488&targ=self&form=text&view=full",
+      "bytes": 3622,
+      "sha256": "79aa0c95b8cde26fd8e5be475ebb6d8d641d5861514ea783073554a0c4a646dc"
+    },
+    {
+      "filename": "GSM8438489.soft",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM8438489&targ=self&form=text&view=full",
+      "bytes": 3622,
+      "sha256": "fd9759763e275d2a440e3f3e10aed106cdb8d3c3fa8b584ca0c448f5ea76fd48"
+    },
+    {
+      "filename": "GSM8438490.soft",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM8438490&targ=self&form=text&view=full",
+      "bytes": 3603,
+      "sha256": "f09767a30165210ea4822a5432eedb0896df8522982205858bccc6a929d36aee"
+    },
+    {
+      "filename": "GSM8438491.soft",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM8438491&targ=self&form=text&view=full",
+      "bytes": 3603,
+      "sha256": "58d28f877cc11d07f7bd1017cdda1f4640cde2a71b7a22179a73cd21f4116552"
+    },
+    {
+      "filename": "zenodo_rsca.zip",
+      "url": "https://zenodo.org/api/records/15501781/files/dongwei-2023/Single_Cell_Multiomics_in_Rice-v1.0.zip/content",
+      "bytes": 7752015,
+      "sha256": "1fc41d9b19a896b91c21794828a0341a1b7374bfa995c6837870425fb3b98349"
+    }
+  ]
+}

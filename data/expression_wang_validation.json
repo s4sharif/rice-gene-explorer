@@ -1,0 +1,22 @@
+{
+  "integrity": "pass",
+  "summary_bounds": "pass",
+  "independent_gene_sample_group_checks": 54,
+  "genes": [
+    "Os01g0100100",
+    "Os03g0407400",
+    "Os12g0528400"
+  ],
+  "source_features_checked": [
+    "Os01g0100100",
+    "Os03g0407400",
+    "Os12g0528400"
+  ],
+  "normalization": "log1p CP10K recalculated independently of R summaries from uncorrected RNA counts exported from the source object",
+  "requested_genes": [
+    "Os01g0100100",
+    "Os03g0407400",
+    "Os07g0141400",
+    "Os12g0528400"
+  ]
+}
