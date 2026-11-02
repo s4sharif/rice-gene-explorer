@@ -803,13 +803,16 @@ body[data-page="expression"] .pagination {
 }
 .variant-heading {
   display: flex;
-  justify-content: space-between;
-  align-items: start;
-  gap: 24px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+}
+.variant-heading h2 {
+  margin-bottom: 0;
 }
 #variant-search-form {
-  flex: 0 1 540px;
+  width: 100%;
+  max-width: 540px;
   position: relative;
 }
 #variant-search-status {
