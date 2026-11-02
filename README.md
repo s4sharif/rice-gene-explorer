@@ -107,3 +107,7 @@ Expression methods and source-specific coverage are described in [the project do
 ## Private prototype hosting
 
 The private review prototype is hosted at [ricelens-review.onrender.com](https://ricelens-review.onrender.com). Its Free plan configuration is tracked in `render.yaml`, with mandatory reviewer authentication and bundled read-only database snapshots. See [the deployment guide](docs/free_hosting.md). The local command remains unchanged; hosted credentials belong only in Render environment secrets.
+
+## Dataset organization
+
+Browse the [dataset directory and calculation index](datasets/README.md) to see the inputs, summaries, validation reports and databases behind each study. Run `python3 scripts/organize_datasets.py` to create descriptive `author_year_parameter` links locally without copying large files.
