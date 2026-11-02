@@ -414,7 +414,14 @@ class Handler(BaseHTTPRequestHandler):
             if parsed.path == "/api/status":
                 manifest = json.loads((ROOT / "data/provenance.json").read_text())
                 return self.send_json(manifest)
-            files = {"/": "index.html", "/app.js": "app.js", "/style.css": "style.css"}
+            files = {
+                "/": "index.html",
+                "/variation": "index.html",
+                "/gwas": "index.html",
+                "/expression": "index.html",
+                "/app.js": "app.js",
+                "/style.css": "style.css",
+            }
             if parsed.path not in files:
                 return self.respond(b"Not found", "text/plain", 404)
             name = files[parsed.path]

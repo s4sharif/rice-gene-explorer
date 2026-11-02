@@ -7,11 +7,18 @@
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <header class="masthead">
       <nav class="topbar" aria-label="Main navigation">
-        <a class="brand" href="#"
+        <a class="brand" href="/" data-route="home"
           ><span class="brand-mark" aria-hidden="true">✳</span> RiceLENS</a
         >
+        <div class="nav-links">
+          <a href="/" data-route="home">Home</a
+          ><a href="/variation" data-route="variation">Genetic Variation</a
+          ><a href="/gwas" data-route="gwas">GWAS Associations</a
+          ><a href="/expression" data-route="expression">Cell Type Expression</a>
+        </div>
         <span class="tag">Wilkins Lab <span aria-hidden="true">↗</span></span>
       </nav>
       <div class="hero">
@@ -21,7 +28,7 @@
           <p class="hero-description">
             Search rice genes, published GWAS associations and nearby genomic regions.
           </p>
-          <a class="hero-link" href="#search"
+          <a class="hero-link" href="/gwas" data-route="gwas"
             >Begin your search <span aria-hidden="true">↗</span></a
           >
         </div>
@@ -484,7 +491,54 @@
         <span>Connecting genes with published evidence.</span>
       </div>
     </header>
-    <main>
+    <main id="main-content" tabindex="-1">
+      <section id="home-tools" class="panel">
+        <h2>Explore rice gene evidence</h2>
+        <p>
+          Search a gene once, then explore its genomic neighborhood, published trait
+          associations and baseline cell-type expression.
+        </p>
+        <div class="tool-grid">
+          <article>
+            <h3>Genetic Variation</h3>
+            <p>
+              Where are the recorded variants around a gene? Explore positions and the
+              surrounding genomic region.
+            </p>
+            <a class="button" href="/variation" data-route="variation"
+              >Explore recorded variants →</a
+            >
+          </article>
+          <article>
+            <h3>GWAS Associations</h3>
+            <p>
+              Which published traits are associated with regional signals? Examine
+              statistics, publications and neighboring genes.
+            </p>
+            <a class="button" href="/gwas" data-route="gwas">Explore associations →</a>
+          </article>
+          <article>
+            <h3>Cell Type Expression</h3>
+            <p>
+              Which cells express a gene? Explore baseline expression within each study,
+              with publication evidence.
+            </p>
+            <a class="button" href="/expression" data-route="expression"
+              >Explore expression →</a
+            >
+          </article>
+        </div>
+        <p class="notice">
+          Current coverage: curated published rice GWAS associations and selected
+          baseline expression datasets. Wang’s full eight-organ atlas is pending
+          processing and validation. Expression values from different studies are kept
+          separate.
+        </p>
+      </section>
+      <section id="page-intro" class="panel" hidden>
+        <h1 id="page-title"></h1>
+        <p id="page-description"></p>
+      </section>
       <section class="search" aria-label="Gene search">
         <div class="section-intro">
           <span class="section-number">01 / SEARCH</span>
@@ -512,7 +566,7 @@
       </section>
       <section id="result" hidden>
         <div id="gene"></div>
-        <div class="controls">
+        <div class="controls" id="regional-controls">
           <label
             >Flanking window<select id="window">
               <option value="10000">±10 kb</option>
@@ -522,39 +576,45 @@
               <option value="250000">±250 kb</option>
               <option value="1000000">±1 Mb</option>
             </select></label
-          ><label
-            >Trait contains<input
-              id="trait"
-              placeholder="All available traits" /></label
-          ><label
-            >Study<select id="study">
-              <option value="">All studies</option>
-            </select></label
           >
-          <label
-            >Publication<select id="publication">
-              <option value="">All publications</option>
-            </select></label
-          >
-          <label
-            >Maximum p-value<select id="maximum-p">
-              <option value="1">All reported values</option>
-              <option value="0.00001">≤ 10⁻⁵</option>
-              <option value="0.00000001">≤ 10⁻⁸</option>
-            </select></label
-          >
-          <label
-            >Position<select id="position">
-              <option value="">All positions</option>
-              <option value="overlap">Overlaps gene</option>
-              <option value="upstream">Upstream</option>
-              <option value="downstream">Downstream</option>
-            </select></label
-          >
-          <label class="checkbox"
-            ><input type="checkbox" id="include-repeats" />Include repeated source
-            rows</label
-          >
+          <details class="advanced-filters">
+            <summary>Advanced association filters</summary>
+            <div class="controls">
+              <label
+                >Trait contains<input
+                  id="trait"
+                  placeholder="All available traits" /></label
+              ><label
+                >Study<select id="study">
+                  <option value="">All studies</option>
+                </select></label
+              >
+              <label
+                >Publication<select id="publication">
+                  <option value="">All publications</option>
+                </select></label
+              >
+              <label
+                >Maximum p-value<select id="maximum-p">
+                  <option value="1">All reported values</option>
+                  <option value="0.00001">≤ 10⁻⁵</option>
+                  <option value="0.00000001">≤ 10⁻⁸</option>
+                </select></label
+              >
+              <label
+                >Position<select id="position">
+                  <option value="">All positions</option>
+                  <option value="overlap">Overlaps gene</option>
+                  <option value="upstream">Upstream</option>
+                  <option value="downstream">Downstream</option>
+                </select></label
+              >
+              <label class="checkbox"
+                ><input type="checkbox" id="include-repeats" />Include repeated source
+                rows</label
+              >
+            </div>
+          </details>
           <button id="reset" class="secondary">Reset filters</button>
           <button id="apply">Apply filters</button
           ><a id="export" class="button secondary">Export evidence CSV</a>
@@ -566,7 +626,7 @@
           RiceLENS does not apply a common significance threshold. No GWAS or
           single-cell analysis runs during this search.
         </div>
-        <section class="panel">
+        <section class="panel" id="neighborhood-panel">
           <h2>Genomic neighborhood</h2>
           <p id="region" class="muted"></p>
           <p class="plot-legend">
@@ -604,7 +664,30 @@
             position.
           </p>
         </section>
-        <section class="panel">
+        <section class="panel" id="variation-panel">
+          <h2>Recorded variant positions</h2>
+          <p id="variation-counts"></p>
+          <p>
+            Each row is an association-linked observation; positions may repeat across
+            studies. Reference/alternate allele orientation is not inferred from effect
+            alleles.
+          </p>
+          <div class="tablewrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>SNP position</th>
+                  <th>Relation / distance</th>
+                  <th>Reported effect allele</th>
+                  <th>Other allele</th>
+                  <th>Coordinate provenance</th>
+                </tr>
+              </thead>
+              <tbody id="variants"></tbody>
+            </table>
+          </div>
+        </section>
+        <section class="panel" id="evidence-panel">
           <h2 id="evidence">Published association evidence</h2>
           <p id="counts"></p>
           <div class="tablewrap">
@@ -622,19 +705,15 @@
               <tbody id="associations"></tbody>
             </table>
           </div>
-          <div class="pagination">
-            <button id="prev">← Previous</button><span id="page"></span
-            ><button id="next">Next →</button
-            ><label
-              >Go to page<input
-                id="page-number"
-                type="number"
-                min="1"
-                value="1" /></label
-            ><button id="go-page" class="secondary">Go</button>
-          </div>
         </section>
-        <section class="panel">
+        <div class="pagination">
+          <button id="prev">← Previous</button><span id="page"></span
+          ><button id="next">Next →</button
+          ><label
+            >Go to page<input id="page-number" type="number" min="1" value="1" /></label
+          ><button id="go-page" class="secondary">Go</button>
+        </div>
+        <section class="panel" id="neighbors-panel">
           <h2>Genes in this window</h2>
           <div class="tablewrap">
             <table>
@@ -650,7 +729,7 @@
             </table>
           </div>
         </section>
-        <section class="panel">
+        <section class="panel" id="expression-panel">
           <h2>Baseline cell-type expression</h2>
           <div id="study-coverage"></div>
           <label for="expression-dataset">Expression study (viewed separately)</label>
@@ -662,11 +741,38 @@
           <p id="expression-status" role="status">
             Select a gene to explore expression.
           </p>
-          <div id="expression-controls"></div>
+          <div class="controls" id="expression-filters">
+            <label for="expression-organ"
+              >Organ<select id="expression-organ" disabled>
+                <option value="">All available organs</option>
+              </select></label
+            >
+            <label for="expression-cell"
+              >Cell type<select id="expression-cell" disabled>
+                <option value="">All available cell types</option>
+              </select></label
+            >
+          </div>
+          <p class="muted">
+            Choose a study, then an organ and cell type. Filters affect the plot and
+            table; the CSV contains the full selected study comparison.
+          </p>
+          <details>
+            <summary>Compare neighboring genes</summary>
+            <div id="expression-controls"></div>
+          </details>
           <div id="expression-content"></div>
         </section>
       </section>
     </main>
+    <footer class="site-footer">
+      <strong>Wilkins Lab · University of Manitoba</strong>
+      <p>Winnipeg, Manitoba, Canada</p>
+      <p>
+        RiceLENS · Research prototype · Original publications and source datasets are
+        linked alongside each result.
+      </p>
+    </footer>
     <script src="/app.js"></script>
   </body>
 </html>

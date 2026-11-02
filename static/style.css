@@ -669,3 +669,113 @@ summary {
 .source-links a {
   margin-right: 1rem;
 }
+
+/* Separate tool pages share the selected gene and accessible navigation. */
+[hidden] {
+  display: none !important;
+}
+body:not([data-page="home"]) .hero,
+body:not([data-page="home"]) .hero-bottom,
+body:not([data-page="home"]) #home-tools,
+body[data-page="home"] .search,
+body[data-page="home"] #result,
+body[data-page="expression"] #regional-controls,
+body[data-page="expression"] #neighborhood-panel,
+body[data-page="expression"] #evidence-panel,
+body[data-page="expression"] #neighbors-panel,
+body[data-page="expression"] #result > .notice,
+body[data-page="variation"] #evidence-panel,
+body[data-page="variation"] #expression-panel,
+body[data-page="gwas"] #expression-panel {
+  display: none;
+}
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+}
+.nav-links a {
+  padding: 12px 2px;
+  font-size: 14px;
+  color: #35465e;
+}
+.nav-links a[aria-current="page"] {
+  font-weight: 700;
+  border-bottom: 3px solid #526da8;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+summary:focus-visible {
+  outline: 3px solid #0072b2;
+  outline-offset: 4px;
+}
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 12px;
+  z-index: 10;
+  background: white;
+  padding: 12px;
+}
+.skip-link:focus {
+  top: 8px;
+}
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin: 24px 0;
+}
+.tool-grid article {
+  border-top: 2px solid #b3c3d7;
+  padding-top: 12px;
+}
+.tool-grid .button {
+  font-size: 14px;
+}
+#page-title {
+  font-size: clamp(30px, 4vw, 46px);
+  margin: 0 0 12px;
+}
+#page-description {
+  max-width: 850px;
+}
+.advanced-filters {
+  flex: 1 1 100%;
+}
+.advanced-filters summary {
+  cursor: pointer;
+  padding: 10px 0;
+}
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding: 30px 34px;
+  color: #43536b;
+  margin-top: 36px;
+}
+.site-footer p {
+  margin: 6px 0;
+}
+@media (max-width: 850px) {
+  .topbar {
+    flex-wrap: wrap;
+    padding: 15px 0;
+  }
+  .nav-links {
+    order: 3;
+    width: 100%;
+  }
+  .tool-grid {
+    grid-template-columns: 1fr;
+  }
+}
+body:not([data-page="variation"]) #variation-panel,
+body[data-page="expression"] .pagination {
+  display: none;
+}
+.gene-tools a {
+  display: inline-block;
+  padding: 6px 0;
+}

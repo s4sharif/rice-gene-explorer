@@ -20,6 +20,14 @@ function escapeCharacter(character) {
   return entities[character];
 }
 
+let expressionData = null;
+let expressionExport = null;
+if (
+  location.pathname === "/" &&
+  new URLSearchParams(location.hash.slice(1)).has("gene") &&
+  new URLSearchParams(location.hash.slice(1)).get("page") !== "home"
+)
+  history.replaceState(null, "", "/gwas" + location.hash);
 let selectedGene = "";
 let currentPage = 1;
 let totalAssociations = 0;
@@ -105,6 +113,7 @@ function renderGene(gene, aliases) {
       Chr ${gene.chromosome}: ${gene.start.toLocaleString()}–${gene.end.toLocaleString()}
       · strand ${gene.strand} · RAP-DB 2026-02-05
     </p>
+    <p class="gene-tools"><a href="/variation" data-route="variation">View variants</a> · <a href="/gwas" data-route="gwas">View associations</a> · <a href="/expression" data-route="expression">View expression</a></p>
     <details>
       <summary>Recognized identifiers and aliases</summary>
       ${aliases.map(renderAlias).join("<br>")}
@@ -225,6 +234,8 @@ async function loadRegion(geneId, page = 1) {
     byId("result").hidden = false;
     setStatus("");
     byId("gene").innerHTML = renderGene(data.gene, data.aliases);
+    for (const link of byId("gene").querySelectorAll("[data-route]"))
+      link.onclick = navigateTool;
 
     const plotNotice =
       totalAssociations > data.plot_count
@@ -242,6 +253,11 @@ async function loadRegion(geneId, page = 1) {
     byId("associations").innerHTML = data.associations.length
       ? data.associations.map(renderAssociation).join("")
       : '<tr><td colspan="6">No records in the imported dataset for this window and trait filter. This does not establish absence of association.</td></tr>';
+    byId("variation-counts").textContent =
+      `${data.total_associations.toLocaleString()} matching observations; showing ${data.associations.length} on this page. Use the page controls below to explore more.`;
+    byId("variants").innerHTML = data.associations.length
+      ? data.associations.map(renderVariant).join("")
+      : '<tr><td colspan="5">No recorded variants match these filters. Try a wider window or reset the filters; this does not imply an absence of variation.</td></tr>';
     byId("neighbors").innerHTML = data.neighbors.map(renderNeighbor).join("");
     bindGeneControls(byId("neighbors"));
 
@@ -258,8 +274,14 @@ async function loadRegion(geneId, page = 1) {
     history.replaceState(
       null,
       "",
-      "#" + new URLSearchParams({ gene: geneId, window: data.window }),
+      "#" +
+        new URLSearchParams({
+          gene: geneId,
+          window: data.window,
+          expression: byId("expression-dataset").value,
+        }),
     );
+    updateToolLinks();
   } catch (error) {
     if (requestId === latestRequest) setStatus(error.message, true);
   }
@@ -463,7 +485,7 @@ for (const button of document.querySelectorAll("[data-example]")) {
   button.onclick = chooseExample;
 }
 restoreBookmark();
-searchGenes();
+if (location.pathname !== "/") searchGenes();
 
 // Offer explicit comparison choices for genes in the selected genomic neighborhood.
 function renderExpressionControls(neighbors) {
@@ -516,6 +538,9 @@ async function loadExpression() {
   }
   byId("expression-status").textContent = "Loading baseline expression…";
   byId("expression-content").replaceChildren();
+  byId("expression-organ").disabled = true;
+  byId("expression-cell").disabled = true;
+  expressionData = null;
   try {
     const data = await fetchJson(
       `/api/expression?genes=${encodeURIComponent(geneIds.join(","))}&dataset=${encodeURIComponent(datasetId)}`,
@@ -527,7 +552,8 @@ async function loadExpression() {
     }
     byId("expression-status").textContent =
       `${data.dataset.citation} · ${data.dataset.organ} · ${data.dataset.condition} · ${data.dataset.n_cells.toLocaleString()} ${data.dataset.cell_unit || "nuclei"} · ${data.dataset.n_samples} replicates`;
-    renderExpression(data);
+    expressionExport = null;
+    populateExpressionFilters(data);
     const bookmark = new URLSearchParams(location.hash.slice(1));
     bookmark.set("expression", datasetId);
     history.replaceState(null, "", "#" + bookmark);
@@ -535,7 +561,9 @@ async function loadExpression() {
     exportLink.className = "button secondary";
     exportLink.textContent = "Export expression CSV";
     exportLink.href = `/api/expression/export?genes=${encodeURIComponent(geneIds.join(","))}&dataset=${encodeURIComponent(datasetId)}`;
+    expressionExport = exportLink;
     byId("expression-content").prepend(exportLink);
+    updateToolLinks();
   } catch (error) {
     if (requestId === expressionRequest)
       byId("expression-status").textContent = error.message;
@@ -583,7 +611,7 @@ function renderExpression(data) {
   for (const gene of data.genes) {
     if (gene.status === "measured") measured.push(gene);
     else
-      html += `<p>${escapeHtml(gene.gene_id)}: not available in the retained source features; this does not mean zero expression.</p>`;
+      html += `<p>${escapeHtml(gene.gene_id)}: not available in the retained source features; this does not mean zero expression. Try another study or compare a neighboring gene.</p>`;
   }
   if (!measured.length) {
     byId("expression-content").innerHTML = html;
@@ -638,3 +666,125 @@ function findExpressionGroup(row) {
 }
 
 byId("expression-dataset").onchange = loadExpression;
+
+// Display the requested tool while preserving one shared gene and browser history.
+function showToolPage() {
+  const page = location.pathname.slice(1) || "home";
+  document.body.dataset.page = page;
+  const titles = {
+    home: ["RiceLENS", ""],
+    variation: [
+      "Genetic Variation",
+      "Explore association-linked SNP positions and genomic regions. Coverage comes from published GWAS records, not a complete variant catalog.",
+    ],
+    gwas: [
+      "GWAS Associations",
+      "Explore published trait associations, statistical evidence and neighboring genes. A nearby signal does not establish causality.",
+    ],
+    expression: [
+      "Cell Type Expression",
+      "Explore baseline expression across available organs and cell types. Compare genes within one study at a time.",
+    ],
+  };
+  const [title, description] = titles[page] || titles.home;
+  byId("page-title").textContent = title;
+  byId("page-description").textContent = description;
+  byId("page-intro").hidden = page === "home";
+  document.title =
+    page === "home" ? "RiceLENS · Wilkins Lab" : `${title} · RiceLENS · Wilkins Lab`;
+  updateToolLinks();
+}
+
+// Carry the current gene, window and expression study into each tool link.
+function updateToolLinks() {
+  for (const link of document.querySelectorAll("[data-route]")) {
+    const target = link.dataset.route;
+    const bookmark = new URLSearchParams(location.hash.slice(1));
+    if (target === "home" && bookmark.has("gene")) bookmark.set("page", "home");
+    else bookmark.delete("page");
+    link.href =
+      (target === "home" ? "/" : `/${target}`) + (bookmark.size ? "#" + bookmark : "");
+    if (target === document.body.dataset.page)
+      link.setAttribute("aria-current", "page");
+    else link.removeAttribute("aria-current");
+  }
+}
+
+// Navigate between tools without discarding the search, comparison or filter state.
+function navigateTool(event) {
+  if (
+    event.button !== 0 ||
+    event.metaKey ||
+    event.ctrlKey ||
+    event.shiftKey ||
+    event.altKey
+  )
+    return;
+  event.preventDefault();
+  history.pushState(null, "", event.currentTarget.href);
+  showToolPage();
+  if (!selectedGene && document.body.dataset.page !== "home") searchGenes();
+  window.scrollTo(0, 0);
+  byId("main-content").focus({ preventScroll: true });
+}
+
+// Rebuild valid organ and cell-type choices from the selected study response.
+function populateExpressionFilters(data) {
+  expressionData = data;
+  const organs = new Set();
+  for (const group of data.cell_groups) organs.add(group.organ || data.dataset.organ);
+  byId("expression-organ").replaceChildren(new Option("All available organs", ""));
+  for (const organ of organs) byId("expression-organ").add(new Option(organ, organ));
+  byId("expression-organ").disabled = organs.size === 0;
+  refreshExpressionCells();
+}
+
+// Limit cell-type options to the currently selected organ without mixing studies.
+function refreshExpressionCells() {
+  const organ = byId("expression-organ").value;
+  byId("expression-cell").replaceChildren(new Option("All available cell types", ""));
+  for (const group of expressionData.cell_groups) {
+    if (!organ || (group.organ || expressionData.dataset.organ) === organ)
+      byId("expression-cell").add(new Option(group.cell_type, group.cell_type));
+  }
+  byId("expression-cell").disabled = byId("expression-cell").options.length < 2;
+  filterExpression();
+}
+
+// Filter displayed contexts while retaining original within-study expression ranks.
+function filterExpression() {
+  if (!expressionData) return;
+  const organ = byId("expression-organ").value;
+  const cell = byId("expression-cell").value;
+  const filtered = structuredClone(expressionData);
+  filtered.cell_groups = [];
+  for (const group of expressionData.cell_groups) {
+    if (
+      (!organ || (group.organ || expressionData.dataset.organ) === organ) &&
+      (!cell || group.cell_type === cell)
+    )
+      filtered.cell_groups.push(group);
+  }
+  const allowed = new Set();
+  for (const group of filtered.cell_groups) allowed.add(group.cell_type);
+  for (const gene of filtered.genes) {
+    const groups = [];
+    for (const group of gene.groups || [])
+      if (allowed.has(group.cell_type)) groups.push(group);
+    gene.groups = groups;
+  }
+  renderExpression(filtered);
+  if (expressionExport) byId("expression-content").prepend(expressionExport);
+}
+
+for (const link of document.querySelectorAll("[data-route]"))
+  link.onclick = navigateTool;
+window.addEventListener("popstate", showToolPage);
+byId("expression-organ").onchange = refreshExpressionCells;
+byId("expression-cell").onchange = filterExpression;
+showToolPage();
+
+// Display recorded positions and allele fields without inventing variant annotations.
+function renderVariant(record) {
+  return `<tr><td>chr${record.chromosome}:${Number(record.position).toLocaleString()}</td><td>${escapeHtml(record.relation)} · ${Number(record.distance_bp).toLocaleString()} bp</td><td>${escapeHtml(record.effect_allele || "Not reported")}</td><td>${escapeHtml(record.other_allele || "Not reported")}</td><td>${escapeHtml(record.coordinate_status)}<br><a href="${escapeHtml(record.source_record_url)}" target="_blank" rel="noopener">Source record</a></td></tr>`;
+}

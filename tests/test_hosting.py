@@ -54,6 +54,9 @@ class HostingTests(unittest.TestCase):
     def test_all_data_routes_are_private(self):
         for path in [
             "/",
+            "/variation",
+            "/gwas",
+            "/expression",
             "/app.js",
             "/style.css",
             "/api/search?q=GS3",
@@ -70,6 +73,15 @@ class HostingTests(unittest.TestCase):
                 self.assertTrue(response["status"].startswith("401"))
                 self.assertIn("WWW-Authenticate", response["headers"])
                 self.assertNotIn(b"Os03g0407400", response["body"])
+
+    # Serve directly bookmarked tool pages behind the same reviewer access controls.
+    def test_tool_page_routes(self):
+        for path in ["/", "/variation", "/gwas", "/expression"]:
+            with self.subTest(path=path):
+                response = request(path, USERNAME + ":" + PASSWORD)
+                self.assertTrue(response["status"].startswith("200"))
+                self.assertIn(b'aria-label="Main navigation"', response["body"])
+                self.assertIn(b'id="expression-organ"', response["body"])
 
     # Serve the existing search API only when both reviewer credentials match exactly.
     def test_authorized_search_and_wrong_password(self):
