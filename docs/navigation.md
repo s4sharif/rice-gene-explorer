@@ -20,3 +20,9 @@ The footer includes the known Wilkins Lab / University of Manitoba affiliation a
 ## Verification
 
 The automated suite covers direct tool routes and authentication, alongside the existing gene, GWAS, expression and export tests. Browser checks cover gene-preserving navigation, direct expression reload, cell-type filtering, switching from Robertson to Wang with dependent-choice reset, and the separate variant table. Hosting auto-deployment is disabled, so pushing these changes does not update the live Render website.
+
+## Wide genomic windows
+
+Regions with more than 20 genes or a flank greater than 100 kb use a four-row compact gene track with only the selected gene labelled. All returned genes retain focusable/clickable marks and full descriptions in the readable hover/focus detail area. Closely spaced marks can overlap at overview scale; zooming narrows the supported flanking window around the selected gene. Smaller, sparse regions retain full gene labels. The plot still shows at most the 500 strongest matching association records, as before; its regional count and export describe the complete matching evidence.
+
+Zoom controls step through the same supported windows as the flanking selector, preserving filters. The neighboring-gene search filters the complete returned table by identifier, symbol or description without changing the plotted genes. These display changes do not alter genomic coordinates, expression values or association statistics.

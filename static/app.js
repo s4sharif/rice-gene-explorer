@@ -260,6 +260,7 @@ async function loadRegion(geneId, page = 1) {
       : '<tr><td colspan="5">No recorded variants match these filters. Try a wider window or reset the filters; this does not imply an absence of variation.</td></tr>';
     byId("neighbors").innerHTML = data.neighbors.map(renderNeighbor).join("");
     bindGeneControls(byId("neighbors"));
+    filterNeighborTable();
 
     byId("prev").disabled = currentPage === 1;
     byId("next").disabled = currentPage * data.page_size >= totalAssociations;
@@ -384,33 +385,57 @@ function drawNeighborhood(data) {
     markup += `<text x="${x(position)}" y="210" text-anchor="middle" font-size="11" fill="#647086">${position.toLocaleString()}</text>`;
   }
 
+  const compact = data.neighbors.length > 20 || data.window > 100000;
   const laneEnds = [];
   for (const gene of data.neighbors) {
     const left = x(Math.max(data.start, gene.start));
     const right = x(Math.min(data.end, gene.end));
-    const lane = findAvailableLane(laneEnds, left);
+    let lane = compact ? 0 : findAvailableLane(laneEnds, left);
+    if (compact) {
+      while (lane < 3 && (laneEnds[lane] ?? -Infinity) >= left - 3) lane++;
+    }
     laneEnds[lane] = right;
-    const centerY = 250 + lane * 42;
+    const centerY = 250 + lane * (compact ? 22 : 42);
     const color = gene.id === data.gene.id ? "#005a8d" : "#52616f";
     const tip = Math.min(7, (right - left) / 2);
     const points =
       gene.strand === "+"
         ? `${left},${centerY - 5} ${right - tip},${centerY - 5} ${right},${centerY} ${right - tip},${centerY + 5} ${left},${centerY + 5}`
         : `${right},${centerY - 5} ${left + tip},${centerY - 5} ${left},${centerY} ${left + tip},${centerY + 5} ${right},${centerY + 5}`;
-    markup += `
-      <g class="clickgene" tabindex="0" role="button" aria-label="Explore ${escapeHtml(gene.id)}" data-gene="${escapeHtml(gene.id)}">
-        <polygon points="${points}" fill="${color}"/>
-        <text x="${left}" y="${centerY + 21}" font-size="11" fill="${color}">${escapeHtml(gene.symbol || gene.id)}</text>
-        <title>${escapeHtml(gene.id)} · ${gene.start}–${gene.end} (${gene.strand})</title>
-      </g>
-    `;
+    const label = `${gene.id} · ${gene.symbol || "No symbol"} · ${gene.start.toLocaleString()}–${gene.end.toLocaleString()} (${gene.strand}) · ${gene.description || "No description"}`;
+    markup += `<g class="clickgene" tabindex="0" role="button" aria-label="Explore ${escapeHtml(label)}" data-gene="${escapeHtml(gene.id)}" data-detail="${escapeHtml(label)}">
+        <rect x="${left - 3}" y="${centerY - 9}" width="${Math.max(7, right - left + 6)}" height="18" fill="transparent"/>
+        <polygon points="${points}" fill="${color}" stroke="${color}" stroke-width="${gene.id === data.gene.id ? 2 : 0.7}"/>
+        ${compact ? "" : `<text x="${Math.min(left, width - rightMargin - 150)}" y="${centerY + 21}" font-size="11" fill="${color}">${escapeHtml(gene.symbol || gene.id)}</text>`}
+        <title>${escapeHtml(label)}</title></g>`;
+  }
+  if (compact) {
+    const selected = data.gene;
+    const labelX = Math.max(
+      leftMargin + 85,
+      Math.min(width - rightMargin - 85, x((selected.start + selected.end) / 2)),
+    );
+    markup += `<line x1="${x((selected.start + selected.end) / 2)}" x2="${labelX}" y1="${250 + 3 * 22 + 12}" y2="345" stroke="#005a8d"/><text x="${labelX}" y="363" text-anchor="middle" font-size="12" fill="#005a8d">${escapeHtml(selected.symbol || selected.id)} · selected gene</text>`;
   }
   svg.setAttribute(
     "viewBox",
-    `0 0 ${width} ${Math.max(320, 270 + laneEnds.length * 42)}`,
+    `0 0 ${width} ${compact ? 390 : Math.max(320, 270 + laneEnds.length * 42)}`,
   );
+  byId("chart-mode").textContent = compact
+    ? `Compact overview · ${data.neighbors.length} genes. Only the selected gene is labelled; hover or focus a mark for details, or zoom in for labels. Closely spaced marks may overlap.`
+    : `${data.neighbors.length} genes · detailed view. Hover or focus a gene for its description.`;
+  byId("gene-detail").textContent =
+    "Gene details: hover a mark or use Tab to focus it. Press Enter to explore the gene.";
+  byId("zoom-in").disabled = byId("window").selectedIndex === 0;
+  byId("zoom-out").disabled =
+    byId("window").selectedIndex === byId("window").options.length - 1;
+
   svg.innerHTML = markup;
   bindGeneControls(svg);
+  for (const mark of svg.querySelectorAll("[data-detail]")) {
+    mark.onmouseenter = showChartGeneDetail;
+    mark.onfocus = showChartGeneDetail;
+  }
 }
 
 // Open the gene selected through an ambiguity choice, table row or chart arrow.
@@ -788,3 +813,34 @@ showToolPage();
 function renderVariant(record) {
   return `<tr><td>chr${record.chromosome}:${Number(record.position).toLocaleString()}</td><td>${escapeHtml(record.relation)} · ${Number(record.distance_bp).toLocaleString()} bp</td><td>${escapeHtml(record.effect_allele || "Not reported")}</td><td>${escapeHtml(record.other_allele || "Not reported")}</td><td>${escapeHtml(record.coordinate_status)}<br><a href="${escapeHtml(record.source_record_url)}" target="_blank" rel="noopener">Source record</a></td></tr>`;
 }
+
+// Expose the focused or hovered gene description in a persistent readable detail area.
+function showChartGeneDetail(event) {
+  byId("gene-detail").textContent = event.currentTarget.dataset.detail;
+}
+
+// Narrow the genomic window using the next supported scale around the selected gene.
+function zoomInRegion() {
+  byId("window").selectedIndex = Math.max(0, byId("window").selectedIndex - 1);
+  applyFilters();
+}
+
+// Widen the genomic window using the next supported scale around the selected gene.
+function zoomOutRegion() {
+  byId("window").selectedIndex = Math.min(
+    byId("window").options.length - 1,
+    byId("window").selectedIndex + 1,
+  );
+  applyFilters();
+}
+
+// Filter the complete neighboring-gene table without removing genes from the plot.
+function filterNeighborTable() {
+  const query = byId("neighbor-search").value.trim().toLowerCase();
+  for (const row of byId("neighbors").rows)
+    row.hidden = !row.textContent.toLowerCase().includes(query);
+}
+
+byId("zoom-in").onclick = zoomInRegion;
+byId("zoom-out").onclick = zoomOutRegion;
+byId("neighbor-search").oninput = filterNeighborTable;

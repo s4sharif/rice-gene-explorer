@@ -650,6 +650,12 @@
             each original study has not been independently verified. Unresolved
             reference labels and out-of-range coordinates are excluded.
           </p>
+          <div class="plot-toolbar">
+            <button id="zoom-in" type="button">Zoom in +</button
+            ><button id="zoom-out" type="button" class="secondary">Zoom out −</button
+            ><span>Zoom is centered on the selected gene.</span>
+          </div>
+          <p id="chart-mode" class="muted"></p>
           <div class="chartscroll">
             <svg
               id="chart"
@@ -658,6 +664,7 @@
               aria-label="GWAS association strengths and gene positions"
             ></svg>
           </div>
+          <p id="gene-detail" class="notice" role="status" aria-live="polite"></p>
           <p class="muted">
             Click a gene arrow or its name to explore it. Gene orientation follows the
             reference strand. Plot points show association records, which may share a
@@ -715,6 +722,12 @@
         </div>
         <section class="panel" id="neighbors-panel">
           <h2>Genes in this window</h2>
+          <label for="neighbor-search">Find a neighboring gene</label
+          ><input
+            id="neighbor-search"
+            type="search"
+            placeholder="Gene ID, symbol or description"
+          />
           <div class="tablewrap">
             <table>
               <thead>

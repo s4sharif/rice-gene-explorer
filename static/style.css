@@ -779,3 +779,25 @@ body[data-page="expression"] .pagination {
   display: inline-block;
   padding: 6px 0;
 }
+.plot-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+#chart .clickgene:focus {
+  outline: none;
+}
+#chart .clickgene:focus polygon,
+#chart .clickgene:hover polygon {
+  stroke: #0072b2;
+  stroke-width: 3;
+}
+#gene-detail {
+  min-height: 3.5em;
+}
+#neighbor-search {
+  max-width: 440px;
+  display: block;
+  margin: 10px 0 20px;
+}
