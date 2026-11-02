@@ -757,12 +757,44 @@
         </div>
         <section class="panel" id="neighbors-panel">
           <h2>Genes in this window</h2>
-          <label for="neighbor-search">Find a neighboring gene</label
-          ><input
-            id="neighbor-search"
-            type="search"
-            placeholder="Gene ID, symbol or description"
-          />
+          <form
+            id="neighbor-search-form"
+            class="gene-window-search"
+            role="search"
+            aria-label="Genes in this window"
+          >
+            <label for="neighbor-search">Search genes in this window</label>
+            <div class="searchline">
+              <input
+                id="neighbor-search"
+                type="search"
+                maxlength="200"
+                placeholder="Gene ID, symbol or description"
+                autocomplete="off"
+                role="combobox"
+                aria-autocomplete="list"
+                aria-expanded="false"
+                aria-controls="neighbor-suggestions"
+              /><button type="submit">Search</button
+              ><button type="button" class="secondary" id="clear-neighbor-search">
+                Clear
+              </button>
+            </div>
+            <ul
+              id="neighbor-suggestions"
+              role="listbox"
+              aria-label="Suggested neighboring genes"
+              hidden
+            ></ul>
+            <p
+              id="neighbor-search-status"
+              class="muted"
+              role="status"
+              aria-live="polite"
+            >
+              Searches every gene in the selected genomic window.
+            </p>
+          </form>
           <div class="tablewrap">
             <table>
               <thead>

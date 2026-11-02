@@ -810,15 +810,18 @@ body[data-page="expression"] .pagination {
 .variant-heading h2 {
   margin-bottom: 0;
 }
-#variant-search-form {
+#variant-search-form,
+#neighbor-search-form {
   width: 100%;
   max-width: 540px;
   position: relative;
 }
-#variant-search-status {
+#variant-search-status,
+#neighbor-search-status {
   font-size: 13px;
 }
-#variant-suggestions {
+#variant-suggestions,
+#neighbor-suggestions {
   position: absolute;
   z-index: 5;
   top: 80px;
@@ -833,13 +836,21 @@ body[data-page="expression"] .pagination {
   max-height: 330px;
   overflow-y: auto;
 }
-#variant-suggestions li {
+#variant-suggestions li,
+#neighbor-suggestions li {
   padding: 10px;
   cursor: pointer;
   border-bottom: 1px solid var(--line);
 }
 #variant-suggestions li:hover,
-#variant-suggestions li[aria-selected="true"] {
+#variant-suggestions li[aria-selected="true"],
+#neighbor-suggestions li:hover,
+#neighbor-suggestions li[aria-selected="true"] {
   background: #e3edf7;
   color: #163d60;
+}
+
+#neighbor-search {
+  margin: 0;
+  max-width: none;
 }

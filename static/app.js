@@ -20,6 +20,9 @@ function escapeCharacter(character) {
   return entities[character];
 }
 
+let neighboringGenes = [];
+let neighborOptions = [];
+let activeNeighborOption = -1;
 let variantSuggestionRequest = 0;
 let variantSuggestionTimer;
 let variantOptions = [];
@@ -210,6 +213,7 @@ function renderNeighbor(gene) {
 // Load a gene's regional evidence while ignoring responses from superseded requests.
 async function loadRegion(geneId, page = 1) {
   closeVariantSuggestions();
+  closeNeighborSuggestions();
   const requestId = ++latestRequest;
   setStatus("Loading gene and regional evidence…");
 
@@ -269,6 +273,7 @@ async function loadRegion(geneId, page = 1) {
     byId("variants").innerHTML = data.associations.length
       ? data.associations.map(renderVariant).join("")
       : '<tr><td colspan="5">No recorded variants match these filters. Try a wider window or reset the filters; this does not imply an absence of variation.</td></tr>';
+    neighboringGenes = data.neighbors;
     byId("neighbors").innerHTML = data.neighbors.map(renderNeighbor).join("");
     bindGeneControls(byId("neighbors"));
     filterNeighborTable();
@@ -861,11 +866,16 @@ function filterNeighborTable() {
   const query = byId("neighbor-search").value.trim().toLowerCase();
   for (const row of byId("neighbors").rows)
     row.hidden = !row.textContent.toLowerCase().includes(query);
+  let count = 0;
+  for (const row of byId("neighbors").rows) if (!row.hidden) count++;
+  byId("neighbor-search-status").textContent = count
+    ? `${count} of ${neighboringGenes.length} genes shown in this window.`
+    : "No matching genes in this window. Try a different identifier, symbol or description, or clear the search.";
 }
 
 byId("zoom-in").onclick = zoomInRegion;
 byId("zoom-out").onclick = zoomOutRegion;
-byId("neighbor-search").oninput = filterNeighborTable;
+byId("neighbor-search").oninput = suggestNeighborGenes;
 
 // Close stale suggestions without altering the user's typed position or record identifier.
 function closeVariantSuggestions() {
@@ -993,3 +1003,113 @@ function dismissVariantSuggestions(event) {
 }
 
 document.addEventListener("click", dismissVariantSuggestions);
+
+// Close neighboring-gene suggestions without changing the entered query or table.
+function closeNeighborSuggestions() {
+  byId("neighbor-suggestions").hidden = true;
+  byId("neighbor-search").setAttribute("aria-expanded", "false");
+  byId("neighbor-search").removeAttribute("aria-activedescendant");
+  activeNeighborOption = -1;
+}
+
+// Suggest matching IDs, symbols and descriptions from every gene in the current window.
+function suggestNeighborGenes() {
+  closeNeighborSuggestions();
+  const query = byId("neighbor-search").value.trim().toLowerCase();
+  const list = byId("neighbor-suggestions");
+  list.replaceChildren();
+  neighborOptions = [];
+  if (!query) return;
+  let count = 0;
+  for (const gene of neighboringGenes) {
+    if (
+      `${gene.id} ${gene.symbol || ""} ${gene.description || ""}`
+        .toLowerCase()
+        .includes(query)
+    ) {
+      count++;
+      if (neighborOptions.length < 8) neighborOptions.push(gene);
+    }
+  }
+  for (let index = 0; index < neighborOptions.length; index++) {
+    const gene = neighborOptions[index];
+    const option = document.createElement("li");
+    option.id = `neighbor-option-${index}`;
+    option.setAttribute("role", "option");
+    option.setAttribute("aria-selected", "false");
+    option.dataset.index = index;
+    option.textContent = `${gene.id} · ${gene.symbol || "No symbol"} · ${gene.description || "No description"}`;
+    option.onclick = chooseNeighborSuggestion;
+    list.append(option);
+  }
+  list.hidden = neighborOptions.length === 0;
+  byId("neighbor-search").setAttribute(
+    "aria-expanded",
+    String(neighborOptions.length > 0),
+  );
+  byId("neighbor-search-status").textContent = count
+    ? `${count} matching genes; showing up to 8 suggestions. Choose one or Search to show all matches.`
+    : "No matching genes in this window. Try another ID, symbol or description, or widen the window.";
+}
+
+// Filter the table to the exact gene explicitly chosen from the suggestions.
+function selectNeighborSuggestion(index) {
+  byId("neighbor-search").value = neighborOptions[index].id;
+  closeNeighborSuggestions();
+  filterNeighborTable();
+}
+
+// Apply the neighboring gene selected by clicking a suggestion.
+function chooseNeighborSuggestion(event) {
+  selectNeighborSuggestion(Number(event.currentTarget.dataset.index));
+}
+
+// Support arrow keys, Enter selection and Escape or Tab dismissal for gene suggestions.
+function navigateNeighborSuggestions(event) {
+  if (event.key === "Escape" || event.key === "Tab") closeNeighborSuggestions();
+  const open = !byId("neighbor-suggestions").hidden;
+  if (open && (event.key === "ArrowDown" || event.key === "ArrowUp")) {
+    event.preventDefault();
+    activeNeighborOption =
+      (activeNeighborOption +
+        (event.key === "ArrowDown" ? 1 : -1) +
+        neighborOptions.length) %
+      neighborOptions.length;
+    for (let index = 0; index < neighborOptions.length; index++)
+      byId(`neighbor-option-${index}`).setAttribute(
+        "aria-selected",
+        String(index === activeNeighborOption),
+      );
+    byId("neighbor-search").setAttribute(
+      "aria-activedescendant",
+      `neighbor-option-${activeNeighborOption}`,
+    );
+  } else if (open && event.key === "Enter" && activeNeighborOption >= 0) {
+    event.preventDefault();
+    selectNeighborSuggestion(activeNeighborOption);
+  }
+}
+
+// Apply the typed neighboring-gene query only when the user submits the search.
+function submitNeighborSearch(event) {
+  event.preventDefault();
+  closeNeighborSuggestions();
+  filterNeighborTable();
+}
+
+// Restore the full neighboring-gene table without changing the selected genomic region.
+function clearNeighborSearch() {
+  byId("neighbor-search").value = "";
+  closeNeighborSuggestions();
+  filterNeighborTable();
+}
+
+// Dismiss neighboring-gene suggestions when focus moves outside through a mouse click.
+function dismissNeighborSuggestions(event) {
+  if (!byId("neighbor-search-form").contains(event.target)) closeNeighborSuggestions();
+}
+
+byId("neighbor-search").onkeydown = navigateNeighborSuggestions;
+byId("neighbor-search-form").onsubmit = submitNeighborSearch;
+byId("clear-neighbor-search").onclick = clearNeighborSearch;
+document.addEventListener("click", dismissNeighborSuggestions);
