@@ -217,3 +217,45 @@ class PlatformTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class VariantSearchTests(unittest.TestCase):
+    # Search all regional records with equivalent formatted positions and exact selected IDs.
+    def test_variant_search_and_suggestions(self):
+        gene = "Os03g0407400"
+        all_records = app.region(gene, export=True)
+        record = all_records[-1]
+        query = f"chr{record['chromosome']}:{record['position']:,}"
+        filtered = app.region(gene, variant_query=query)
+        self.assertTrue(filtered["associations"])
+        self.assertEqual(
+            filtered["total_associations"],
+            sum(r["position"] == record["position"] for r in all_records),
+        )
+        self.assertEqual(
+            filtered["total_associations"],
+            app.region(gene, variant_query=query.replace(",", ""))[
+                "total_associations"
+            ],
+        )
+        suggestions = app.region(gene, variant_query=query[:5], suggestions=True)
+        self.assertLessEqual(len(suggestions["suggestions"]), 8)
+        self.assertGreaterEqual(suggestions["total"], len(suggestions["suggestions"]))
+        exact = app.region(gene, variant_query=record["id"])
+        self.assertEqual([r["id"] for r in exact["associations"]], [record["id"]])
+        self.assertEqual(
+            len(app.region(gene, variant_query=record["id"], export=True)), 1
+        )
+
+    # Keep variant suggestions inside the requested region and reject oversized search input.
+    def test_variant_search_boundaries(self):
+        gene = "Os03g0407400"
+        self.assertEqual(
+            app.region(gene, variant_query="chr1:1", suggestions=True)["suggestions"],
+            [],
+        )
+        self.assertEqual(
+            app.region(gene, variant_query="' OR 1=1 --")["total_associations"], 0
+        )
+        with self.assertRaises(ValueError):
+            app.region(gene, variant_query="1" * 101)

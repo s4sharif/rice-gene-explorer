@@ -62,6 +62,7 @@ class HostingTests(unittest.TestCase):
             "/api/search?q=GS3",
             "/api/status",
             "/api/region?gene=Os03g0407400",
+            "/api/variant-suggestions?gene=Os03g0407400&variant_query=chr3",
             "/api/export?gene=Os03g0407400",
             "/api/expression/datasets",
             "/api/expression/sources?gene=Os03g0407400",

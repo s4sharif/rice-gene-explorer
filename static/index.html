@@ -672,7 +672,42 @@
           </p>
         </section>
         <section class="panel" id="variation-panel">
-          <h2>Recorded variant positions</h2>
+          <div class="variant-heading">
+            <h2>Recorded variant positions</h2>
+            <form id="variant-search-form" role="search" aria-label="Recorded variants">
+              <label for="variant-search">Search recorded variants</label>
+              <div class="searchline">
+                <input
+                  id="variant-search"
+                  type="search"
+                  maxlength="100"
+                  placeholder="chr3:16,733,441 or record ID"
+                  autocomplete="off"
+                  role="combobox"
+                  aria-autocomplete="list"
+                  aria-expanded="false"
+                  aria-controls="variant-suggestions"
+                /><button type="submit">Search</button
+                ><button type="button" class="secondary" id="clear-variant-search">
+                  Clear
+                </button>
+              </div>
+              <ul
+                id="variant-suggestions"
+                role="listbox"
+                aria-label="Suggested records"
+                hidden
+              ></ul>
+              <p
+                id="variant-search-status"
+                class="muted"
+                role="status"
+                aria-live="polite"
+              >
+                Searches every matching record in this region, including other pages.
+              </p>
+            </form>
+          </div>
           <p id="variation-counts"></p>
           <p>
             Each row is an association-linked observation; positions may repeat across

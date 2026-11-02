@@ -5,6 +5,7 @@ import csv
 import io
 import json
 import math
+import re
 import sqlite3
 from contextlib import contextmanager
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -87,11 +88,16 @@ def region(
     maximum_p=1.0,
     position_filter="",
     include_repeats=False,
+    variant_query="",
+    suggestions=False,
 ):
     if not 0 <= window <= 1000000:
         raise ValueError("Window must be between 0 and 1,000,000 bp on each side.")
     if page < 1 or page > 100000:
         raise ValueError("Invalid results page.")
+    if len(variant_query) > 100:
+        raise ValueError("Variant search must contain at most 100 characters.")
+    variant_query = "".join(variant_query.lower().replace(",", "").split())
     if len(trait) > 200:
         raise ValueError("Trait filter too long.")
     if len(study) > 100 or (publication and not publication.isdigit()):
@@ -136,6 +142,12 @@ def region(
             left = (position_filter == "upstream") == (gene["strand"] == "+")
             where += " AND a.position" + ("<?" if left else ">?")
             args.append(gene["start"] if left else gene["end"])
+        if re.fullmatch(r"\d+:\d+", variant_query):
+            where += " AND a.id=?"
+            args.append(variant_query)
+        elif variant_query:
+            where += " AND (instr(lower('chr'||a.chromosome||':'||a.position),?)>0 OR instr(lower(a.id),?)>0)"
+            args.extend([variant_query, variant_query])
         table = "association" if include_repeats else "association_display"
         join = (
             " FROM "
@@ -144,6 +156,18 @@ def region(
             + where
         )
         total = db.execute("SELECT count(*)" + join, args).fetchone()[0]
+        if suggestions:
+            matches = [
+                dict(row)
+                for row in db.execute(
+                    "SELECT a.id,a.chromosome,a.position,t.label AS trait"
+                    + join
+                    + " ORDER BY a.position,a.id LIMIT 8",
+                    args,
+                )
+            ]
+            return {"suggestions": matches, "total": total}
+
         source_total = db.execute(
             "SELECT count(*)"
             + join.replace(" FROM " + table + " a ", " FROM association a "),
@@ -360,7 +384,11 @@ class Handler(BaseHTTPRequestHandler):
                 return self.send_json(data)
             if parsed.path == "/api/search":
                 return self.send_json(search(q.get("q", "")))
-            if parsed.path in {"/api/region", "/api/export"}:
+            if parsed.path in {
+                "/api/region",
+                "/api/export",
+                "/api/variant-suggestions",
+            }:
                 result = region(
                     q.get("gene", ""),
                     int(q.get("window", 25000)),
@@ -372,6 +400,8 @@ class Handler(BaseHTTPRequestHandler):
                     maximum_p=float(q.get("maximum_p", 1)),
                     position_filter=q.get("position", ""),
                     include_repeats=q.get("include_repeats", "false") == "true",
+                    variant_query=q.get("variant_query", ""),
+                    suggestions=parsed.path == "/api/variant-suggestions",
                 )
                 if parsed.path == "/api/export":
                     out = io.StringIO()

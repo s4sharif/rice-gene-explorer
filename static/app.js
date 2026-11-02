@@ -20,6 +20,11 @@ function escapeCharacter(character) {
   return entities[character];
 }
 
+let variantSuggestionRequest = 0;
+let variantSuggestionTimer;
+let variantOptions = [];
+let activeVariantOption = -1;
+let regionQuery = "";
 let expressionData = null;
 let expressionExport = null;
 if (
@@ -204,11 +209,14 @@ function renderNeighbor(gene) {
 
 // Load a gene's regional evidence while ignoring responses from superseded requests.
 async function loadRegion(geneId, page = 1) {
+  closeVariantSuggestions();
   const requestId = ++latestRequest;
   setStatus("Loading gene and regional evidence…");
 
   try {
     if (geneId !== selectedGene) {
+      byId("variant-search").value = "";
+      closeVariantSuggestions();
       byId("study").value = "";
       byId("publication").value = "";
     }
@@ -222,7 +230,10 @@ async function loadRegion(geneId, page = 1) {
       maximum_p: byId("maximum-p").value,
       position: byId("position").value,
       include_repeats: byId("include-repeats").checked,
+      variant_query:
+        document.body.dataset.page === "variation" ? byId("variant-search").value : "",
     });
+    regionQuery = query.toString();
     const data = await fetchJson(`/api/region?${query}`);
     if (requestId !== latestRequest) return;
 
@@ -308,6 +319,8 @@ function updateStudyOptions(data) {
 
 // Clear evidence filters while preserving the selected gene and genomic window.
 function resetFilters() {
+  byId("variant-search").value = "";
+  closeVariantSuggestions();
   byId("trait").value = "";
   byId("study").value = "";
   byId("publication").value = "";
@@ -694,6 +707,7 @@ byId("expression-dataset").onchange = loadExpression;
 
 // Display the requested tool while preserving one shared gene and browser history.
 function showToolPage() {
+  const previousPage = document.body.dataset.page;
   const page = location.pathname.slice(1) || "home";
   document.body.dataset.page = page;
   const titles = {
@@ -718,6 +732,14 @@ function showToolPage() {
   document.title =
     page === "home" ? "RiceLENS · Wilkins Lab" : `${title} · RiceLENS · Wilkins Lab`;
   updateToolLinks();
+  if (
+    selectedGene &&
+    previousPage &&
+    previousPage !== page &&
+    page !== "home" &&
+    byId("variant-search").value
+  )
+    loadRegion(selectedGene, 1);
 }
 
 // Carry the current gene, window and expression study into each tool link.
@@ -844,3 +866,130 @@ function filterNeighborTable() {
 byId("zoom-in").onclick = zoomInRegion;
 byId("zoom-out").onclick = zoomOutRegion;
 byId("neighbor-search").oninput = filterNeighborTable;
+
+// Close stale suggestions without altering the user's typed position or record identifier.
+function closeVariantSuggestions() {
+  ++variantSuggestionRequest;
+  clearTimeout(variantSuggestionTimer);
+  byId("variant-suggestions").hidden = true;
+  byId("variant-search").setAttribute("aria-expanded", "false");
+  byId("variant-search").removeAttribute("aria-activedescendant");
+  activeVariantOption = -1;
+}
+
+// Debounce all-region suggestions while retaining an explicitly submitted results table.
+function queueVariantSuggestions() {
+  closeVariantSuggestions();
+  const value = byId("variant-search").value.trim();
+  byId("variant-search-status").textContent =
+    "Choose a suggested record or press Search to apply this text to every matching regional record.";
+  if (!value || !selectedGene) return;
+  variantSuggestionTimer = setTimeout(fetchVariantSuggestions, 250);
+}
+
+// Retrieve suggestions across all matching regional records rather than the displayed page.
+async function fetchVariantSuggestions() {
+  const requestId = ++variantSuggestionRequest;
+  const query = new URLSearchParams(regionQuery);
+  query.set("variant_query", byId("variant-search").value);
+  try {
+    const data = await fetchJson(`/api/variant-suggestions?${query}`);
+    if (requestId !== variantSuggestionRequest) return;
+    variantOptions = data.suggestions;
+    const list = byId("variant-suggestions");
+    list.replaceChildren();
+    for (let index = 0; index < variantOptions.length; index++) {
+      const record = variantOptions[index];
+      const option = document.createElement("li");
+      option.id = `variant-option-${index}`;
+      option.setAttribute("role", "option");
+      option.setAttribute("aria-selected", "false");
+      option.dataset.index = index;
+      option.textContent = `chr${record.chromosome}:${record.position.toLocaleString()} · record ${record.id} · ${record.trait}`;
+      option.onclick = chooseVariantSuggestion;
+      list.append(option);
+    }
+    list.hidden = !variantOptions.length;
+    byId("variant-search").setAttribute(
+      "aria-expanded",
+      String(variantOptions.length > 0),
+    );
+    byId("variant-search-status").textContent = data.total
+      ? `${data.total.toLocaleString()} matching records in this region; showing up to 8 suggestions. Use arrow keys and Enter to select, or Search to show all matches.`
+      : "No matching records in the selected region and filters. Check the position or record ID, widen the window, or clear the search.";
+  } catch (error) {
+    if (requestId === variantSuggestionRequest)
+      byId("variant-search-status").textContent =
+        "Suggestions could not be loaded. You can still submit the search.";
+  }
+}
+
+// Select the exact association record explicitly chosen from the suggestion list.
+function chooseVariantSuggestion(event) {
+  selectVariantRecord(Number(event.currentTarget.dataset.index));
+}
+
+// Apply a selected record identifier without silently changing unselected user input.
+function selectVariantRecord(index) {
+  byId("variant-search").value = variantOptions[index].id;
+  closeVariantSuggestions();
+  byId("variant-search-status").textContent =
+    "Showing the selected record across this regional dataset.";
+  loadRegion(selectedGene, 1);
+}
+
+// Support standard combobox arrow navigation, explicit selection and Escape dismissal.
+function navigateVariantSuggestions(event) {
+  if (event.key === "Escape" || event.key === "Tab") closeVariantSuggestions();
+  const open = !byId("variant-suggestions").hidden;
+  if (open && (event.key === "ArrowDown" || event.key === "ArrowUp")) {
+    event.preventDefault();
+    activeVariantOption =
+      (activeVariantOption +
+        (event.key === "ArrowDown" ? 1 : -1) +
+        variantOptions.length) %
+      variantOptions.length;
+    for (let index = 0; index < variantOptions.length; index++)
+      byId(`variant-option-${index}`).setAttribute(
+        "aria-selected",
+        String(index === activeVariantOption),
+      );
+    byId("variant-search").setAttribute(
+      "aria-activedescendant",
+      `variant-option-${activeVariantOption}`,
+    );
+  } else if (open && event.key === "Enter" && activeVariantOption >= 0) {
+    event.preventDefault();
+    selectVariantRecord(activeVariantOption);
+  }
+}
+
+// Apply manually typed variant text to the complete region and reset pagination.
+function submitVariantSearch(event) {
+  event.preventDefault();
+  closeVariantSuggestions();
+  byId("variant-search-status").textContent =
+    "Search applied to all matching records in the selected region. Clear to restore regional results.";
+  if (selectedGene) loadRegion(selectedGene, 1);
+}
+
+// Restore all regional records without changing the selected gene or scientific filters.
+function clearVariantSearch() {
+  byId("variant-search").value = "";
+  closeVariantSuggestions();
+  byId("variant-search-status").textContent =
+    "Search cleared. Showing all records matching the region and other filters.";
+  if (selectedGene) loadRegion(selectedGene, 1);
+}
+
+byId("variant-search").oninput = queueVariantSuggestions;
+byId("variant-search").onkeydown = navigateVariantSuggestions;
+byId("variant-search-form").onsubmit = submitVariantSearch;
+byId("clear-variant-search").onclick = clearVariantSearch;
+
+// Dismiss the suggestion dropdown when the user clicks outside its search form.
+function dismissVariantSuggestions(event) {
+  if (!byId("variant-search-form").contains(event.target)) closeVariantSuggestions();
+}
+
+document.addEventListener("click", dismissVariantSuggestions);

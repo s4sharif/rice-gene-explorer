@@ -801,3 +801,42 @@ body[data-page="expression"] .pagination {
   display: block;
   margin: 10px 0 20px;
 }
+.variant-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+#variant-search-form {
+  flex: 0 1 540px;
+  position: relative;
+}
+#variant-search-status {
+  font-size: 13px;
+}
+#variant-suggestions {
+  position: absolute;
+  z-index: 5;
+  top: 80px;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  background: white;
+  border: 1px solid #647eae;
+  box-shadow: 0 5px 15px #202c4026;
+  max-height: 330px;
+  overflow-y: auto;
+}
+#variant-suggestions li {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--line);
+}
+#variant-suggestions li:hover,
+#variant-suggestions li[aria-selected="true"] {
+  background: #e3edf7;
+  color: #163d60;
+}
