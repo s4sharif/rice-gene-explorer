@@ -541,8 +541,7 @@
       </section>
       <section class="search" aria-label="Gene search">
         <div class="section-intro">
-          <span class="section-number">01 / SEARCH</span>
-          <p>Search genes.</p>
+          <p>Find a rice gene</p>
         </div>
         <form id="search">
           <label for="query">Gene ID or symbol</label>
@@ -556,7 +555,7 @@
             /><button>Find gene →</button>
           </div>
           <p class="muted">
-            RAP loci, transcripts, mapped MSU identifiers and annotated symbols. Try
+            Try
             <button type="button" class="link" data-example="GS3">GS3</button> or
             <button type="button" class="link" data-example="SD1">SD1</button>.
           </p>
@@ -614,17 +613,12 @@
                 rows</label
               >
             </div>
+            <div class="filter-actions">
+              <button id="apply">Apply filters</button>
+              <button id="reset" class="secondary">Reset filters</button>
+            </div>
           </details>
-          <button id="reset" class="secondary">Reset filters</button>
-          <button id="apply">Apply filters</button
-          ><a id="export" class="button secondary">Export evidence CSV</a>
-        </div>
-        <div class="notice">
-          A nearby GWAS signal is regional evidence. It does not establish that the
-          selected gene is causal. These are curated published associations, not
-          complete genome-wide SNP results. Significance thresholds vary by study;
-          RiceLENS does not apply a common significance threshold. No GWAS or
-          single-cell analysis runs during this search.
+          <a id="export" class="button secondary">Export evidence CSV</a>
         </div>
         <section class="panel" id="neighborhood-panel">
           <h2>Genomic neighborhood</h2>
@@ -638,17 +632,6 @@
               ><b class="legend-circle" aria-hidden="true">●</b> Adjustment status
               unverified</span
             >
-          </p>
-          <p class="muted">
-            The vertical axis uses each study's reported value. Adjusted and unverified
-            values are not equivalent evidence scales. Point details include the
-            statistic type; no shared significance line is drawn.
-          </p>
-          <p class="muted">
-            Gene and displayed SNP coordinates use IRGSP-1.0 (1-based, inclusive). SNP
-            assembly is taken from the source's explicit reference label; remapping from
-            each original study has not been independently verified. Unresolved
-            reference labels and out-of-range coordinates are excluded.
           </p>
           <div class="plot-toolbar">
             <button id="zoom-in" type="button">Zoom in +</button
@@ -666,10 +649,32 @@
           </div>
           <p id="gene-detail" class="notice" role="status" aria-live="polite"></p>
           <p class="muted">
-            Click a gene arrow or its name to explore it. Gene orientation follows the
-            reference strand. Plot points show association records, which may share a
-            position.
+            Nearby associations show regional evidence. Causality requires further
+            evidence.
           </p>
+          <details class="reading-guide">
+            <summary>How to read this chart</summary>
+            <p>
+              Each point is a published association record. Multiple records can share a
+              position. Select a gene arrow to explore that gene. Arrows follow the
+              reference strand.
+            </p>
+            <p>
+              Coverage is limited to curated published associations. Significance
+              thresholds vary by study.
+            </p>
+            <p class="muted">
+              The vertical axis uses each study's reported value. Adjusted and
+              unverified values are not equivalent evidence scales. Point details
+              include the statistic type; no shared significance line is drawn.
+            </p>
+            <p class="muted">
+              Gene and displayed SNP coordinates use IRGSP-1.0 (1-based, inclusive). SNP
+              assembly is taken from the source's explicit reference label; remapping
+              from each original study has not been independently verified. Unresolved
+              reference labels and out-of-range coordinates are excluded.
+            </p>
+          </details>
         </section>
         <section class="panel" id="variation-panel">
           <div class="variant-heading">
@@ -812,7 +817,7 @@
         <section class="panel" id="expression-panel">
           <h2>Baseline cell-type expression</h2>
           <div id="study-coverage"></div>
-          <label for="expression-dataset">Expression study (viewed separately)</label>
+          <label for="expression-dataset">Study</label>
           <select id="expression-dataset">
             <option value="robertson_2026_control">
               Robertson et al. (2026) · developing leaf
@@ -834,8 +839,8 @@
             >
           </div>
           <p class="muted">
-            Choose a study, then an organ and cell type. Filters affect the plot and
-            table; the CSV contains the full selected study comparison.
+            Compare expression within one study at a time. CSV exports include all cell
+            types for the selected genes.
           </p>
           <details>
             <summary>Compare neighboring genes</summary>

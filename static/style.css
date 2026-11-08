@@ -854,3 +854,21 @@ body[data-page="expression"] .pagination {
   margin: 0;
   max-width: none;
 }
+
+.reading-guide {
+  margin: 16px 0;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+}
+.reading-guide summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.reading-guide p {
+  max-width: 72ch;
+}
+.filter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}

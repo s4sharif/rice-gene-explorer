@@ -388,15 +388,16 @@ function drawNeighborhood(data) {
   markup +=
     '<text transform="translate(16,135) rotate(-90)" font-size="12" fill="#647086">−log₁₀(reported p)</text>';
 
+  const pointRadius = data.plot_associations.length > 150 ? 2.5 : 4;
   for (const association of data.plot_associations) {
     const adjusted = association.adjustment_status === "verified_fdr_adjusted";
     const cx = x(association.position);
     const cy = y(association.neg_log10_p);
     const shape = adjusted
       ? `<polygon points="${cx},${cy - 5} ${cx + 5},${cy} ${cx},${cy + 5} ${cx - 5},${cy}" fill="#a64b00"/>`
-      : `<circle cx="${cx}" cy="${cy}" r="4" fill="#52616f"/>`;
+      : `<circle cx="${cx}" cy="${cy}" r="${pointRadius}" fill="#52616f" fill-opacity="0.75"/>`;
     const label = `${association.trait} · chr${association.chromosome}:${association.position} · reported p=${association.p_value_text} · ${association.statistic_kind} · ${association.review_status} · ${association.relation}`;
-    markup += `<g tabindex="0" role="img" aria-label="${escapeHtml(label)}">${shape}<title>${escapeHtml(label)}</title></g>`;
+    markup += `<g role="img" aria-label="${escapeHtml(label)}">${shape}<title>${escapeHtml(label)}</title></g>`;
   }
   for (let index = 0; index <= 4; index++) {
     const position = Math.round(data.start + ((data.end - data.start) * index) / 4);
@@ -440,10 +441,9 @@ function drawNeighborhood(data) {
     `0 0 ${width} ${compact ? 390 : Math.max(320, 270 + laneEnds.length * 42)}`,
   );
   byId("chart-mode").textContent = compact
-    ? `Compact overview · ${data.neighbors.length} genes. Only the selected gene is labelled; hover or focus a mark for details, or zoom in for labels. Closely spaced marks may overlap.`
-    : `${data.neighbors.length} genes · detailed view. Hover or focus a gene for its description.`;
-  byId("gene-detail").textContent =
-    "Gene details: hover a mark or use Tab to focus it. Press Enter to explore the gene.";
+    ? `Compact overview · ${data.neighbors.length} genes. Zoom in to see more gene labels.`
+    : `${data.neighbors.length} genes · Hover over or focus a gene for details.`;
+  byId("gene-detail").textContent = "Select a gene arrow to explore its evidence.";
   byId("zoom-in").disabled = byId("window").selectedIndex === 0;
   byId("zoom-out").disabled =
     byId("window").selectedIndex === byId("window").options.length - 1;
@@ -646,7 +646,7 @@ async function loadStudyCoverage(requestId) {
 // Render study-specific dot plots and numeric tables without substituting zero for missing genes.
 function renderExpression(data) {
   const dataset = data.dataset;
-  let html = `<p><a href="${escapeHtml(dataset.publication_url)}" target="_blank" rel="noopener">${escapeHtml(dataset.citation)}</a> · <a href="${escapeHtml(dataset.repository_url)}" target="_blank" rel="noopener">Source data</a></p><p class="muted">${escapeHtml(dataset.metric_description)} ${escapeHtml(dataset.coverage_note)} Values are descriptive and comparable within this dataset only. No stress or differential-expression analysis is shown.</p>`;
+  let html = `<p><a href="${escapeHtml(dataset.publication_url)}" target="_blank" rel="noopener">${escapeHtml(dataset.citation)}</a> · <a href="${escapeHtml(dataset.repository_url)}" target="_blank" rel="noopener">Source data</a></p><details class="reading-guide"><summary>Methods and data coverage</summary><p>${escapeHtml(dataset.metric_description)}</p><p>${escapeHtml(dataset.coverage_note)}</p></details>`;
   if (dataset.annotation_source_url) {
     html += `<p class="notice">Cell annotations: <a href="${escapeHtml(dataset.annotation_source_url)}" target="_blank" rel="noopener">${escapeHtml(dataset.annotation_source_name)}</a> · <a href="${escapeHtml(dataset.annotation_publication_url)}" target="_blank" rel="noopener">Curation publication</a>. ${escapeHtml(dataset.annotation_note)}</p>`;
   }
@@ -694,8 +694,8 @@ function renderExpression(data) {
   for (let index = 0; index < order.length; index++)
     svg += `<text x="225" y="${69 + index * 32}" text-anchor="end" font-size="12">${escapeHtml(order[index])}</text>`;
   svg += "</svg>";
-  html += `<p>Cell types ordered by expression of ${escapeHtml(first.gene_id)}. Dot area = percentage detected; darker blue = higher mean expression on one shared scale for this comparison. NA = feature unavailable for this cell type’s samples; no dot = measured zero detection.</p><div class="expression-legend"><svg viewBox="0 0 650 55" role="img" aria-label="Dot area represents percentage detected: ten, fifty and one hundred percent. Color goes from zero to the displayed maximum mean expression."><defs><linearGradient id="expression-gradient"><stop offset="0%" stop-color="#e1eef7"/><stop offset="100%" stop-color="#005a8d"/></linearGradient></defs><circle cx="20" cy="20" r="${11 * Math.sqrt(0.1)}" fill="#52616f"/><text x="35" y="24">10%</text><circle cx="100" cy="20" r="${11 * Math.sqrt(0.5)}" fill="#52616f"/><text x="118" y="24">50%</text><circle cx="190" cy="20" r="11" fill="#52616f"/><text x="208" y="24">100%</text><rect x="300" y="10" width="150" height="20" fill="url(#expression-gradient)"/><text x="295" y="49">0</text><text x="450" y="49" text-anchor="end">${maximum.toFixed(3)}</text><text x="470" y="24">Mean log expression</text></svg></div><div class="chartscroll">${svg}</div>`;
-  html += `<details open><summary>Expression values and within-study ranks (small groups require caution)</summary><div class="tablewrap expression-table"><table><thead><tr><th>Gene</th><th>Cell type</th><th>Tissue system / organ</th><th>Rank</th><th>Mean log expression</th><th>Expressing ${escapeHtml(dataset.cell_unit || "nuclei")}</th><th>Percentage</th><th>Replicates represented</th></tr></thead><tbody>`;
+  html += `<p>Larger dots mean a higher percentage of cells expressed the gene. Darker dots mean higher average expression.</p><div class="expression-legend"><svg viewBox="0 0 650 55" role="img" aria-label="Dot area represents percentage detected: ten, fifty and one hundred percent. Color goes from zero to the displayed maximum mean expression."><defs><linearGradient id="expression-gradient"><stop offset="0%" stop-color="#e1eef7"/><stop offset="100%" stop-color="#005a8d"/></linearGradient></defs><circle cx="20" cy="20" r="${11 * Math.sqrt(0.1)}" fill="#52616f"/><text x="35" y="24">10%</text><circle cx="100" cy="20" r="${11 * Math.sqrt(0.5)}" fill="#52616f"/><text x="118" y="24">50%</text><circle cx="190" cy="20" r="11" fill="#52616f"/><text x="208" y="24">100%</text><rect x="300" y="10" width="150" height="20" fill="url(#expression-gradient)"/><text x="295" y="49">0</text><text x="450" y="49" text-anchor="end">${maximum.toFixed(3)}</text><text x="470" y="24">Mean log expression</text></svg></div><div class="chartscroll">${svg}</div>`;
+  html += `<details class="reading-guide"><summary>View expression values and ranks</summary><p>Rows are ranked within this study. Interpret small groups with care. In the plot, NA marks unavailable measurements and a blank marks zero detection.</p><div class="tablewrap expression-table"><table><thead><tr><th>Gene</th><th>Cell type</th><th>Tissue system / organ</th><th>Rank</th><th>Mean log expression</th><th>Expressing ${escapeHtml(dataset.cell_unit || "nuclei")}</th><th>Percentage</th><th>Replicates represented</th></tr></thead><tbody>`;
   for (const gene of measured)
     for (const row of gene.groups)
       html += `<tr><td>${escapeHtml(gene.gene_id)}</td><td>${escapeHtml(row.cell_type)}</td><td>${escapeHtml(row.tissue_system)}</td><td>${row.rank}</td><td>${row.mean_log.toFixed(4)}</td><td>${row.n_expressing.toLocaleString()} / ${row.n_cells.toLocaleString()}</td><td>${row.percent_expressing.toFixed(2)}%</td><td>${row.n_samples} / ${dataset.n_samples}</td></tr>`;
@@ -717,18 +717,9 @@ function showToolPage() {
   document.body.dataset.page = page;
   const titles = {
     home: ["RiceLENS", ""],
-    variation: [
-      "Genetic Variation",
-      "Explore association-linked SNP positions and genomic regions. Coverage comes from published GWAS records, not a complete variant catalog.",
-    ],
-    gwas: [
-      "GWAS Associations",
-      "Explore published trait associations, statistical evidence and neighboring genes. A nearby signal does not establish causality.",
-    ],
-    expression: [
-      "Cell Type Expression",
-      "Explore baseline expression across available organs and cell types. Compare genes within one study at a time.",
-    ],
+    variation: ["Genetic Variation", "Find recorded SNP positions near a rice gene."],
+    gwas: ["GWAS Associations", "Find published trait associations near a rice gene."],
+    expression: ["Cell Type Expression", "See where a rice gene is expressed."],
   };
   const [title, description] = titles[page] || titles.home;
   byId("page-title").textContent = title;
