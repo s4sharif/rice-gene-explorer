@@ -872,3 +872,14 @@ body[data-page="expression"] .pagination {
   flex-wrap: wrap;
   gap: 10px;
 }
+
+.expression-result-summary {
+  padding: 12px 16px;
+  list-style: none;
+  background: #f4f7fc;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+}
+.expression-result-summary li + li {
+  margin-top: 8px;
+}

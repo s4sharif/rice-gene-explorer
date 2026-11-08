@@ -500,7 +500,12 @@ function showNextPage() {
 
 // Copy a documented example into the search field and resolve its matching genes.
 function chooseExample(event) {
-  byId("query").value = event.currentTarget.dataset.example;
+  const { example, exampleStudy } = event.currentTarget.dataset;
+  byId("query").value = example;
+  if (exampleStudy) {
+    if (expressionCatalogLoaded) byId("expression-dataset").value = exampleStudy;
+    else initialExpressionDataset = exampleStudy;
+  }
   searchGenes();
 }
 
@@ -594,7 +599,7 @@ async function loadExpression() {
       return;
     }
     byId("expression-status").textContent =
-      `${data.dataset.citation} · ${data.dataset.organ} · ${data.dataset.condition} · ${data.dataset.n_cells.toLocaleString()} ${data.dataset.cell_unit || "nuclei"} · ${data.dataset.n_samples} replicates`;
+      `${data.dataset.citation} · ${datasetId === "wang_2025_normal_root" ? "Root only" : data.dataset.organ} · ${data.dataset.condition} · ${data.dataset.n_cells.toLocaleString()} ${data.dataset.cell_unit || "nuclei"} · ${data.dataset.n_samples} replicates`;
     expressionExport = null;
     populateExpressionFilters(data);
     const bookmark = new URLSearchParams(location.hash.slice(1));
@@ -651,11 +656,25 @@ function renderExpression(data) {
     html += `<p class="notice">Cell annotations: <a href="${escapeHtml(dataset.annotation_source_url)}" target="_blank" rel="noopener">${escapeHtml(dataset.annotation_source_name)}</a> · <a href="${escapeHtml(dataset.annotation_publication_url)}" target="_blank" rel="noopener">Curation publication</a>. ${escapeHtml(dataset.annotation_note)}</p>`;
   }
   const measured = [];
+  let resultSummary =
+    '<ul class="expression-result-summary" aria-label="Expression results">';
   for (const gene of data.genes) {
-    if (gene.status === "measured") measured.push(gene);
-    else
-      html += `<p>${escapeHtml(gene.gene_id)}: not available in the retained source features; this does not mean zero expression. Try another study or compare a neighboring gene.</p>`;
+    const id = escapeHtml(gene.gene_id);
+    if (gene.status !== "measured") {
+      resultSummary += `<li><strong>${id}</strong> · Gene not measured in the available data</li>`;
+      continue;
+    }
+    measured.push(gene);
+    if (!gene.groups.length) {
+      resultSummary += `<li><strong>${id}</strong> · No measurements for the selected cell types</li>`;
+      continue;
+    }
+    let detected = 0;
+    for (const group of gene.groups) if (group.n_expressing > 0) detected++;
+    const zero = gene.groups.length - detected;
+    resultSummary += `<li><strong>${id}</strong> · Detected in ${detected} of ${gene.groups.length} measured cell types${zero ? ` · Zero detected in ${zero}` : ""}</li>`;
   }
+  html = resultSummary + "</ul>" + html;
   if (!measured.length) {
     byId("expression-content").innerHTML = html;
     return;

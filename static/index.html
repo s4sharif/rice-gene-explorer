@@ -19,7 +19,14 @@
           ><a href="/gwas" data-route="gwas">GWAS Associations</a
           ><a href="/expression" data-route="expression">Cell Type Expression</a>
         </div>
-        <span class="tag">Wilkins Lab <span aria-hidden="true">↗</span></span>
+        <a
+          class="tag"
+          href="https://www.oliviawilkinslab.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Wilkins Lab (opens in a new tab)"
+          >Wilkins Lab <span aria-hidden="true">↗</span></a
+        >
       </nav>
       <div class="hero">
         <div class="hero-copy">
@@ -816,6 +823,23 @@
         </section>
         <section class="panel" id="expression-panel">
           <h2>Baseline cell-type expression</h2>
+          <details class="reading-guide">
+            <summary>Try an example: compare SD1 with a neighboring gene</summary>
+            <p>
+              Load SD1 in the Wang root study. Open
+              <strong>Compare neighboring genes</strong>, select one nearby gene, then
+              choose <strong>Update expression comparison</strong>. Look for cell types
+              where the dots differ in size or color.
+            </p>
+            <button
+              type="button"
+              class="secondary"
+              data-example="Os01g0883800"
+              data-example-study="wang_2025_normal_root"
+            >
+              Load SD1 in the Wang root study
+            </button>
+          </details>
           <div id="study-coverage"></div>
           <label for="expression-dataset">Study</label>
           <select id="expression-dataset">
