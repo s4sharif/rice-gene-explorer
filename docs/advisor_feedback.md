@@ -29,4 +29,4 @@ The Robertson controls now supply 36,455 nuclei across three replicates and 14 o
 - Continue source-specific GWAS statistic and coordinate curation.
 - Obtain advisor feedback on the revised search and plots.
 
-See [expression sources](expression_sources.md) and [private hosting](private_hosting.md). The earlier 19/20 first-stage checklist does not measure completion of this expanded expression scope.
+See [expression sources](expression_sources.md). The earlier 19/20 first-stage checklist does not measure completion of this expanded expression scope.

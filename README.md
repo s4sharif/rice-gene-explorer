@@ -77,7 +77,6 @@ The fetcher verifies the included snapshot checksums and refuses silently change
 
 ## Project documentation and next steps
 
-- [Project brief](docs/project_brief.md): current objectives and first-stage requirements.
 - [Implementation plan](docs/implementation_plan.md): response to the revised project objectives, architecture, initial sources, milestones and open decisions.
 - [Database design](docs/database_design.md): table relationships, coordinate rules, missing values and planned expression extension.
 - [Learning notes](docs/learning_notes.md): a short explanation of the Python/database concepts used here.
@@ -88,7 +87,7 @@ Before treating this as a research database: expand the selected-paper review, r
 
 ## Review package
 
-Start with the [review walkthrough](docs/review_guide.md) and [requirements checklist](docs/requirements_checklist.md). The first-stage functional checklist has 19 of 20 checkpoints implemented (95%); supervisor acceptance remains open. This does not describe the proportion of scientifically validated records.
+Start with the [review walkthrough](docs/review_guide.md). Supervisor acceptance remains open.
 
 The source audit groups 2,803 exact repeated rows into 129,962 distinct evidence records. Direct comparisons with Table 1 in two original papers match coordinates/statistics for 93 source records, including 29 with trait or model-label conflicts. Checked adjusted p-values are identified and conflicting metadata is flagged in the table and exports. Unchecked records are explicitly labelled. See `data/publication_review.json`, `data/validation.json` and `data/review_examples.json`.
 
@@ -104,7 +103,7 @@ Expression methods and source-specific coverage are described in [the project do
 
 ## Private prototype hosting
 
-The private review prototype is hosted at [ricelens-review.onrender.com](https://ricelens-review.onrender.com). Its Free plan configuration is tracked in `render.yaml`, with mandatory reviewer authentication and bundled read-only database snapshots. See [the deployment guide](docs/free_hosting.md). The local command remains unchanged; hosted credentials belong only in Render environment secrets.
+The private review prototype is hosted at [ricelens-review.onrender.com](https://ricelens-review.onrender.com). Its Free plan configuration is tracked in `render.yaml`, with mandatory reviewer authentication and bundled read-only database snapshots. The local command remains unchanged; hosted credentials belong only in Render environment secrets.
 
 ## Dataset organization
 
