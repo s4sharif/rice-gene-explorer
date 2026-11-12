@@ -20,8 +20,6 @@ Use Python 3.11 or newer. The application and data importer use only the Python 
 
 The repository contains source code, documentation, a preview and provenance manifests. Downloaded third-party source files, the derived SQLite database and local caches are excluded from Git. The data scripts reproduce the database from the recorded source URLs and checksums. A private repository must be accessible to your GitHub account before cloning.
 
-![RiceLENS search choices](docs/ricelens_search.jpg)
-
 ## What is implemented
 
 - Search RAP gene IDs, RAP transcripts, mapped MSU identifiers, and annotated gene symbols; case-insensitive exact matching followed by literal prefix matching.
