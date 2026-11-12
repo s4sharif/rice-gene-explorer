@@ -3,7 +3,7 @@
 Use Python 3.11 or newer for the application. Node.js and the tools below are needed only when editing or checking source code.
 
 ```sh
-python3 -m pip install -r requirements-dev.txt
+python3 -m pip install -r requirements/dev.txt
 npm ci
 ```
 
@@ -23,7 +23,7 @@ npm run check:syntax
 python3 -m unittest discover -s tests -v
 ```
 
-The integration tests require a built database. Follow the README to download source snapshots and build it first. When changing imports or statistical interpretation, also run `python3 validate_data.py` and review the relevant documentation.
+The integration tests require a built database. Follow the README to download source snapshots and build it first. When changing imports or statistical interpretation, also run `python3 -m pipelines.validate_data` and review the relevant documentation.
 
 Preserve original source fields, document genome compatibility and retain missing values explicitly. Do not invent allele information, interpret a display window as an LD region or label nearby genes as causal. Keep downloaded data, database files, credentials and personal correspondence out of commits. Source release labels and checksums are necessary scientific provenance.
 

@@ -15,16 +15,16 @@ All **38,726 original count-matrix features** are processed, with **35,797** una
 Place the supplied publisher supplement at `data/raw/li_author/mmc3.xlsx`; its checksum is recorded in `data/expression_li_author_inputs.json`.
 
 ```sh
-python3 fetch_expression.py --study li_author
-python3 prepare_li_author.py
+python3 -m pipelines.fetch_expression --study li_author
+python3 -m pipelines.prepare_li_author
 Rscript scripts/summarize_li.R author
-python3 build_expression.py --study li_author
-python3 validate_expression.py --study li_author
+python3 -m pipelines.build_expression --study li_author
+python3 -m pipelines.validate_expression --study li_author
 ```
 
 The fetch command retrieves the original GEO inputs and verifies the supplied workbook. The parser reads literal XLSX values without Excel or added Python packages. The join fails on duplicate, missing or inconsistent sample/barcode keys.
 
-Outputs are `data/expression_li_author.sqlite`, the tracked manifest and join/independent-validation reports, plus intermediate matched-cell and sparse summary tables under the ignored raw directory. The author version appears separately in the website study selector and CSV exports.
+Outputs are `data/databases/expression_li_author.sqlite`, the tracked manifest and join/independent-validation reports, plus intermediate matched-cell and sparse summary tables under the ignored raw directory. The author version appears separately in the website study selector and CSV exports.
 
 ## Validation and interpretation
 

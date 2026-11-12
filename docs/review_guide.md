@@ -18,14 +18,14 @@ Follow the README's clone/download/build instructions, then open the local app. 
 
 ## What the primary-source check establishes
 
-`audit_publications.py` compares imported records with Table 1 of [Kumar et al., PMID 33367255](https://pmc.ncbi.nlm.nih.gov/articles/PMC7748012/) and [Zhao et al., PMID 29616055](https://pmc.ncbi.nlm.nih.gov/articles/PMC5864933/). Article identities should be read from their linked publications; matching is based on coordinate and statistic, with 2% relative tolerance for rounded values. For the latter table, p-values are reconstructed from the reported rounded −log10(p), and table footnotes distinguish model columns.
+`pipelines/audit_publications.py` compares imported records with Table 1 of [Kumar et al., PMID 33367255](https://pmc.ncbi.nlm.nih.gov/articles/PMC7748012/) and [Zhao et al., PMID 29616055](https://pmc.ncbi.nlm.nih.gov/articles/PMC5864933/). Article identities should be read from their linked publications; matching is based on coordinate and statistic, with 2% relative tolerance for rounded values. For the latter table, p-values are reconstructed from the reported rounded −log10(p), and table footnotes distinguish model columns.
 
 Ninety-three source records match the compared coordinates/statistics. Twenty-nine have conflicting trait or model labels in the export. The application retains the source assertion and flags the conflict. No unverified correction is written into the source data. Unmatched records, including most of the database, remain outside this primary-table validation scope.
 
 Repeat the audit with:
 
 ```sh
-python3 audit_publications.py --download
+python3 -m pipelines.audit_publications --download
 ```
 
 The article XML downloads remain local. The review report records source URLs, file hashes, comparison tolerance and per-record outcomes. Updating a source snapshot requires repeating the audit; the validation script rejects a report tied to a different association-file checksum.

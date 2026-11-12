@@ -8,8 +8,8 @@ import re
 import urllib.request
 import xml.etree.ElementTree as ET
 
-from app import connect
-from build_database import ROOT
+from backend.app import connect
+from pipelines.build_database import ROOT
 
 PAPERS = {"33367255": "PMC7748012", "29616055": "PMC5864933"}
 

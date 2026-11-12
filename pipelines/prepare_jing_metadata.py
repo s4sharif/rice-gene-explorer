@@ -8,10 +8,10 @@ from collections import defaultdict
 from contextlib import closing
 from pathlib import Path
 
-from build_expression import file_hash
+from pipelines.build_expression import file_hash
 from scripts.read_supplement import worksheet_rows
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[1]
 
 
 # Keep only unique author ZH11-to-MSU-to-RAP paths and reject many-to-one collisions.
@@ -61,7 +61,7 @@ def prepare(path):
             pairs[source].update(msu_ids)
     aliases = defaultdict(set)
     with closing(
-        sqlite3.connect(f"file:{ROOT / 'data/rice.sqlite'}?mode=ro", uri=True)
+        sqlite3.connect(f"file:{ROOT / 'data/databases/rice.sqlite'}?mode=ro", uri=True)
     ) as db:
         for name, gene in db.execute(
             "SELECT name,gene_id FROM alias WHERE kind='MSU locus'"

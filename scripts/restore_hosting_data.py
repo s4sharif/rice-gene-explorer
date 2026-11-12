@@ -22,7 +22,7 @@ def digest(path):
 # Restore only expected SQLite snapshots and refuse to overwrite the research databases.
 def restore(destination):
     destination = Path(destination).resolve()
-    if destination == (ROOT / "data").resolve():
+    if destination in {(ROOT / "data").resolve(), (ROOT / "data/databases").resolve()}:
         raise ValueError(
             "Use a separate hosting directory, not the research data directory."
         )

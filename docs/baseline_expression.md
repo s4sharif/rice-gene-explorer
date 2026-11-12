@@ -41,11 +41,11 @@ A searched gene loads its expression automatically. Users can select up to twelv
 With the main rice annotation database already built:
 
 ```sh
-python3 fetch_expression.py
+python3 -m pipelines.fetch_expression
 python3 scripts/extract_rds_metadata.py data/raw/expression/GSE313726_OsLeafStressIntegrated.rds data/raw/expression/cell_metadata.tsv
 Rscript scripts/summarize_expression.R
-python3 build_expression.py
-python3 validate_expression.py
+python3 -m pipelines.build_expression
+python3 -m pipelines.validate_expression
 ```
 
 The extraction configuration is versioned in `data/expression_selection.json`; the fetch script copies it to `data/raw/expression/selection.json`. R needs Matrix and jsonlite; Python steps use the standard library. Downloads total approximately 1 GB. Raw inputs and SQLite databases are ignored by Git. `data/expression_inputs.json` pins filenames, public URLs and SHA-256 checksums; a changed download is rejected.
@@ -56,7 +56,7 @@ The extraction configuration is versioned in `data/expression_selection.json`; t
 - `data/raw/expression/features.tsv`: union of available control features.
 - `data/raw/expression/summaries.tsv.gz`: per-gene, per-sample, per-cell-type sufficient summaries.
 - `data/raw/expression/extraction.json`: eligibility, join counts, group counts and per-sample coverage.
-- `data/expression.sqlite`: indexed features, groups, sample summaries and pooled summaries.
+- `data/databases/expression.sqlite`: indexed features, groups, sample summaries and pooled summaries.
 - `data/expression_manifest.json`: source provenance, metric and observed import counts.
 - `data/expression_validation.json`: independent count-based validation results.
 

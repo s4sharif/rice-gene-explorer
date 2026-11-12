@@ -38,15 +38,23 @@ def organize():
         folder = CATALOG / label
         folder.mkdir(exist_ok=True)
         raw = ROOT / "data/raw" / raw_name
-        pipeline = f"fetch_expression.py --study {study}; build_expression.py --study {study}; validate_expression.py --study {study}"
+        pipeline = f"python3 -m pipelines.fetch_expression --study {study}; python3 -m pipelines.build_expression --study {study}; python3 -m pipelines.validate_expression --study {study}"
         files = [
             (p, "source_or_intermediate") for p in sorted(raw.glob("*")) if p.is_file()
         ]
         files += [
             (p, "metadata_or_validation")
-            for p in sorted((ROOT / "data").glob(stem + "_*.json"))
+            for suffix in [
+                "inputs",
+                "manifest",
+                "selection",
+                "validation",
+                "join_validation",
+                "source_review",
+            ]
+            if (p := ROOT / "data" / f"{stem}_{suffix}.json").exists()
         ]
-        files += [(ROOT / "data" / (stem + ".sqlite"), "expression_database")]
+        files += [(ROOT / "data/databases" / (stem + ".sqlite"), "expression_database")]
         for source, role in files:
             if not source.exists():
                 continue
@@ -62,7 +70,7 @@ def organize():
             link_file(folder, alias, source)
             calculation = "Source selection, extraction or provenance; consult the study input manifest."
             if source.name == "summaries.tsv.gz":
-                calculation = "Per-sample/cell-type n_cells, n_expressing and sum_log; input to build_expression.py."
+                calculation = "Per-sample/cell-type n_cells, n_expressing and sum_log; input to pipelines/build_expression.py."
             elif source.name.endswith(".sqlite"):
                 calculation = "Cell-weighted mean log1p(10000*count/library_size), percent expressing=100*n_expressing/n_cells and within-study ranking; served by expression.py."
             elif "validation" in source.name:
@@ -96,7 +104,11 @@ def organize():
     ]:
         folder = CATALOG / label
         folder.mkdir(exist_ok=True)
-        source = ROOT / "data" / filename
+        source = (
+            ROOT
+            / ("data/databases" if filename.endswith(".sqlite") else "data")
+            / filename
+        )
         alias = label + source.suffix
         link_file(folder, alias, source)
         rows.append(
@@ -153,7 +165,7 @@ def organize():
                 ]
             )
     with (CATALOG / "calculation_index.csv").open("w", newline="") as handle:
-        writer = csv.writer(handle)
+        writer = csv.writer(handle, lineterminator="\n")
         writer.writerow(
             [
                 "dataset",

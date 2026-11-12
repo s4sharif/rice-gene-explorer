@@ -10,7 +10,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-import prepare_li
+from pipelines import prepare_li
 
 
 class PistilJoinTests(unittest.TestCase):

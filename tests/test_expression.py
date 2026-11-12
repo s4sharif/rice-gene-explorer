@@ -9,7 +9,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-import expression
+from backend import expression
 from scripts.extract_rds_metadata import SlotReader, attributes, column_values
 
 

@@ -44,21 +44,21 @@ Detection is an original GEO RNA count greater than zero. Mean expression is mea
 
 The website supports ranked expression, detection percentages, neighboring-gene dot plots, numeric tables and CSV export. Missing features remain distinct from measured zero detection. The export preserves source feature IDs, mapping status, experimental publication and the metric definition.
 
-`prepare_li.py` validates metadata and produces an exact, audited cell partition. `scripts/summarize_li.R` processes sparse original matrices. The independent Python validator rereads the original matrices to check cell counts, detection and normalized expression. Unit tests cover the matching/exclusion logic and ensure separate studies are not pooled.
+`pipelines/prepare_li.py` validates metadata and produces an exact, audited cell partition. `scripts/summarize_li.R` processes sparse original matrices. The independent Python validator rereads the original matrices to check cell counts, detection and normalized expression. Unit tests cover the matching/exclusion logic and ensure separate studies are not pooled.
 
 ## Reproduction
 
 ```sh
-python3 fetch_expression.py --study li
+python3 -m pipelines.fetch_expression --study li
 python3 scripts/extract_rds_metadata.py data/raw/li/SRP386976.rds.gz data/raw/li/cell_metadata.tsv --gzip-layers 2
-python3 prepare_li.py
+python3 -m pipelines.prepare_li
 Rscript scripts/summarize_li.R
-python3 build_expression.py --study li
-python3 validate_expression.py --study li
+python3 -m pipelines.build_expression --study li
+python3 -m pipelines.validate_expression --study li
 ```
 
 The curated object is gzip-compressed twice. A streaming metadata reader avoids loading its assay matrices into RAM. The count matrices come directly from GEO, so the curated object's normalized/scaled values are never used to calculate expression. Inputs and checksums are pinned in `data/expression_li_inputs.json`; the selection policy is in `data/expression_li_selection.json`. Raw inputs and local SQLite files are excluded from Git.
 
-The main outputs are `data/expression_li.sqlite`, `data/expression_li_manifest.json`, `data/expression_li_validation.json`, the cell-join audit, and local per-sample summaries under `data/raw/li`.
+The main outputs are `data/databases/expression_li.sqlite`, `data/expression_li_manifest.json`, `data/expression_li_validation.json`, the cell-join audit, and local per-sample summaries under `data/raw/li`.
 
 Observed validation: all **88** independent gene–replicate–annotation-group checks passed (four genes × two diploid samples × eleven groups), as did all **20** software tests.

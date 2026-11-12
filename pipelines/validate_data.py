@@ -5,7 +5,7 @@ import gzip
 import json
 import sqlite3
 
-from build_database import CHROMOSOME_LENGTHS, ROOT, sha
+from pipelines.build_database import CHROMOSOME_LENGTHS, ROOT, sha
 
 
 # Check source hashes, imported coordinates, statistics and database integrity.
@@ -19,7 +19,7 @@ def validate():
         sha(ROOT / "data/chromosomes.json")
         == manifest["chromosome_reference"]["sha256"]
     )
-    db = sqlite3.connect(ROOT / "data/rice.sqlite")
+    db = sqlite3.connect(ROOT / "data/databases/rice.sqlite")
     for record in review["records"]:
         assert (
             db.execute(

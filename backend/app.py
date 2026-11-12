@@ -12,12 +12,12 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
-from build_database import CHROMOSOME_LENGTHS
-from expression import expression_datasets, expression_evidence
-from runtime_data import DATA_DIR
-from source_coverage import source_coverage
+from backend.expression import expression_datasets, expression_evidence
+from backend.runtime_data import DATA_DIR
+from backend.source_coverage import source_coverage
+from pipelines.build_database import CHROMOSOME_LENGTHS
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[1]
 DB = DATA_DIR / "rice.sqlite"
 PAGE_SIZE = 8
 PUBLICATION_REVIEW = json.loads((ROOT / "data/publication_review.json").read_text())
@@ -499,6 +499,6 @@ if __name__ == "__main__":
     parser.add_argument("--port", type=int, default=8765)
     args = parser.parse_args()
     if not DB.exists():
-        raise SystemExit("Run python3 build_database.py first.")
+        raise SystemExit("Run python3 -m pipelines.build_database first.")
     print(f"RiceLENS: http://127.0.0.1:{args.port}", flush=True)
     ThreadingHTTPServer(("127.0.0.1", args.port), Handler).serve_forever()

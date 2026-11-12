@@ -11,11 +11,11 @@ from collections import defaultdict
 from contextlib import closing
 from pathlib import Path
 
-GENE_DB = Path(__file__).resolve().parent / "data/rice.sqlite"
+GENE_DB = Path(__file__).resolve().parents[1] / "data/databases/rice.sqlite"
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / "data/raw/expression"
-OUTPUT = ROOT / "data/expression.sqlite"
+OUTPUT = ROOT / "data/databases/expression.sqlite"
 
 
 # Hash a source file incrementally without loading its complete contents into memory.
@@ -33,7 +33,8 @@ def build_expression(study="robertson"):
     li = study in {"li", "li_author"}
     suffix = "" if study == "robertson" else "_" + study
     raw = ROOT / "data/raw" / ("expression" if study == "robertson" else study)
-    output = ROOT / f"data/expression{suffix}.sqlite"
+    output = ROOT / f"data/databases/expression{suffix}.sqlite"
+    output.parent.mkdir(parents=True, exist_ok=True)
     inputs_path = ROOT / f"data/expression{suffix}_inputs.json"
     inputs = json.loads(inputs_path.read_text())
     for source in inputs["sources"]:

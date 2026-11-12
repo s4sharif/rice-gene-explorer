@@ -10,7 +10,9 @@ ROOT = Path(__file__).resolve().parents[1]
 def main():
     failures = []
     count = 0
-    paths = sorted(ROOT.glob("*.py"))
+    paths = sorted((ROOT / "backend").glob("*.py"))
+    paths += sorted((ROOT / "pipelines").glob("*.py"))
+    paths += sorted((ROOT / "deployment").glob("*.py"))
     paths += sorted((ROOT / "scripts").glob("*.py"))
     paths += sorted((ROOT / "tests").glob("*.py"))
     for path in paths:

@@ -28,15 +28,15 @@ The compressed snapshots contain public-source research data, not email correspo
 
 If you configure the service manually instead of using a Blueprint:
 
-| Setting             | Value                                                                                            |
-| ------------------- | ------------------------------------------------------------------------------------------------ |
-| Runtime             | Python                                                                                           |
-| Instance plan       | Free                                                                                             |
-| Build command       | `pip install -r requirements-hosting.txt`                                                        |
-| Start command       | `python3 scripts/restore_hosting_data.py && gunicorn wsgi:application --config gunicorn.conf.py` |
-| Health check        | `/healthz`                                                                                       |
-| `RICELENS_DATA_DIR` | `/tmp/ricelens-data`                                                                             |
-| Reviewer secrets    | Same two variables above                                                                         |
+| Setting             | Value                                                                                                               |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| Runtime             | Python                                                                                                              |
+| Instance plan       | Free                                                                                                                |
+| Build command       | `pip install -r requirements/hosting.txt`                                                                           |
+| Start command       | `python3 scripts/restore_hosting_data.py && gunicorn backend.wsgi:application --config deployment/gunicorn.conf.py` |
+| Health check        | `/healthz`                                                                                                          |
+| `RICELENS_DATA_DIR` | `/tmp/ricelens-data`                                                                                                |
+| Reviewer secrets    | Same two variables above                                                                                            |
 
 ## Free-tier behavior
 

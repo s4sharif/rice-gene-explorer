@@ -1,8 +1,8 @@
 # Local datasets are downloaded and verified from their original sources.
 data/raw/
-data/*.sqlite
-data/*.sqlite-*
-data/*.building.sqlite
+data/databases/*.sqlite
+data/databases/*.sqlite-*
+data/databases/*.building.sqlite
 
 # Local environments, caches and operating-system files.
 __pycache__/

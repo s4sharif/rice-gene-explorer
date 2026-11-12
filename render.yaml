@@ -3,8 +3,8 @@ services:
     name: ricelens-review
     runtime: python
     plan: free
-    buildCommand: pip install -r requirements-hosting.txt
-    startCommand: python3 scripts/restore_hosting_data.py && gunicorn wsgi:application --config gunicorn.conf.py
+    buildCommand: pip install -r requirements/hosting.txt
+    startCommand: python3 scripts/restore_hosting_data.py && gunicorn backend.wsgi:application --config deployment/gunicorn.conf.py
     healthCheckPath: /healthz
     autoDeployTrigger: "off"
     envVars:

@@ -15,7 +15,7 @@ The importer reads the explicit author ZH11/MSU pairs in Table S1f (H/K and Z/AA
 The supplement provides **1,955 ZH11 genes with cross-references**, of which **1,639 have unique accepted RAP mappings** under these rules. This is a marker-table-limited mapping resource, not a complete genome conversion. All source targets and candidate RAP matches remain in the metadata output, including ambiguous mappings. The website shows matching source identifiers in “Additional studies and data coverage” for a searched gene. No cross-reference means unavailable mapping evidence, not zero expression.
 
 ```sh
-python3 prepare_jing_metadata.py /path/to/1-s2.0-S0092867426011256-mmc2.xlsx
+python3 -m pipelines.prepare_jing_metadata /path/to/1-s2.0-S0092867426011256-mmc2.xlsx
 ```
 
 The original workbook is unchanged. `data/expression_jing_metadata.json` records its checksum, extracted metadata and mapping outcomes. `/api/expression/sources?gene=Os02g0662700` exposes study coverage separately from quantitative expression. Tests protect multi-target and many-to-one cases.

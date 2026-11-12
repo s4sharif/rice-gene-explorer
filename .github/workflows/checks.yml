@@ -22,7 +22,7 @@ jobs:
           cache: npm
       - name: Install development tools
         run: |
-          python -m pip install -r requirements-dev.txt
+          python -m pip install -r requirements/dev.txt
           npm ci
       - name: Check formatting and explanatory comments
         run: |
@@ -33,9 +33,9 @@ jobs:
           npm run check:comments
           npm run check:syntax
       - name: Download and verify source snapshots
-        run: python fetch_data.py
+        run: python -m pipelines.fetch_data
       - name: Build and validate the database
         run: |
-          python build_database.py
-          python validate_data.py
+          python -m pipelines.build_database
+          python -m pipelines.validate_data
           python -m unittest discover -s tests -v

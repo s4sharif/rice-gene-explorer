@@ -6,10 +6,10 @@ import json
 from collections import Counter
 from pathlib import Path
 
-from build_expression import file_hash
+from pipelines.build_expression import file_hash
 from scripts.read_supplement import worksheet_rows
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / "data/raw/li_author"
 
 

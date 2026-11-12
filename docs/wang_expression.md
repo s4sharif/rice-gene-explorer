@@ -25,15 +25,15 @@ The GEO methods name MSU7 as the alignment reference, but the deposited nuclear 
 
 Metrics use the same explicitly stated log1p CP10K definition as the leaf pilot, recalculated from uncorrected integer RNA counts. Detection is count > 0. Means include zero-count WT cells. Sample-level summaries are retained; the displayed within-study summary weights replicates by their cell counts. Cell types are ranked separately for each gene. Normalization similarity does not make values comparable between studies, organs, or single-cell and single-nucleus assays.
 
-The new database is `data/expression_wang.sqlite`, separate from Robertson's `data/expression.sqlite`. The website's expression-study selector loads one dataset at a time; it never pools the two studies. The CSV identifies the selected study and its own publication/metric. Neighboring genes can be compared within either dataset.
+The new database is `data/databases/expression_wang.sqlite`, separate from Robertson's `data/databases/expression.sqlite`. The website's expression-study selector loads one dataset at a time; it never pools the two studies. The CSV identifies the selected study and its own publication/metric. Neighboring genes can be compared within either dataset.
 
 ## Reproduction
 
 ```sh
-python3 fetch_expression.py --study wang
+python3 -m pipelines.fetch_expression --study wang
 R_MAX_VSIZE=3G Rscript scripts/summarize_wang.R
-python3 build_expression.py --study wang
-python3 validate_expression.py --study wang
+python3 -m pipelines.build_expression --study wang
+python3 -m pipelines.validate_expression --study wang
 ```
 
 The source file is gzip-compressed twice. The R reader explicitly opens both compression layers. R needs Matrix and jsonlite; Python uses the standard library. Source objects, exported counts and local databases are excluded from Git. `data/expression_wang_inputs.json` pins the object, original sample metadata and analysis archive by checksum.

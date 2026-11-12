@@ -5,7 +5,7 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_GSE313726_OsLeafStressIntegrated.rds",
     "original_path": "data/raw/expression/GSE313726_OsLeafStressIntegrated.rds",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -13,7 +13,7 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_GSM9373072.soft",
     "original_path": "data/raw/expression/GSM9373072.soft",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -21,7 +21,7 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_GSM9373072_Well.Watered.Rep1.barcodes.tsv.gz",
     "original_path": "data/raw/expression/GSM9373072_Well.Watered.Rep1.barcodes.tsv.gz",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -29,7 +29,7 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_GSM9373072_Well.Watered.Rep1.genes.tsv.gz",
     "original_path": "data/raw/expression/GSM9373072_Well.Watered.Rep1.genes.tsv.gz",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -37,7 +37,7 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_GSM9373072_Well.Watered.Rep1.matrix.mtx.gz",
     "original_path": "data/raw/expression/GSM9373072_Well.Watered.Rep1.matrix.mtx.gz",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -45,7 +45,7 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_GSM9373073.soft",
     "original_path": "data/raw/expression/GSM9373073.soft",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -53,7 +53,7 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_GSM9373073_Well.Watered.Rep2.barcodes.tsv.gz",
     "original_path": "data/raw/expression/GSM9373073_Well.Watered.Rep2.barcodes.tsv.gz",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -61,7 +61,7 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_GSM9373073_Well.Watered.Rep2.genes.tsv.gz",
     "original_path": "data/raw/expression/GSM9373073_Well.Watered.Rep2.genes.tsv.gz",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -69,7 +69,7 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_GSM9373073_Well.Watered.Rep2.matrix.mtx.gz",
     "original_path": "data/raw/expression/GSM9373073_Well.Watered.Rep2.matrix.mtx.gz",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -77,7 +77,7 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_GSM9373074.soft",
     "original_path": "data/raw/expression/GSM9373074.soft",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -85,7 +85,7 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_GSM9373074_Well.Watered.Rep3.barcodes.tsv.gz",
     "original_path": "data/raw/expression/GSM9373074_Well.Watered.Rep3.barcodes.tsv.gz",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -93,7 +93,7 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_GSM9373074_Well.Watered.Rep3.genes.tsv.gz",
     "original_path": "data/raw/expression/GSM9373074_Well.Watered.Rep3.genes.tsv.gz",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -101,7 +101,7 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_GSM9373074_Well.Watered.Rep3.matrix.mtx.gz",
     "original_path": "data/raw/expression/GSM9373074_Well.Watered.Rep3.matrix.mtx.gz",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -109,7 +109,7 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_GSM9373075.soft",
     "original_path": "data/raw/expression/GSM9373075.soft",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -117,7 +117,7 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_GSM9373076.soft",
     "original_path": "data/raw/expression/GSM9373076.soft",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -125,7 +125,7 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_GSM9373077.soft",
     "original_path": "data/raw/expression/GSM9373077.soft",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -133,7 +133,7 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_GSM9373078.soft",
     "original_path": "data/raw/expression/GSM9373078.soft",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -141,7 +141,7 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_GSM9373079.soft",
     "original_path": "data/raw/expression/GSM9373079.soft",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -149,7 +149,7 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_GSM9373080.soft",
     "original_path": "data/raw/expression/GSM9373080.soft",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -157,7 +157,7 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_GSM9373081.soft",
     "original_path": "data/raw/expression/GSM9373081.soft",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -165,7 +165,7 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_GSM9373082.soft",
     "original_path": "data/raw/expression/GSM9373082.soft",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -173,7 +173,7 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_cell_metadata.tsv",
     "original_path": "data/raw/expression/cell_metadata.tsv",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -181,7 +181,7 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_extraction.json",
     "original_path": "data/raw/expression/extraction.json",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -189,7 +189,7 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_features.tsv",
     "original_path": "data/raw/expression/features.tsv",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -197,15 +197,15 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_selection.json",
     "original_path": "data/raw/expression/selection.json",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
     "role": "source_or_intermediate",
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_summaries.tsv.gz",
     "original_path": "data/raw/expression/summaries.tsv.gz",
-    "calculation_or_usage": "Per-sample/cell-type n_cells, n_expressing and sum_log; input to build_expression.py.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "calculation_or_usage": "Per-sample/cell-type n_cells, n_expressing and sum_log; input to pipelines/build_expression.py.",
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -213,95 +213,7 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_expression_inputs.json",
     "original_path": "data/expression_inputs.json",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
-  },
-  {
-    "dataset": "robertson_2026_well_watered_leaf",
-    "role": "metadata_or_validation",
-    "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_expression_jing_metadata.json",
-    "original_path": "data/expression_jing_metadata.json",
-    "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
-  },
-  {
-    "dataset": "robertson_2026_well_watered_leaf",
-    "role": "metadata_or_validation",
-    "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_expression_li_author_inputs.json",
-    "original_path": "data/expression_li_author_inputs.json",
-    "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
-  },
-  {
-    "dataset": "robertson_2026_well_watered_leaf",
-    "role": "metadata_or_validation",
-    "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_expression_li_author_join_validation.json",
-    "original_path": "data/expression_li_author_join_validation.json",
-    "calculation_or_usage": "Independent checks of counts, detection and normalized expression; not expression input.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
-  },
-  {
-    "dataset": "robertson_2026_well_watered_leaf",
-    "role": "metadata_or_validation",
-    "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_expression_li_author_manifest.json",
-    "original_path": "data/expression_li_author_manifest.json",
-    "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
-  },
-  {
-    "dataset": "robertson_2026_well_watered_leaf",
-    "role": "metadata_or_validation",
-    "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_expression_li_author_validation.json",
-    "original_path": "data/expression_li_author_validation.json",
-    "calculation_or_usage": "Independent checks of counts, detection and normalized expression; not expression input.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
-  },
-  {
-    "dataset": "robertson_2026_well_watered_leaf",
-    "role": "metadata_or_validation",
-    "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_expression_li_inputs.json",
-    "original_path": "data/expression_li_inputs.json",
-    "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
-  },
-  {
-    "dataset": "robertson_2026_well_watered_leaf",
-    "role": "metadata_or_validation",
-    "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_expression_li_join_validation.json",
-    "original_path": "data/expression_li_join_validation.json",
-    "calculation_or_usage": "Independent checks of counts, detection and normalized expression; not expression input.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
-  },
-  {
-    "dataset": "robertson_2026_well_watered_leaf",
-    "role": "metadata_or_validation",
-    "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_expression_li_manifest.json",
-    "original_path": "data/expression_li_manifest.json",
-    "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
-  },
-  {
-    "dataset": "robertson_2026_well_watered_leaf",
-    "role": "metadata_or_validation",
-    "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_expression_li_selection.json",
-    "original_path": "data/expression_li_selection.json",
-    "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
-  },
-  {
-    "dataset": "robertson_2026_well_watered_leaf",
-    "role": "metadata_or_validation",
-    "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_expression_li_validation.json",
-    "original_path": "data/expression_li_validation.json",
-    "calculation_or_usage": "Independent checks of counts, detection and normalized expression; not expression input.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
-  },
-  {
-    "dataset": "robertson_2026_well_watered_leaf",
-    "role": "metadata_or_validation",
-    "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_expression_liu_review.json",
-    "original_path": "data/expression_liu_review.json",
-    "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -309,7 +221,7 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_expression_manifest.json",
     "original_path": "data/expression_manifest.json",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -317,15 +229,7 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_expression_selection.json",
     "original_path": "data/expression_selection.json",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
-  },
-  {
-    "dataset": "robertson_2026_well_watered_leaf",
-    "role": "metadata_or_validation",
-    "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_expression_source_review.json",
-    "original_path": "data/expression_source_review.json",
-    "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
@@ -333,39 +237,23 @@
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_expression_validation.json",
     "original_path": "data/expression_validation.json",
     "calculation_or_usage": "Independent checks of counts, detection and normalized expression; not expression input.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
     "role": "metadata_or_validation",
-    "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_expression_wang_inputs.json",
-    "original_path": "data/expression_wang_inputs.json",
+    "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_expression_source_review.json",
+    "original_path": "data/expression_source_review.json",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
-  },
-  {
-    "dataset": "robertson_2026_well_watered_leaf",
-    "role": "metadata_or_validation",
-    "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_expression_wang_manifest.json",
-    "original_path": "data/expression_wang_manifest.json",
-    "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
-  },
-  {
-    "dataset": "robertson_2026_well_watered_leaf",
-    "role": "metadata_or_validation",
-    "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_expression_wang_validation.json",
-    "original_path": "data/expression_wang_validation.json",
-    "calculation_or_usage": "Independent checks of counts, detection and normalized expression; not expression input.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "robertson_2026_well_watered_leaf",
     "role": "expression_database",
     "descriptive_path": "datasets/robertson_2026_well_watered_leaf/robertson_2026_well_watered_leaf_expression.sqlite",
-    "original_path": "data/expression.sqlite",
+    "original_path": "data/databases/expression.sqlite",
     "calculation_or_usage": "Cell-weighted mean log1p(10000*count/library_size), percent expressing=100*n_expressing/n_cells and within-study ranking; served by expression.py.",
-    "pipeline": "fetch_expression.py --study robertson; build_expression.py --study robertson; validate_expression.py --study robertson"
+    "pipeline": "python3 -m pipelines.fetch_expression --study robertson; python3 -m pipelines.build_expression --study robertson; python3 -m pipelines.validate_expression --study robertson"
   },
   {
     "dataset": "wang_2025_normal_root",
@@ -373,7 +261,7 @@
     "descriptive_path": "datasets/wang_2025_normal_root/wang_2025_normal_root_GSE273875_LTP_NIP_label_240622.rds.gz",
     "original_path": "data/raw/wang/GSE273875_LTP_NIP_label_240622.rds.gz",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study wang; build_expression.py --study wang; validate_expression.py --study wang"
+    "pipeline": "python3 -m pipelines.fetch_expression --study wang; python3 -m pipelines.build_expression --study wang; python3 -m pipelines.validate_expression --study wang"
   },
   {
     "dataset": "wang_2025_normal_root",
@@ -381,7 +269,7 @@
     "descriptive_path": "datasets/wang_2025_normal_root/wang_2025_normal_root_GSM8438488.soft",
     "original_path": "data/raw/wang/GSM8438488.soft",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study wang; build_expression.py --study wang; validate_expression.py --study wang"
+    "pipeline": "python3 -m pipelines.fetch_expression --study wang; python3 -m pipelines.build_expression --study wang; python3 -m pipelines.validate_expression --study wang"
   },
   {
     "dataset": "wang_2025_normal_root",
@@ -389,7 +277,7 @@
     "descriptive_path": "datasets/wang_2025_normal_root/wang_2025_normal_root_GSM8438489.soft",
     "original_path": "data/raw/wang/GSM8438489.soft",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study wang; build_expression.py --study wang; validate_expression.py --study wang"
+    "pipeline": "python3 -m pipelines.fetch_expression --study wang; python3 -m pipelines.build_expression --study wang; python3 -m pipelines.validate_expression --study wang"
   },
   {
     "dataset": "wang_2025_normal_root",
@@ -397,7 +285,7 @@
     "descriptive_path": "datasets/wang_2025_normal_root/wang_2025_normal_root_GSM8438490.soft",
     "original_path": "data/raw/wang/GSM8438490.soft",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study wang; build_expression.py --study wang; validate_expression.py --study wang"
+    "pipeline": "python3 -m pipelines.fetch_expression --study wang; python3 -m pipelines.build_expression --study wang; python3 -m pipelines.validate_expression --study wang"
   },
   {
     "dataset": "wang_2025_normal_root",
@@ -405,7 +293,7 @@
     "descriptive_path": "datasets/wang_2025_normal_root/wang_2025_normal_root_GSM8438491.soft",
     "original_path": "data/raw/wang/GSM8438491.soft",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study wang; build_expression.py --study wang; validate_expression.py --study wang"
+    "pipeline": "python3 -m pipelines.fetch_expression --study wang; python3 -m pipelines.build_expression --study wang; python3 -m pipelines.validate_expression --study wang"
   },
   {
     "dataset": "wang_2025_normal_root",
@@ -413,7 +301,7 @@
     "descriptive_path": "datasets/wang_2025_normal_root/wang_2025_normal_root_NIP_G_1.cells.tsv",
     "original_path": "data/raw/wang/NIP_G_1.cells.tsv",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study wang; build_expression.py --study wang; validate_expression.py --study wang"
+    "pipeline": "python3 -m pipelines.fetch_expression --study wang; python3 -m pipelines.build_expression --study wang; python3 -m pipelines.validate_expression --study wang"
   },
   {
     "dataset": "wang_2025_normal_root",
@@ -421,7 +309,7 @@
     "descriptive_path": "datasets/wang_2025_normal_root/wang_2025_normal_root_NIP_G_1.features.tsv.gz",
     "original_path": "data/raw/wang/NIP_G_1.features.tsv.gz",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study wang; build_expression.py --study wang; validate_expression.py --study wang"
+    "pipeline": "python3 -m pipelines.fetch_expression --study wang; python3 -m pipelines.build_expression --study wang; python3 -m pipelines.validate_expression --study wang"
   },
   {
     "dataset": "wang_2025_normal_root",
@@ -429,7 +317,7 @@
     "descriptive_path": "datasets/wang_2025_normal_root/wang_2025_normal_root_NIP_G_1.matrix.mtx.gz",
     "original_path": "data/raw/wang/NIP_G_1.matrix.mtx.gz",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study wang; build_expression.py --study wang; validate_expression.py --study wang"
+    "pipeline": "python3 -m pipelines.fetch_expression --study wang; python3 -m pipelines.build_expression --study wang; python3 -m pipelines.validate_expression --study wang"
   },
   {
     "dataset": "wang_2025_normal_root",
@@ -437,7 +325,7 @@
     "descriptive_path": "datasets/wang_2025_normal_root/wang_2025_normal_root_NIP_G_2.cells.tsv",
     "original_path": "data/raw/wang/NIP_G_2.cells.tsv",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study wang; build_expression.py --study wang; validate_expression.py --study wang"
+    "pipeline": "python3 -m pipelines.fetch_expression --study wang; python3 -m pipelines.build_expression --study wang; python3 -m pipelines.validate_expression --study wang"
   },
   {
     "dataset": "wang_2025_normal_root",
@@ -445,7 +333,7 @@
     "descriptive_path": "datasets/wang_2025_normal_root/wang_2025_normal_root_NIP_G_2.features.tsv.gz",
     "original_path": "data/raw/wang/NIP_G_2.features.tsv.gz",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study wang; build_expression.py --study wang; validate_expression.py --study wang"
+    "pipeline": "python3 -m pipelines.fetch_expression --study wang; python3 -m pipelines.build_expression --study wang; python3 -m pipelines.validate_expression --study wang"
   },
   {
     "dataset": "wang_2025_normal_root",
@@ -453,7 +341,7 @@
     "descriptive_path": "datasets/wang_2025_normal_root/wang_2025_normal_root_NIP_G_2.matrix.mtx.gz",
     "original_path": "data/raw/wang/NIP_G_2.matrix.mtx.gz",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study wang; build_expression.py --study wang; validate_expression.py --study wang"
+    "pipeline": "python3 -m pipelines.fetch_expression --study wang; python3 -m pipelines.build_expression --study wang; python3 -m pipelines.validate_expression --study wang"
   },
   {
     "dataset": "wang_2025_normal_root",
@@ -461,7 +349,7 @@
     "descriptive_path": "datasets/wang_2025_normal_root/wang_2025_normal_root_authors_root_analysis.R",
     "original_path": "data/raw/wang/authors_root_analysis.R",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study wang; build_expression.py --study wang; validate_expression.py --study wang"
+    "pipeline": "python3 -m pipelines.fetch_expression --study wang; python3 -m pipelines.build_expression --study wang; python3 -m pipelines.validate_expression --study wang"
   },
   {
     "dataset": "wang_2025_normal_root",
@@ -469,7 +357,7 @@
     "descriptive_path": "datasets/wang_2025_normal_root/wang_2025_normal_root_extraction.json",
     "original_path": "data/raw/wang/extraction.json",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study wang; build_expression.py --study wang; validate_expression.py --study wang"
+    "pipeline": "python3 -m pipelines.fetch_expression --study wang; python3 -m pipelines.build_expression --study wang; python3 -m pipelines.validate_expression --study wang"
   },
   {
     "dataset": "wang_2025_normal_root",
@@ -477,7 +365,7 @@
     "descriptive_path": "datasets/wang_2025_normal_root/wang_2025_normal_root_features.tsv",
     "original_path": "data/raw/wang/features.tsv",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study wang; build_expression.py --study wang; validate_expression.py --study wang"
+    "pipeline": "python3 -m pipelines.fetch_expression --study wang; python3 -m pipelines.build_expression --study wang; python3 -m pipelines.validate_expression --study wang"
   },
   {
     "dataset": "wang_2025_normal_root",
@@ -485,7 +373,7 @@
     "descriptive_path": "datasets/wang_2025_normal_root/wang_2025_normal_root_root_files.txt",
     "original_path": "data/raw/wang/root_files.txt",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study wang; build_expression.py --study wang; validate_expression.py --study wang"
+    "pipeline": "python3 -m pipelines.fetch_expression --study wang; python3 -m pipelines.build_expression --study wang; python3 -m pipelines.validate_expression --study wang"
   },
   {
     "dataset": "wang_2025_normal_root",
@@ -493,15 +381,15 @@
     "descriptive_path": "datasets/wang_2025_normal_root/wang_2025_normal_root_root_series.txt",
     "original_path": "data/raw/wang/root_series.txt",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study wang; build_expression.py --study wang; validate_expression.py --study wang"
+    "pipeline": "python3 -m pipelines.fetch_expression --study wang; python3 -m pipelines.build_expression --study wang; python3 -m pipelines.validate_expression --study wang"
   },
   {
     "dataset": "wang_2025_normal_root",
     "role": "source_or_intermediate",
     "descriptive_path": "datasets/wang_2025_normal_root/wang_2025_normal_root_summaries.tsv.gz",
     "original_path": "data/raw/wang/summaries.tsv.gz",
-    "calculation_or_usage": "Per-sample/cell-type n_cells, n_expressing and sum_log; input to build_expression.py.",
-    "pipeline": "fetch_expression.py --study wang; build_expression.py --study wang; validate_expression.py --study wang"
+    "calculation_or_usage": "Per-sample/cell-type n_cells, n_expressing and sum_log; input to pipelines/build_expression.py.",
+    "pipeline": "python3 -m pipelines.fetch_expression --study wang; python3 -m pipelines.build_expression --study wang; python3 -m pipelines.validate_expression --study wang"
   },
   {
     "dataset": "wang_2025_normal_root",
@@ -509,7 +397,7 @@
     "descriptive_path": "datasets/wang_2025_normal_root/wang_2025_normal_root_zenodo_analysis.json",
     "original_path": "data/raw/wang/zenodo_analysis.json",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study wang; build_expression.py --study wang; validate_expression.py --study wang"
+    "pipeline": "python3 -m pipelines.fetch_expression --study wang; python3 -m pipelines.build_expression --study wang; python3 -m pipelines.validate_expression --study wang"
   },
   {
     "dataset": "wang_2025_normal_root",
@@ -517,7 +405,7 @@
     "descriptive_path": "datasets/wang_2025_normal_root/wang_2025_normal_root_zenodo_analysis.zip",
     "original_path": "data/raw/wang/zenodo_analysis.zip",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study wang; build_expression.py --study wang; validate_expression.py --study wang"
+    "pipeline": "python3 -m pipelines.fetch_expression --study wang; python3 -m pipelines.build_expression --study wang; python3 -m pipelines.validate_expression --study wang"
   },
   {
     "dataset": "wang_2025_normal_root",
@@ -525,7 +413,7 @@
     "descriptive_path": "datasets/wang_2025_normal_root/wang_2025_normal_root_zenodo_rsca.json",
     "original_path": "data/raw/wang/zenodo_rsca.json",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study wang; build_expression.py --study wang; validate_expression.py --study wang"
+    "pipeline": "python3 -m pipelines.fetch_expression --study wang; python3 -m pipelines.build_expression --study wang; python3 -m pipelines.validate_expression --study wang"
   },
   {
     "dataset": "wang_2025_normal_root",
@@ -533,7 +421,7 @@
     "descriptive_path": "datasets/wang_2025_normal_root/wang_2025_normal_root_zenodo_rsca.zip",
     "original_path": "data/raw/wang/zenodo_rsca.zip",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study wang; build_expression.py --study wang; validate_expression.py --study wang"
+    "pipeline": "python3 -m pipelines.fetch_expression --study wang; python3 -m pipelines.build_expression --study wang; python3 -m pipelines.validate_expression --study wang"
   },
   {
     "dataset": "wang_2025_normal_root",
@@ -541,7 +429,7 @@
     "descriptive_path": "datasets/wang_2025_normal_root/wang_2025_normal_root_expression_inputs.json",
     "original_path": "data/expression_wang_inputs.json",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study wang; build_expression.py --study wang; validate_expression.py --study wang"
+    "pipeline": "python3 -m pipelines.fetch_expression --study wang; python3 -m pipelines.build_expression --study wang; python3 -m pipelines.validate_expression --study wang"
   },
   {
     "dataset": "wang_2025_normal_root",
@@ -549,7 +437,7 @@
     "descriptive_path": "datasets/wang_2025_normal_root/wang_2025_normal_root_expression_manifest.json",
     "original_path": "data/expression_wang_manifest.json",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study wang; build_expression.py --study wang; validate_expression.py --study wang"
+    "pipeline": "python3 -m pipelines.fetch_expression --study wang; python3 -m pipelines.build_expression --study wang; python3 -m pipelines.validate_expression --study wang"
   },
   {
     "dataset": "wang_2025_normal_root",
@@ -557,15 +445,15 @@
     "descriptive_path": "datasets/wang_2025_normal_root/wang_2025_normal_root_expression_validation.json",
     "original_path": "data/expression_wang_validation.json",
     "calculation_or_usage": "Independent checks of counts, detection and normalized expression; not expression input.",
-    "pipeline": "fetch_expression.py --study wang; build_expression.py --study wang; validate_expression.py --study wang"
+    "pipeline": "python3 -m pipelines.fetch_expression --study wang; python3 -m pipelines.build_expression --study wang; python3 -m pipelines.validate_expression --study wang"
   },
   {
     "dataset": "wang_2025_normal_root",
     "role": "expression_database",
     "descriptive_path": "datasets/wang_2025_normal_root/wang_2025_normal_root_expression.sqlite",
-    "original_path": "data/expression_wang.sqlite",
+    "original_path": "data/databases/expression_wang.sqlite",
     "calculation_or_usage": "Cell-weighted mean log1p(10000*count/library_size), percent expressing=100*n_expressing/n_cells and within-study ranking; served by expression.py.",
-    "pipeline": "fetch_expression.py --study wang; build_expression.py --study wang; validate_expression.py --study wang"
+    "pipeline": "python3 -m pipelines.fetch_expression --study wang; python3 -m pipelines.build_expression --study wang; python3 -m pipelines.validate_expression --study wang"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -573,7 +461,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_111.a0e29ab4.js",
     "original_path": "data/raw/li/111.a0e29ab4.js",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -581,7 +469,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_255.badf3375.js",
     "original_path": "data/raw/li/255.badf3375.js",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -589,7 +477,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_272.9e8d65ba.js",
     "original_path": "data/raw/li/272.9e8d65ba.js",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -597,7 +485,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_GSM6346349.soft",
     "original_path": "data/raw/li/GSM6346349.soft",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -605,7 +493,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_GSM6346349_Pistil-2N-replicate1_barcodes.tsv.gz",
     "original_path": "data/raw/li/GSM6346349_Pistil-2N-replicate1_barcodes.tsv.gz",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -613,7 +501,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_GSM6346349_Pistil-2N-replicate1_features.tsv.gz",
     "original_path": "data/raw/li/GSM6346349_Pistil-2N-replicate1_features.tsv.gz",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -621,7 +509,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_GSM6346349_Pistil-2N-replicate1_matrix.mtx.gz",
     "original_path": "data/raw/li/GSM6346349_Pistil-2N-replicate1_matrix.mtx.gz",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -629,7 +517,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_GSM6346349_ena.json",
     "original_path": "data/raw/li/GSM6346349_ena.json",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -637,7 +525,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_GSM6346350.soft",
     "original_path": "data/raw/li/GSM6346350.soft",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -645,7 +533,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_GSM6346350_Pistil-2N-replicate2_barcodes.tsv.gz",
     "original_path": "data/raw/li/GSM6346350_Pistil-2N-replicate2_barcodes.tsv.gz",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -653,7 +541,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_GSM6346350_Pistil-2N-replicate2_features.tsv.gz",
     "original_path": "data/raw/li/GSM6346350_Pistil-2N-replicate2_features.tsv.gz",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -661,7 +549,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_GSM6346350_Pistil-2N-replicate2_matrix.mtx.gz",
     "original_path": "data/raw/li/GSM6346350_Pistil-2N-replicate2_matrix.mtx.gz",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -669,7 +557,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_GSM6346350_ena.json",
     "original_path": "data/raw/li/GSM6346350_ena.json",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -677,7 +565,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_GSM6346351.soft",
     "original_path": "data/raw/li/GSM6346351.soft",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -685,7 +573,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_GSM6346351_ena.json",
     "original_path": "data/raw/li/GSM6346351_ena.json",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -693,7 +581,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_M1.ProcessRawmatrix.R",
     "original_path": "data/raw/li/M1.ProcessRawmatrix.R",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -701,7 +589,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_M2.Integrate.R",
     "original_path": "data/raw/li/M2.Integrate.R",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -709,7 +597,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_M3.Monocle3.R",
     "original_path": "data/raw/li/M3.Monocle3.R",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -717,7 +605,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_M5.Project.R",
     "original_path": "data/raw/li/M5.Project.R",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -725,7 +613,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_SRP386976.rds.gz",
     "original_path": "data/raw/li/SRP386976.rds.gz",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -733,7 +621,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_cell_metadata.tsv",
     "original_path": "data/raw/li/cell_metadata.tsv",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -741,7 +629,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_extraction.json",
     "original_path": "data/raw/li/extraction.json",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -749,7 +637,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_features.tsv",
     "original_path": "data/raw/li/features.tsv",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -757,7 +645,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_matched_cells.tsv",
     "original_path": "data/raw/li/matched_cells.tsv",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -765,7 +653,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_repository_tree.json",
     "original_path": "data/raw/li/repository_tree.json",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -773,7 +661,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_scplantdb_app.js",
     "original_path": "data/raw/li/scplantdb_app.js",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -781,7 +669,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_scplantdb_dataset.json",
     "original_path": "data/raw/li/scplantdb_dataset.json",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -789,7 +677,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_scplantdb_index.html",
     "original_path": "data/raw/li/scplantdb_index.html",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -797,47 +685,15 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_selection.json",
     "original_path": "data/raw/li/selection.json",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
     "role": "source_or_intermediate",
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_summaries.tsv.gz",
     "original_path": "data/raw/li/summaries.tsv.gz",
-    "calculation_or_usage": "Per-sample/cell-type n_cells, n_expressing and sum_log; input to build_expression.py.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
-  },
-  {
-    "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
-    "role": "metadata_or_validation",
-    "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_expression_author_inputs.json",
-    "original_path": "data/expression_li_author_inputs.json",
-    "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
-  },
-  {
-    "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
-    "role": "metadata_or_validation",
-    "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_expression_author_join_validation.json",
-    "original_path": "data/expression_li_author_join_validation.json",
-    "calculation_or_usage": "Independent checks of counts, detection and normalized expression; not expression input.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
-  },
-  {
-    "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
-    "role": "metadata_or_validation",
-    "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_expression_author_manifest.json",
-    "original_path": "data/expression_li_author_manifest.json",
-    "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
-  },
-  {
-    "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
-    "role": "metadata_or_validation",
-    "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_expression_author_validation.json",
-    "original_path": "data/expression_li_author_validation.json",
-    "calculation_or_usage": "Independent checks of counts, detection and normalized expression; not expression input.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "calculation_or_usage": "Per-sample/cell-type n_cells, n_expressing and sum_log; input to pipelines/build_expression.py.",
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -845,15 +701,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_expression_inputs.json",
     "original_path": "data/expression_li_inputs.json",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
-  },
-  {
-    "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
-    "role": "metadata_or_validation",
-    "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_expression_join_validation.json",
-    "original_path": "data/expression_li_join_validation.json",
-    "calculation_or_usage": "Independent checks of counts, detection and normalized expression; not expression input.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -861,7 +709,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_expression_manifest.json",
     "original_path": "data/expression_li_manifest.json",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -869,7 +717,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_expression_selection.json",
     "original_path": "data/expression_li_selection.json",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
@@ -877,15 +725,23 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_expression_validation.json",
     "original_path": "data/expression_li_validation.json",
     "calculation_or_usage": "Independent checks of counts, detection and normalized expression; not expression input.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
+  },
+  {
+    "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
+    "role": "metadata_or_validation",
+    "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_expression_join_validation.json",
+    "original_path": "data/expression_li_join_validation.json",
+    "calculation_or_usage": "Independent checks of counts, detection and normalized expression; not expression input.",
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_scplantdb_annotations",
     "role": "expression_database",
     "descriptive_path": "datasets/li_2023_diploid_pistil_scplantdb_annotations/li_2023_diploid_pistil_scplantdb_annotations_expression.sqlite",
-    "original_path": "data/expression_li.sqlite",
+    "original_path": "data/databases/expression_li.sqlite",
     "calculation_or_usage": "Cell-weighted mean log1p(10000*count/library_size), percent expressing=100*n_expressing/n_cells and within-study ranking; served by expression.py.",
-    "pipeline": "fetch_expression.py --study li; build_expression.py --study li; validate_expression.py --study li"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li; python3 -m pipelines.build_expression --study li; python3 -m pipelines.validate_expression --study li"
   },
   {
     "dataset": "li_2023_diploid_pistil_author_annotations",
@@ -893,7 +749,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_author_annotations/li_2023_diploid_pistil_author_annotations_GSM6346349.soft",
     "original_path": "data/raw/li_author/GSM6346349.soft",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li_author; build_expression.py --study li_author; validate_expression.py --study li_author"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li_author; python3 -m pipelines.build_expression --study li_author; python3 -m pipelines.validate_expression --study li_author"
   },
   {
     "dataset": "li_2023_diploid_pistil_author_annotations",
@@ -901,7 +757,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_author_annotations/li_2023_diploid_pistil_author_annotations_GSM6346349_Pistil-2N-replicate1_barcodes.tsv.gz",
     "original_path": "data/raw/li_author/GSM6346349_Pistil-2N-replicate1_barcodes.tsv.gz",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li_author; build_expression.py --study li_author; validate_expression.py --study li_author"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li_author; python3 -m pipelines.build_expression --study li_author; python3 -m pipelines.validate_expression --study li_author"
   },
   {
     "dataset": "li_2023_diploid_pistil_author_annotations",
@@ -909,7 +765,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_author_annotations/li_2023_diploid_pistil_author_annotations_GSM6346349_Pistil-2N-replicate1_features.tsv.gz",
     "original_path": "data/raw/li_author/GSM6346349_Pistil-2N-replicate1_features.tsv.gz",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li_author; build_expression.py --study li_author; validate_expression.py --study li_author"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li_author; python3 -m pipelines.build_expression --study li_author; python3 -m pipelines.validate_expression --study li_author"
   },
   {
     "dataset": "li_2023_diploid_pistil_author_annotations",
@@ -917,7 +773,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_author_annotations/li_2023_diploid_pistil_author_annotations_GSM6346349_Pistil-2N-replicate1_matrix.mtx.gz",
     "original_path": "data/raw/li_author/GSM6346349_Pistil-2N-replicate1_matrix.mtx.gz",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li_author; build_expression.py --study li_author; validate_expression.py --study li_author"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li_author; python3 -m pipelines.build_expression --study li_author; python3 -m pipelines.validate_expression --study li_author"
   },
   {
     "dataset": "li_2023_diploid_pistil_author_annotations",
@@ -925,7 +781,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_author_annotations/li_2023_diploid_pistil_author_annotations_GSM6346350.soft",
     "original_path": "data/raw/li_author/GSM6346350.soft",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li_author; build_expression.py --study li_author; validate_expression.py --study li_author"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li_author; python3 -m pipelines.build_expression --study li_author; python3 -m pipelines.validate_expression --study li_author"
   },
   {
     "dataset": "li_2023_diploid_pistil_author_annotations",
@@ -933,7 +789,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_author_annotations/li_2023_diploid_pistil_author_annotations_GSM6346350_Pistil-2N-replicate2_barcodes.tsv.gz",
     "original_path": "data/raw/li_author/GSM6346350_Pistil-2N-replicate2_barcodes.tsv.gz",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li_author; build_expression.py --study li_author; validate_expression.py --study li_author"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li_author; python3 -m pipelines.build_expression --study li_author; python3 -m pipelines.validate_expression --study li_author"
   },
   {
     "dataset": "li_2023_diploid_pistil_author_annotations",
@@ -941,7 +797,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_author_annotations/li_2023_diploid_pistil_author_annotations_GSM6346350_Pistil-2N-replicate2_features.tsv.gz",
     "original_path": "data/raw/li_author/GSM6346350_Pistil-2N-replicate2_features.tsv.gz",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li_author; build_expression.py --study li_author; validate_expression.py --study li_author"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li_author; python3 -m pipelines.build_expression --study li_author; python3 -m pipelines.validate_expression --study li_author"
   },
   {
     "dataset": "li_2023_diploid_pistil_author_annotations",
@@ -949,7 +805,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_author_annotations/li_2023_diploid_pistil_author_annotations_GSM6346350_Pistil-2N-replicate2_matrix.mtx.gz",
     "original_path": "data/raw/li_author/GSM6346350_Pistil-2N-replicate2_matrix.mtx.gz",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li_author; build_expression.py --study li_author; validate_expression.py --study li_author"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li_author; python3 -m pipelines.build_expression --study li_author; python3 -m pipelines.validate_expression --study li_author"
   },
   {
     "dataset": "li_2023_diploid_pistil_author_annotations",
@@ -957,7 +813,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_author_annotations/li_2023_diploid_pistil_author_annotations_extraction.json",
     "original_path": "data/raw/li_author/extraction.json",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li_author; build_expression.py --study li_author; validate_expression.py --study li_author"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li_author; python3 -m pipelines.build_expression --study li_author; python3 -m pipelines.validate_expression --study li_author"
   },
   {
     "dataset": "li_2023_diploid_pistil_author_annotations",
@@ -965,7 +821,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_author_annotations/li_2023_diploid_pistil_author_annotations_features.tsv",
     "original_path": "data/raw/li_author/features.tsv",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li_author; build_expression.py --study li_author; validate_expression.py --study li_author"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li_author; python3 -m pipelines.build_expression --study li_author; python3 -m pipelines.validate_expression --study li_author"
   },
   {
     "dataset": "li_2023_diploid_pistil_author_annotations",
@@ -973,7 +829,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_author_annotations/li_2023_diploid_pistil_author_annotations_matched_cells.tsv",
     "original_path": "data/raw/li_author/matched_cells.tsv",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li_author; build_expression.py --study li_author; validate_expression.py --study li_author"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li_author; python3 -m pipelines.build_expression --study li_author; python3 -m pipelines.validate_expression --study li_author"
   },
   {
     "dataset": "li_2023_diploid_pistil_author_annotations",
@@ -981,7 +837,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_author_annotations/li_2023_diploid_pistil_author_annotations_mmc3.xlsx",
     "original_path": "data/raw/li_author/mmc3.xlsx",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li_author; build_expression.py --study li_author; validate_expression.py --study li_author"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li_author; python3 -m pipelines.build_expression --study li_author; python3 -m pipelines.validate_expression --study li_author"
   },
   {
     "dataset": "li_2023_diploid_pistil_author_annotations",
@@ -989,15 +845,15 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_author_annotations/li_2023_diploid_pistil_author_annotations_selection.json",
     "original_path": "data/raw/li_author/selection.json",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li_author; build_expression.py --study li_author; validate_expression.py --study li_author"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li_author; python3 -m pipelines.build_expression --study li_author; python3 -m pipelines.validate_expression --study li_author"
   },
   {
     "dataset": "li_2023_diploid_pistil_author_annotations",
     "role": "source_or_intermediate",
     "descriptive_path": "datasets/li_2023_diploid_pistil_author_annotations/li_2023_diploid_pistil_author_annotations_summaries.tsv.gz",
     "original_path": "data/raw/li_author/summaries.tsv.gz",
-    "calculation_or_usage": "Per-sample/cell-type n_cells, n_expressing and sum_log; input to build_expression.py.",
-    "pipeline": "fetch_expression.py --study li_author; build_expression.py --study li_author; validate_expression.py --study li_author"
+    "calculation_or_usage": "Per-sample/cell-type n_cells, n_expressing and sum_log; input to pipelines/build_expression.py.",
+    "pipeline": "python3 -m pipelines.fetch_expression --study li_author; python3 -m pipelines.build_expression --study li_author; python3 -m pipelines.validate_expression --study li_author"
   },
   {
     "dataset": "li_2023_diploid_pistil_author_annotations",
@@ -1005,15 +861,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_author_annotations/li_2023_diploid_pistil_author_annotations_expression_inputs.json",
     "original_path": "data/expression_li_author_inputs.json",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li_author; build_expression.py --study li_author; validate_expression.py --study li_author"
-  },
-  {
-    "dataset": "li_2023_diploid_pistil_author_annotations",
-    "role": "metadata_or_validation",
-    "descriptive_path": "datasets/li_2023_diploid_pistil_author_annotations/li_2023_diploid_pistil_author_annotations_expression_join_validation.json",
-    "original_path": "data/expression_li_author_join_validation.json",
-    "calculation_or_usage": "Independent checks of counts, detection and normalized expression; not expression input.",
-    "pipeline": "fetch_expression.py --study li_author; build_expression.py --study li_author; validate_expression.py --study li_author"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li_author; python3 -m pipelines.build_expression --study li_author; python3 -m pipelines.validate_expression --study li_author"
   },
   {
     "dataset": "li_2023_diploid_pistil_author_annotations",
@@ -1021,7 +869,7 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_author_annotations/li_2023_diploid_pistil_author_annotations_expression_manifest.json",
     "original_path": "data/expression_li_author_manifest.json",
     "calculation_or_usage": "Source selection, extraction or provenance; consult the study input manifest.",
-    "pipeline": "fetch_expression.py --study li_author; build_expression.py --study li_author; validate_expression.py --study li_author"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li_author; python3 -m pipelines.build_expression --study li_author; python3 -m pipelines.validate_expression --study li_author"
   },
   {
     "dataset": "li_2023_diploid_pistil_author_annotations",
@@ -1029,15 +877,23 @@
     "descriptive_path": "datasets/li_2023_diploid_pistil_author_annotations/li_2023_diploid_pistil_author_annotations_expression_validation.json",
     "original_path": "data/expression_li_author_validation.json",
     "calculation_or_usage": "Independent checks of counts, detection and normalized expression; not expression input.",
-    "pipeline": "fetch_expression.py --study li_author; build_expression.py --study li_author; validate_expression.py --study li_author"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li_author; python3 -m pipelines.build_expression --study li_author; python3 -m pipelines.validate_expression --study li_author"
+  },
+  {
+    "dataset": "li_2023_diploid_pistil_author_annotations",
+    "role": "metadata_or_validation",
+    "descriptive_path": "datasets/li_2023_diploid_pistil_author_annotations/li_2023_diploid_pistil_author_annotations_expression_join_validation.json",
+    "original_path": "data/expression_li_author_join_validation.json",
+    "calculation_or_usage": "Independent checks of counts, detection and normalized expression; not expression input.",
+    "pipeline": "python3 -m pipelines.fetch_expression --study li_author; python3 -m pipelines.build_expression --study li_author; python3 -m pipelines.validate_expression --study li_author"
   },
   {
     "dataset": "li_2023_diploid_pistil_author_annotations",
     "role": "expression_database",
     "descriptive_path": "datasets/li_2023_diploid_pistil_author_annotations/li_2023_diploid_pistil_author_annotations_expression.sqlite",
-    "original_path": "data/expression_li_author.sqlite",
+    "original_path": "data/databases/expression_li_author.sqlite",
     "calculation_or_usage": "Cell-weighted mean log1p(10000*count/library_size), percent expressing=100*n_expressing/n_cells and within-study ranking; served by expression.py.",
-    "pipeline": "fetch_expression.py --study li_author; build_expression.py --study li_author; validate_expression.py --study li_author"
+    "pipeline": "python3 -m pipelines.fetch_expression --study li_author; python3 -m pipelines.build_expression --study li_author; python3 -m pipelines.validate_expression --study li_author"
   },
   {
     "dataset": "jing_2026_gene_mapping_metadata",
@@ -1059,7 +915,7 @@
     "dataset": "rapdb_gene_coordinates",
     "role": "gene_and_gwas_database",
     "descriptive_path": "datasets/rapdb_gene_coordinates/rapdb_gene_coordinates.sqlite",
-    "original_path": "data/rice.sqlite",
+    "original_path": "data/databases/rice.sqlite",
     "calculation_or_usage": "build_database.py: RAP gene/alias import plus GWAS Atlas association filtering, coordinate checks and deduplication; app.py: neighboring-gene windows and plots.",
     "pipeline": "See calculation column"
   },

@@ -25,7 +25,7 @@ source ──< quarantine
 | association | Source row, study, trait, assembly, chromosome, position, original/numeric p-value, available alleles/frequency/R², missing effect-size fields, original reference/location and complete original row |
 | quarantine  | Source row, reason and complete original row for records excluded from coordinate searches                                                                                                            |
 
-`schema.sql` is the executable specification. Foreign keys enforce relationships. Region indexes include assembly and chromosome, so matching a chromosome number alone is insufficient. Aliases use case-insensitive matching and return all candidate loci.
+`database/schema.sql` is the executable specification. Foreign keys enforce relationships. Region indexes include assembly and chromosome, so matching a chromosome number alone is insufficient. Aliases use case-insensitive matching and return all candidate loci.
 
 Association primary keys combine source GaP ID and physical source line because the source reuses some IDs. A study key combines its source ID and context hash to avoid overwriting records when a source ID has several contexts. This preserves evidence; it does not solve study independence or cross-source deduplication. The full raw source row preserves sampling conditions, year, QTL, reported gene and other fields not yet normalized for filtering.
 
@@ -60,6 +60,6 @@ Add `genomic_region` and `region_evidence` for source-defined loci, credible set
 
 `evidence_summary` stores the representative source row and repeat count for a fingerprint over every source field except GaP ID. `association_display` exposes one representative per exact evidence group. The original `association` and `quarantine` tables retain source rows unchanged. The API offers `include_repeats=true` to retrieve all accepted source rows.
 
-A versioned `publication_review.json` overlay records selected original-paper comparisons by association ID. It identifies checked statistic types and metadata conflicts without overwriting original traits or models. `validate_data.py` checks that the overlay refers to the same GWAS source checksum and existing accepted records. These selected checks do not validate unmatched records.
+A versioned `publication_review.json` overlay records selected original-paper comparisons by association ID. It identifies checked statistic types and metadata conflicts without overwriting original traits or models. `pipelines/validate_data.py` checks that the overlay refers to the same GWAS source checksum and existing accepted records. These selected checks do not validate unmatched records.
 
 The original-row endpoint `/api/association?id=...` returns the complete imported source assertion and any primary-table review. Study/publication/trait/statistic/position filters apply consistently to the table, chart and CSV; gene neighbors continue to describe the selected reference window.

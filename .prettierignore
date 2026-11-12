@@ -1,4 +1,4 @@
 node_modules/
 data/raw/
-data/*.sqlite
+data/databases/*.sqlite
 __pycache__/

@@ -7,14 +7,14 @@ A working local prototype for searching rice genes, exploring neighboring genes 
 ```sh
 git clone https://github.com/s4sharif/rice-gene-explorer.git
 cd rice-gene-explorer
-python3 fetch_data.py
-python3 build_database.py
-python3 validate_data.py
+python3 -m pipelines.fetch_data
+python3 -m pipelines.build_database
+python3 -m pipelines.validate_data
 python3 -m unittest discover -s tests -v
-python3 app.py --port 8766
+python3 -m backend.app --port 8766
 ```
 
-Open [RiceLENS](http://127.0.0.1:8766) in a browser after starting the server. This address runs on your own computer. Keep the terminal open; Ctrl+C stops the server. After the first database build, subsequent launches need only `python3 app.py --port 8766`. If that port is occupied, use `python3 app.py --port 8767` and open [port 8767](http://127.0.0.1:8767) instead. On macOS, `Launch.command` starts the default port, [8765](http://127.0.0.1:8765).
+Open [RiceLENS](http://127.0.0.1:8766) in a browser after starting the server. This address runs on your own computer. Keep the terminal open; Ctrl+C stops the server. After the first database build, subsequent launches need only `python3 -m backend.app --port 8766`. If that port is occupied, use `python3 -m backend.app --port 8767` and open [port 8767](http://127.0.0.1:8767) instead. On macOS, `scripts/Launch.command` starts the default port, [8765](http://127.0.0.1:8765).
 
 Use Python 3.11 or newer. The application and data importer use only the Python standard library; no Python packages, Node.js, Docker or HPC service are required to run the prototype. Internet access is needed for the initial source downloads, approximately 21 MB compressed. The database occupies approximately 224 MB after building; allow additional space while rebuilding. Development tools are described in [CONTRIBUTING.md](CONTRIBUTING.md).
 
@@ -69,13 +69,13 @@ Try **LOC_Os01g01010** to check MSU-to-RAP mapping. Missing cross-references are
 ## Rebuild and validate
 
 ```sh
-python3 fetch_data.py
-python3 build_database.py
-python3 validate_data.py
+python3 -m pipelines.fetch_data
+python3 -m pipelines.build_database
+python3 -m pipelines.validate_data
 python3 -m unittest discover -s tests -v
 ```
 
-The fetcher verifies the included snapshot checksums and refuses silently changed downloads. The builder writes a replacement database before swapping it into place. Keep raw sources and `provenance.json` to reproduce this snapshot. `validate_data.py` compares every accepted coordinate and p-value against its source row, verifies that every source row is imported or quarantined, and checks database integrity and foreign keys. Eleven automated integration test groups cover identifier ambiguity/mappings, boundary/strand arithmetic, region/CSV consistency, eight-record pagination, window/trait filters, quarantine handling and invalid query input.
+The fetcher verifies the included snapshot checksums and refuses silently changed downloads. The builder writes a replacement database before swapping it into place. Keep raw sources and `provenance.json` to reproduce this snapshot. `pipelines/validate_data.py` compares every accepted coordinate and p-value against its source row, verifies that every source row is imported or quarantined, and checks database integrity and foreign keys. Eleven automated integration test groups cover identifier ambiguity/mappings, boundary/strand arithmetic, region/CSV consistency, eight-record pagination, window/trait filters, quarantine handling and invalid query input.
 
 ## Project documentation and next steps
 
@@ -83,7 +83,7 @@ The fetcher verifies the included snapshot checksums and refuses silently change
 - [Implementation plan](docs/implementation_plan.md): response to the revised project objectives, architecture, initial sources, milestones and open decisions.
 - [Database design](docs/database_design.md): table relationships, coordinate rules, missing values and planned expression extension.
 - [Learning notes](docs/learning_notes.md): a short explanation of the Python/database concepts used here.
-- `schema.sql`, `build_database.py`, `app.py`, `static/`: database definition, import, API and interface.
+- `database/schema.sql`, `pipelines/build_database.py`, `backend/app.py`, `static/`: database definition, import, API and interface.
 - `data/provenance.json`, `data/validation.json`: reproducibility and import validation.
 
 Before treating this as a research database: expand the selected-paper review, resolve excluded reference labels with supporting evidence, assess cross-study independence and allele semantics, and agree on source coverage and update policies. Exact-row duplication and chromosome bounds are now audited. Public hosting and redistribution require review of source-specific reuse terms. This local pilot is not a complete rice GWAS catalog or a production service.
@@ -94,7 +94,7 @@ Start with the [review walkthrough](docs/review_guide.md) and [requirements chec
 
 The source audit groups 2,803 exact repeated rows into 129,962 distinct evidence records. Direct comparisons with Table 1 in two original papers match coordinates/statistics for 93 source records, including 29 with trait or model-label conflicts. Checked adjusted p-values are identified and conflicting metadata is flagged in the table and exports. Unchecked records are explicitly labelled. See `data/publication_review.json`, `data/validation.json` and `data/review_examples.json`.
 
-To repeat the optional primary-table review, run `python3 audit_publications.py --download`. It downloads bounded open-access XML, not full supplementary archives. This is selected-record curation, not validation of the entire literature collection.
+To repeat the optional primary-table review, run `python3 -m pipelines.audit_publications --download`. It downloads bounded open-access XML, not full supplementary archives. This is selected-record curation, not validation of the entire literature collection.
 
 ## Code quality
 
@@ -111,3 +111,23 @@ The private review prototype is hosted at [ricelens-review.onrender.com](https:/
 ## Dataset organization
 
 Browse the [dataset directory and calculation index](datasets/README.md) to see the inputs, summaries, validation reports and databases behind each study. Run `python3 scripts/organize_datasets.py` to create descriptive `author_year_parameter` links locally without copying large files.
+
+## Repository layout
+
+| Folder            | Contents                                                             |
+| ----------------- | -------------------------------------------------------------------- |
+| `backend/`        | Web server, API, expression queries and hosted entry point.          |
+| `static/`         | Website HTML, CSS, JavaScript and images.                            |
+| `database/`       | SQL schema defining database tables and indexes.                     |
+| `data/databases/` | Local SQLite databases generated from the inputs; excluded from Git. |
+| `data/raw/`       | Downloaded study inputs; excluded from Git.                          |
+| `data/`           | Source manifests, provenance and validation reports.                 |
+| `datasets/`       | Study-by-study input links and calculation index.                    |
+| `pipelines/`      | Download, import, preparation and validation programs.               |
+| `scripts/`        | Launch, maintenance, dataset organization and transfer helpers.      |
+| `requirements/`   | Pinned development and hosting dependencies.                         |
+| `deployment/`     | Hosting configuration and compressed serving snapshots.              |
+| `tests/`          | Automated application and data-processing checks.                    |
+| `docs/`           | Methods, source coverage, review and deployment documentation.       |
+
+Run Python module commands from the repository root, for example `python3 -m backend.app --port 8771`. Standard configuration files remain at the root so GitHub, npm and Render can find them.

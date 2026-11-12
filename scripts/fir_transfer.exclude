@@ -1,0 +1,15 @@
+# Local dependencies can be reinstalled on Fir from the pinned requirements.
+node_modules/
+.venv/
+# Generated caches and Mac metadata.
+__pycache__/
+*.pyc
+*.pyo
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
+.DS_Store
+# Local credentials and temporary SQLite builds are excluded.
+.env
+.env.*
+*.building.sqlite

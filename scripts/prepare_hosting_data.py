@@ -32,7 +32,7 @@ def prepare():
     records = []
     with tempfile.TemporaryDirectory(prefix="ricelens-serving-") as directory:
         for name, metadata_name in FILES.items():
-            source = ROOT / "data" / name
+            source = ROOT / "data/databases" / name
             target = Path(directory) / name
             with closing(
                 sqlite3.connect(f"file:{source}?mode=ro", uri=True)

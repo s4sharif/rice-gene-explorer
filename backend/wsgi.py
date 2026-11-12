@@ -7,7 +7,7 @@ import io
 import os
 from http import HTTPStatus
 
-from app import DB, Handler
+from backend.app import DB, Handler
 
 
 class Response(Handler):

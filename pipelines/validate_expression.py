@@ -11,7 +11,7 @@ from collections import defaultdict
 from contextlib import closing
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / "data/raw/expression"
 TARGETS = {"Os03g0407400", "Os12g0528400", "Os07g0141400", "Os01g0100100"}
 
@@ -29,7 +29,9 @@ def main(study="robertson"):
         ).open() as handle:
             metadata = list(csv.DictReader(handle, delimiter="\t"))
     checks = 0
-    with closing(sqlite3.connect(ROOT / f"data/expression{suffix}.sqlite")) as db:
+    with closing(
+        sqlite3.connect(ROOT / f"data/databases/expression{suffix}.sqlite")
+    ) as db:
         db.row_factory = sqlite3.Row
         if db.execute("PRAGMA integrity_check").fetchone()[0] != "ok":
             raise ValueError("Expression database integrity failed.")

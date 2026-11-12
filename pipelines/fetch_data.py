@@ -4,7 +4,7 @@ import hashlib
 import json
 import urllib.request
 
-from build_database import ROOT, SOURCES
+from pipelines.build_database import ROOT, SOURCES
 
 
 # Download missing source snapshots and verify each file against its recorded checksum.

@@ -9,7 +9,7 @@ from urllib.parse import urlsplit
 from wsgiref.util import setup_testing_defaults
 from wsgiref.validate import validator
 
-import wsgi
+from backend import wsgi
 
 USERNAME = "reviewer"
 PASSWORD = "test-only-strong-password"

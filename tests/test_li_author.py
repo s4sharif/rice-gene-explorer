@@ -2,7 +2,7 @@
 
 import unittest
 
-from prepare_li_author import join_annotations
+from pipelines.prepare_li_author import join_annotations
 
 
 class LiAuthorTests(unittest.TestCase):

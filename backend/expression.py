@@ -5,7 +5,7 @@ import sqlite3
 from contextlib import closing
 from pathlib import Path
 
-from runtime_data import DATA_DIR
+from backend.runtime_data import DATA_DIR
 
 EXPRESSION_DB = DATA_DIR / "expression.sqlite"
 WANG_DB = DATA_DIR / "expression_wang.sqlite"
@@ -34,7 +34,9 @@ def dataset_enabled(dataset_id):
         "li_2023_pistil_2n_scplantdb": "expression_li_manifest.json",
         "li_2023_pistil_2n_author": "expression_li_author_manifest.json",
     }
-    return (Path(__file__).resolve().parent / "data" / filenames[dataset_id]).exists()
+    return (
+        Path(__file__).resolve().parents[1] / "data" / filenames[dataset_id]
+    ).exists()
 
 
 # List only imported studies so separate normalizations are never combined silently.

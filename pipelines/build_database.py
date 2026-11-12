@@ -11,7 +11,7 @@ import sqlite3
 import tarfile
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[1]
 ASSEMBLY = "Os-Nipponbare-Reference-IRGSP-1.0"
 CHROMOSOMES = json.loads((ROOT / "data/chromosomes.json").read_text())
 CHROMOSOME_LENGTHS = {int(k): v for k, v in CHROMOSOMES["lengths"].items()}
@@ -63,11 +63,12 @@ def clean(value):
 
 # Import the documented rice snapshots into a validated replacement database.
 def build():
-    path = ROOT / "data/rice.sqlite"
+    path = ROOT / "data/databases/rice.sqlite"
+    path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(".building.sqlite")
     temporary.unlink(missing_ok=True)
     db = sqlite3.connect(temporary)
-    db.executescript((ROOT / "schema.sql").read_text())
+    db.executescript((ROOT / "database/schema.sql").read_text())
     db.execute(
         "INSERT INTO assembly VALUES (?,?,?,?)",
         (ASSEMBLY, "Oryza sativa", "Nipponbare", "1-based inclusive"),

@@ -2,8 +2,8 @@
 
 import unittest
 
-from prepare_jing_metadata import map_genes
-from source_coverage import source_coverage
+from backend.source_coverage import source_coverage
+from pipelines.prepare_jing_metadata import map_genes
 
 
 class JingMetadataTests(unittest.TestCase):
