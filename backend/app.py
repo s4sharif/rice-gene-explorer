@@ -35,11 +35,134 @@ def connect():
         db.close()
 
 
+# Validate a point or inclusive genomic interval against the loaded reference assembly.
+def parse_locus(query):
+    normalized = re.sub(r"[\s,]", "", query.lower())
+    match = re.fullmatch(r"(?:chr)?(\d+):(\d+)(?:[-–](\d+))?", normalized)
+    if not match:
+        if ":" in normalized:
+            raise ValueError(
+                "Use a genomic position such as chr3:16729501 or chr3:16729501-16735109."
+            )
+        return None
+    chromosome, start = int(match[1]), int(match[2])
+    end = int(match[3] or start)
+    if (
+        chromosome not in CHROMOSOME_LENGTHS
+        or not 1 <= start <= end <= CHROMOSOME_LENGTHS[chromosome]
+    ):
+        raise ValueError(
+            "Coordinates must be within rice chromosomes 1–12 on IRGSP-1.0, with start no greater than end."
+        )
+    if end - start > 2000000:
+        raise ValueError(
+            "Search intervals must span at most 2 Mb before adding the flanking window."
+        )
+    return chromosome, start, end
+
+
+# Format a validated coordinate search so bookmarks preserve its exact interval.
+def canonical_locus(locus):
+    chromosome, start, end = locus
+    return f"chr{chromosome}:{start}-{end}"
+
+
+# Report live database counts with an explicit canonical annotation choice for overlapping nuclei.
+def overview():
+    with connect() as db:
+        result = {
+            "study_contexts": db.execute(
+                "SELECT count(DISTINCT study_id) FROM association"
+            ).fetchone()[0],
+            "publications": db.execute(
+                "SELECT count(DISTINCT s.publication_id) FROM association a JOIN study s ON s.id=a.study_id"
+            ).fetchone()[0],
+            "traits": db.execute("SELECT count(*) FROM trait").fetchone()[0],
+            "genes": db.execute("SELECT count(*) FROM gene").fetchone()[0],
+            "association_rows": db.execute(
+                "SELECT count(*) FROM association"
+            ).fetchone()[0],
+            "qtl_named_rows": db.execute(
+                "SELECT count(*) FROM association WHERE trim(coalesce(json_extract(raw_json,'$.QTL'),''))!=''"
+            ).fetchone()[0],
+        }
+    datasets = expression_datasets()
+    ids = {d["id"] for d in datasets}
+    selected = [
+        d
+        for d in datasets
+        if d["id"] != "li_2023_pistil_2n_scplantdb"
+        or "li_2023_pistil_2n_author" not in ids
+    ]
+    result["atlas_cells"] = sum(d["n_cells"] for d in selected)
+    result["atlas_datasets"] = selected
+    result["cell_count_note"] = (
+        "Cells and nuclei in the selected annotation versions. Li author annotations are counted once; the overlapping scPlantDB annotation version is excluded. Expression browsing is paused during this revision."
+    )
+    result["qtl_note"] = (
+        "Source-reported QTL names are retained on GWAS records; this export does not independently identify linkage-QTL studies."
+    )
+    return result
+
+
+# Return all regional genes and overlapping source-observed SNP positions without inferring allele orientation.
+def locus_genes(selector, window=25000):
+    data = region(selector, window)
+    with connect() as db:
+        aliases = db.execute(
+            "SELECT gene_id,name FROM alias WHERE gene_id IN (SELECT id FROM gene WHERE chromosome=? AND start<=? AND end>=?) ORDER BY name",
+            (data["gene"]["chromosome"], data["end"], data["start"]),
+        ).fetchall()
+        variants = [
+            dict(r)
+            for r in db.execute(
+                "SELECT DISTINCT position,effect_allele,other_allele FROM association WHERE assembly_id=? AND chromosome=? AND position BETWEEN ? AND ? ORDER BY position",
+                (
+                    data["gene"]["assembly_id"],
+                    data["gene"]["chromosome"],
+                    data["start"],
+                    data["end"],
+                ),
+            )
+        ]
+    alias_map = {}
+    for row in aliases:
+        alias_map.setdefault(row["gene_id"], set()).add(row["name"])
+    genes = []
+    for gene in data["neighbors"]:
+        genes.append(
+            {
+                **gene,
+                "aliases": sorted(alias_map.get(gene["id"], set())),
+                "variants": [
+                    v for v in variants if gene["start"] <= v["position"] <= gene["end"]
+                ],
+                "reference_allele": None,
+                "alternate_allele": None,
+            }
+        )
+    return {
+        "genes": genes,
+        "start": data["start"],
+        "end": data["end"],
+        "chromosome": data["gene"]["chromosome"],
+        "selector": selector,
+    }
+
+
 # Resolve an identifier or symbol to matching genes without choosing among ambiguous matches.
 def search(query):
     query = query.strip()
     if not query or len(query) > 120:
         raise ValueError("Enter a gene identifier or symbol (maximum 120 characters).")
+    locus = parse_locus(query)
+    if locus:
+        return {
+            "matches": [],
+            "match_type": "locus",
+            "selector": canonical_locus(locus),
+            "truncated": False,
+        }
     with connect() as db:
         exact = db.execute(
             "SELECT g.*,MIN(a.name) AS matched_identifier,MIN(a.kind) AS matched_identifier_kind FROM gene g JOIN alias a ON a.gene_id=g.id WHERE a.name=? COLLATE NOCASE GROUP BY g.id ORDER BY CASE WHEN g.symbol=? COLLATE NOCASE THEN 0 ELSE 1 END,g.id",
@@ -90,7 +213,10 @@ def region(
     include_repeats=False,
     variant_query="",
     suggestions=False,
+    sort="p_asc",
 ):
+    if sort not in {"p_asc", "p_desc"}:
+        raise ValueError("Select ascending or descending p-value order.")
     if not 0 <= window <= 1000000:
         raise ValueError("Window must be between 0 and 1,000,000 bp on each side.")
     if page < 1 or page > 100000:
@@ -107,10 +233,26 @@ def region(
     if position_filter not in {"", "overlap", "upstream", "downstream"}:
         raise ValueError("Select a recognized position filter.")
     with connect() as db:
-        row = db.execute("SELECT * FROM gene WHERE id=?", (gene_id,)).fetchone()
-        if not row:
-            raise ValueError("Select a recognized RAP gene ID from the search results.")
-        gene = dict(row)
+        locus = parse_locus(gene_id)
+        if locus:
+            chromosome, locus_start, locus_end = locus
+            gene = {
+                "id": "",
+                "assembly_id": "Os-Nipponbare-Reference-IRGSP-1.0",
+                "chromosome": chromosome,
+                "start": locus_start,
+                "end": locus_end,
+                "strand": "+",
+                "symbol": "Selected region",
+                "description": "Genomic interval search",
+            }
+        else:
+            row = db.execute("SELECT * FROM gene WHERE id=?", (gene_id,)).fetchone()
+            if not row:
+                raise ValueError(
+                    "Select a recognized RAP gene ID or enter chr3:16729501-16735109."
+                )
+            gene = dict(row)
         start = max(1, gene["start"] - window)
         end = min(CHROMOSOME_LENGTHS[gene["chromosome"]], gene["end"] + window)
         genes = [
@@ -201,7 +343,7 @@ def region(
         cols = (
             "SELECT "
             + repeat_count
-            + " AS source_record_count,a.id,a.chromosome,a.position,a.p_value,a.p_value_text,a.effect_allele,a.effect_allele_frequency,a.other_allele,a.effect_size,a.r2_percent,a.reported_location,a.source_reference,a.source_row,t.label AS trait,t.ontology_id,s.source_study_id,s.model,s.sample_size,s.population,s.environment,s.tissue,p.pmid,p.title,p.url AS publication_url"
+            + " AS source_record_count,a.id,a.chromosome,a.position,a.p_value,a.p_value_text,a.effect_allele,a.effect_allele_frequency,a.other_allele,a.effect_size,a.r2_percent,a.reported_location,a.source_reference,a.source_row,json_extract(a.raw_json,'$.QTL') AS qtl_label,json_extract(a.raw_json,'$.\"Sampling condition\"') AS experimental_condition,t.label AS trait,t.ontology_id,s.source_study_id,s.model,s.sample_size,s.population,s.environment,s.tissue,p.pmid,p.title,p.url AS publication_url"
         )
 
         # Add gene-relative distances, plot values and source links to association records.
@@ -210,6 +352,19 @@ def region(
             for row in rows:
                 a = dict(row)
                 a["relation"], a["distance_bp"] = relation(gene, a["position"])
+                if locus:
+                    a["relation"] = (
+                        "within searched interval"
+                        if a["distance_bp"] == 0
+                        else (
+                            "lower coordinate"
+                            if a["position"] < gene["start"]
+                            else "higher coordinate"
+                        )
+                    )
+                a["evidence_type"] = "GWAS"
+                a["reference_allele"] = None
+                a["alternate_allele"] = None
                 a["neg_log10_p"] = -math.log10(a["p_value"])
                 a["assembly"] = gene["assembly_id"]
                 a["source_url"] = "https://ngdc.cncb.ac.cn/gwas/download"
@@ -246,7 +401,31 @@ def region(
                 result.append(a)
             return result
 
-        order = " ORDER BY a.p_value,a.position,a.id"
+        top_traits = [
+            dict(row)
+            for row in db.execute(
+                "SELECT t.label AS trait,count(*) AS count"
+                + join
+                + " GROUP BY t.label ORDER BY count DESC,t.label",
+                args,
+            )
+        ]
+        smallest_p = db.execute("SELECT MIN(a.p_value)" + join, args).fetchone()[0]
+        trait_options = [
+            r[0]
+            for r in db.execute(
+                "SELECT DISTINCT t.label FROM association a JOIN trait t ON t.id=a.trait_id WHERE "
+                + base_where
+                + " ORDER BY t.label",
+                base_args,
+            )
+        ]
+        order = (
+            " ORDER BY a.p_value"
+            + (" DESC" if sort == "p_desc" else " ASC")
+            + ",a.position,a.id"
+        )
+
         if export:
             return enrich(db.execute(cols + join + order, args))
         associations = enrich(
@@ -255,7 +434,11 @@ def region(
                 args + [PAGE_SIZE, (page - 1) * PAGE_SIZE],
             )
         )
-        plot = enrich(db.execute(cols + join + order + " LIMIT 500", args))
+        plot = enrich(
+            db.execute(
+                cols + join + " ORDER BY a.p_value,a.position,a.id LIMIT 500", args
+            )
+        )
         aliases = [
             dict(r)
             for r in db.execute(
@@ -265,6 +448,19 @@ def region(
         ]
         return {
             "gene": gene,
+            "selector": gene_id,
+            "selection_type": "locus" if locus else "gene",
+            "sort": sort,
+            "trait_options": trait_options,
+            "summary": {
+                "records": total,
+                "smallest_p": smallest_p,
+                "top_traits": (
+                    [r for r in top_traits if r["count"] == top_traits[0]["count"]]
+                    if top_traits
+                    else []
+                ),
+            },
             "aliases": aliases,
             "start": start,
             "end": end,
@@ -382,6 +578,47 @@ class Handler(BaseHTTPRequestHandler):
                         attachment="ricelens_baseline_expression.csv",
                     )
                 return self.send_json(data)
+            if parsed.path == "/api/overview":
+                return self.send_json(overview())
+            if parsed.path in {"/api/genes", "/api/genes/export"}:
+                data = locus_genes(q.get("gene", ""), int(q.get("window", 25000)))
+                if parsed.path.endswith("/export"):
+                    out = io.StringIO()
+                    fields = [
+                        "id",
+                        "symbol",
+                        "chromosome",
+                        "start",
+                        "end",
+                        "strand",
+                        "aliases",
+                        "description",
+                        "assembly_id",
+                        "snp_positions",
+                        "reference_allele",
+                        "alternate_allele",
+                    ]
+                    writer = csv.DictWriter(
+                        out, fieldnames=fields, extrasaction="ignore"
+                    )
+                    writer.writeheader()
+                    for gene in data["genes"]:
+                        writer.writerow(
+                            {
+                                **gene,
+                                "aliases": "; ".join(gene["aliases"]),
+                                "snp_positions": "; ".join(
+                                    f"chr{gene['chromosome']}:{v['position']}"
+                                    for v in gene["variants"]
+                                ),
+                            }
+                        )
+                    return self.respond(
+                        out.getvalue().encode(),
+                        "text/csv; charset=utf-8",
+                        attachment="ricelens_region_genes.csv",
+                    )
+                return self.send_json(data)
             if parsed.path == "/api/search":
                 return self.send_json(search(q.get("q", "")))
             if parsed.path in {
@@ -402,6 +639,7 @@ class Handler(BaseHTTPRequestHandler):
                     include_repeats=q.get("include_repeats", "false") == "true",
                     variant_query=q.get("variant_query", ""),
                     suggestions=parsed.path == "/api/variant-suggestions",
+                    sort=q.get("sort", "p_asc"),
                 )
                 if parsed.path == "/api/export":
                     out = io.StringIO()
@@ -447,6 +685,11 @@ class Handler(BaseHTTPRequestHandler):
             files = {
                 "/": "index.html",
                 "/variation": "index.html",
+                "/locus": "index.html",
+                "/homolog": "index.html",
+                "/download": "index.html",
+                "/tutorial": "index.html",
+                "/contact": "index.html",
                 "/gwas": "index.html",
                 "/expression": "index.html",
                 "/app.js": "app.js",
