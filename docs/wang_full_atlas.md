@@ -69,6 +69,6 @@ The source download, disk-backed arrays and generated SQLite database are exclud
 
 ## Local website
 
-Cell Expression uses the existing shared gene/window context. It provides an eight-organ selector, a dot plot, exact values, publication/source links, and comparison of up to six neighbouring genes within this study. Dot size encodes detection percentage; a sequential blue scale encodes mean expression. Unknown labels and missing features remain explicit. The CSV exports all 56 contexts for each selected gene even when the figure shows one organ.
+Cell Expression uses the existing shared gene/window context. The [study selector](expression_study_selector.md) also exposes the separately imported Wang root experiment, Robertson controls and both Li annotation versions without pooling their measurements. It provides an eight-organ selector, a dot plot, exact values, publication/source links, and comparison of up to six neighbouring genes within this study. Dot size encodes detection percentage; a sequential blue scale encodes mean expression. Unknown labels and missing features remain explicit. The CSV exports all 56 contexts for each selected gene even when the figure shows one organ.
 
 This is a local review feature. Existing expression datasets, GWAS functionality and source coordinates remain separate. Neither main nor the live deployment is changed automatically.

@@ -1,6 +1,6 @@
 # RiceLENS
 
-A working local prototype for searching rice genes, exploring neighboring genes and viewing published GWAS evidence. This revision prioritizes a shared genomic search and GWAS exploration; the full deposited Wang eight-organ atlas is available in Cell Expression, with other studies retained separately. Searches query precomputed data; they do not run GWAS or CATCH.
+A working local prototype for searching rice genes, exploring neighboring genes and viewing published GWAS evidence. This revision prioritizes a shared genomic search and GWAS exploration; Cell Expression offers a study selector for the full Wang eight-organ atlas, the separate Wang normal-root experiment, Robertson controls and both Li annotation versions. Searches query precomputed data; they do not run GWAS or CATCH.
 
 ## Clone and run
 
@@ -23,7 +23,7 @@ The repository contains source code, documentation, a preview and provenance man
 
 ## Current layout
 
-Home provides live database counts and an overview without a search field. Locus and Genes, GWAS and Cell Expression share a persistent search sidebar. Search by gene name/ID or genomic coordinates, then move between pages without repeating the search. Cell Expression now exposes the [full Wang eight-organ atlas](docs/wang_full_atlas.md), with organ filtering, dot plots, exact values and neighbouring-gene comparison. The GWAS page retains the neighbourhood plot, offers basic filters and P-value sorting, and summarizes the complete filtered result set. Download exports genes and associations separately. Homolog Search and Tutorial are placeholders; Contact Us lists the lab’s public details. See [layout and validation notes](docs/gwas_layout.md).
+Home provides live database counts and an overview without a search field. Locus and Genes, GWAS and Cell Expression share a persistent search sidebar. Search by gene name/ID or genomic coordinates, then move between pages without repeating the search. Cell Expression exposes [all five imported dataset versions](docs/expression_study_selector.md), with a study selector, organ filtering, dot plots, exact values and neighbouring-gene comparison. Jing and Liu remain explicitly pending complete expression inputs. The GWAS page retains the neighbourhood plot, offers basic filters and P-value sorting, and summarizes the complete filtered result set. Download exports genes and associations separately. Homolog Search and Tutorial are placeholders; Contact Us lists the lab’s public details. See [layout and validation notes](docs/gwas_layout.md).
 
 ## What is implemented
 
