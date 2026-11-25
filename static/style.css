@@ -1041,3 +1041,48 @@ footer p {
     scroll-behavior: auto !important;
   }
 }
+
+.atlas-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: end;
+  margin: 1.5rem 0;
+}
+.atlas-toolbar > div {
+  min-width: 200px;
+  flex: 1;
+}
+.atlas-chips {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+}
+.atlas-chip {
+  padding: 0.45rem 0.7rem;
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+.atlas-summary {
+  padding: 1rem;
+  border-left: 3px solid var(--blue);
+  background: var(--soft);
+}
+#atlas-chart {
+  width: 100%;
+  min-width: 560px;
+  display: block;
+}
+#atlas-content > .methods {
+  margin-top: 1.5rem;
+}
+.atlas-toolbar button {
+  white-space: nowrap;
+}
+
+.notice:empty {
+  display: none;
+}

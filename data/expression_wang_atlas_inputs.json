@@ -1,0 +1,17 @@
+{
+  "accession": "GSE232863",
+  "scope": "Full eight-organ normal Nipponbare single-cell multiomics RNA atlas",
+  "sources": [
+    {
+      "filename": "GSE232863_scRNA_omics.Rds",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE232nnn/GSE232863/suppl/GSE232863_scRNA_omics.Rds",
+      "bytes": 5521719712,
+      "sha256": "7a308241e07575770f227057b1cd716b4cb9c255200c4ff4189c567bc2fbc958"
+    },
+    {
+      "filename": "GSE232863_family.soft.gz",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE232nnn/GSE232863/soft/GSE232863_family.soft.gz",
+      "sha256": "f8d88a427b2dbef46a67d35c0d68734048667b655bd1503c07bb7ba302d58b5a"
+    }
+  ]
+}

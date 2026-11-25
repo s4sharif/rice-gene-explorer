@@ -1,0 +1,20 @@
+{
+  "integrity": "pass",
+  "source_checksums": "pass",
+  "all_deposited_cells_and_features": "pass",
+  "source_sha256": "7a308241e07575770f227057b1cd716b4cb9c255200c4ff4189c567bc2fbc958",
+  "n_cells": 115395,
+  "n_features": 37960,
+  "n_organs": 8,
+  "n_contexts": 56,
+  "n_mapped_features": 35797,
+  "independent_gene_sample_context_checks": 448,
+  "genes": [
+    "Os01g0100100",
+    "Os01g0883800",
+    "Os03g0407400",
+    "Os12g0528400"
+  ],
+  "cell_count_discrepancy": "Paper reports 116,564 cells; deposited RNA count matrix and metadata contain 115,395. All deposited cells are retained; the reason for the 1,169-cell difference is not established.",
+  "unknown_labels": "Original unknown cell labels retained; not relabelled or omitted"
+}

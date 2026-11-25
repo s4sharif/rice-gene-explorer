@@ -585,8 +585,8 @@
               ><strong id="cell-count">—</strong>
               <h2>Cells and nuclei</h2>
               <p>
-                Imported annotation versions; expression browsing returns in a later
-                update.
+                Baseline expression with study-specific annotations. Explore the
+                eight-organ Wang atlas.
               </p>
               <details>
                 <summary>How this is counted</summary>
@@ -844,7 +844,88 @@
           </div>
         </section>
         <section class="page" data-panel="expression" id="cell-expression-page" hidden>
-          <div class="page-heading"><h1>Cell Expression</h1></div>
+          <div class="page-heading">
+            <p class="eyebrow">WANG ET AL. · NORMAL NIPPONBARE</p>
+            <h1>Cell Expression</h1>
+            <p>
+              Baseline RNA expression across the eight organs in the deposited Wang
+              atlas.
+            </p>
+          </div>
+          <p id="atlas-message" class="notice" role="status"></p>
+          <div id="atlas-content" hidden>
+            <p id="atlas-source" class="help"></p>
+            <div class="atlas-toolbar">
+              <div>
+                <label for="atlas-organ">Organ</label
+                ><select id="atlas-organ"></select>
+              </div>
+              <div>
+                <label for="atlas-compare">Compare a neighbouring gene</label
+                ><select id="atlas-compare"></select>
+              </div>
+              <button id="atlas-add" type="button" class="secondary">Add gene</button>
+            </div>
+            <div id="atlas-genes" class="atlas-chips"></div>
+            <p id="atlas-summary" class="atlas-summary"></p>
+            <div class="section-heading">
+              <h2>Organ–cell-type expression</h2>
+              <a id="atlas-export" href="#">Download all contexts CSV</a>
+            </div>
+            <p class="help">
+              Dot size: percentage of cells with RNA count &gt; 0. Blue intensity: mean
+              log1p(CP10K), including zeros. N/A means the feature is unavailable, not
+              zero.
+            </p>
+            <div class="chart-wrap">
+              <svg
+                id="atlas-chart"
+                role="group"
+                aria-label="Wang atlas expression by gene, organ and original cell-type annotation"
+              ></svg>
+            </div>
+            <details class="methods">
+              <summary>Exact expression values</summary>
+              <div class="table-scroll">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Gene</th>
+                      <th>Organ</th>
+                      <th>Original cell type</th>
+                      <th>Mean log1p(CP10K)</th>
+                      <th>Expressing</th>
+                      <th>Detected / total cells</th>
+                      <th>Atlas rank</th>
+                    </tr>
+                  </thead>
+                  <tbody id="atlas-values"></tbody>
+                </table>
+              </div>
+            </details>
+            <details class="methods">
+              <summary>Coverage, calculation and source annotations</summary>
+              <p>
+                All 37,960 RNA-count features in the processed object are retained.
+                Means include zero-count cells. Original sample and organ–cell-type
+                labels remain separate; biological replicates use cell-weighted
+                summaries. These values are not pooled or directly compared with
+                Robertson, Li or the separate Wang root experiment.
+              </p>
+              <p>
+                The publication reports 116,564 cells; the deposited object contains
+                115,395. Every available deposited cell is included here. The reason for
+                the 1,169-cell difference has not been established. Original unknown
+                cell-type labels are retained.
+              </p>
+              <p>
+                Ranks apply within this atlas. The CSV includes all eight organs even
+                when the plot is filtered to one. Colours are scaled within the
+                displayed view; changes in colour scale do not establish biological
+                differences across studies.
+              </p>
+            </details>
+          </div>
         </section>
         <section class="page" data-panel="homolog" hidden>
           <div class="page-heading">

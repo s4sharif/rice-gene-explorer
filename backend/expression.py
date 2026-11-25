@@ -9,6 +9,7 @@ from backend.runtime_data import DATA_DIR
 
 EXPRESSION_DB = DATA_DIR / "expression.sqlite"
 WANG_DB = DATA_DIR / "expression_wang.sqlite"
+WANG_ATLAS_DB = DATA_DIR / "expression_wang_atlas.sqlite"
 LI_AUTHOR_DB = DATA_DIR / "expression_li_author.sqlite"
 LI_DB = DATA_DIR / "expression_li.sqlite"
 
@@ -17,6 +18,8 @@ LI_DB = DATA_DIR / "expression_li.sqlite"
 def dataset_path(dataset_id):
     if dataset_id == "robertson_2026_control":
         return EXPRESSION_DB
+    if dataset_id == "wang_2025_eight_organ_atlas":
+        return WANG_ATLAS_DB
     if dataset_id == "wang_2025_normal_root":
         return WANG_DB
     if dataset_id == "li_2023_pistil_2n_author":
@@ -28,6 +31,18 @@ def dataset_path(dataset_id):
 
 # Enable a study only while its versioned manifest remains present in the checkout.
 def dataset_enabled(dataset_id):
+    if dataset_id == "wang_2025_eight_organ_atlas":
+        directory = Path(__file__).resolve().parents[1] / "data"
+        manifest = directory / "expression_wang_atlas_manifest.json"
+        validation = directory / "expression_wang_atlas_validation.json"
+        if not manifest.exists() or not validation.exists():
+            return False
+        imported, checked = json.loads(manifest.read_text()), json.loads(
+            validation.read_text()
+        )
+        return checked.get(
+            "all_deposited_cells_and_features"
+        ) == "pass" and checked.get("source_sha256") == imported.get("source_sha256")
     filenames = {
         "robertson_2026_control": "expression_manifest.json",
         "wang_2025_normal_root": "expression_wang_manifest.json",
@@ -44,6 +59,7 @@ def expression_datasets():
     datasets = []
     for dataset_id in [
         "robertson_2026_control",
+        "wang_2025_eight_organ_atlas",
         "wang_2025_normal_root",
         "li_2023_pistil_2n_author",
         "li_2023_pistil_2n_scplantdb",
@@ -100,6 +116,10 @@ def expression_evidence(gene_ids, dataset_id="robertson_2026_control"):
                     (gene,),
                 )
             ]
+            annotations = dataset.get("context_annotations", {})
+            for row in rows:
+                if row["cell_type"] in annotations:
+                    row.update(annotations[row["cell_type"]])
             previous = None
             rank = 0
             for index, row in enumerate(rows, 1):
@@ -121,7 +141,10 @@ def expression_evidence(gene_ids, dataset_id="robertson_2026_control"):
             "dataset": dataset,
             "genes": results,
             "cell_groups": [
-                dict(r)
+                {
+                    **dict(r),
+                    **dataset.get("context_annotations", {}).get(r["cell_type"], {}),
+                }
                 for r in db.execute("SELECT * FROM cell_group ORDER BY cell_type")
             ],
         }

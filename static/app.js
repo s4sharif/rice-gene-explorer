@@ -113,6 +113,7 @@ function showToolPage() {
   closeSuggestions();
   updateToolLinks();
   if (tool === "gwas" && regionData) drawNeighborhood(regionData);
+  if (tool === "expression") loadWangAtlas();
 }
 // Navigate locally without fetching a second copy of the shared application state.
 function navigateTool(event) {
@@ -387,6 +388,7 @@ async function loadRegion(selector, page = 1) {
     for (const panel of document.querySelectorAll(".empty-selection"))
       panel.hidden = true;
     renderSummary(data);
+    if (currentTool() === "expression") loadWangAtlas();
     filterNeighborTable();
     drawNeighborhood(data);
     setStatus("");
@@ -689,5 +691,180 @@ function resizeChart() {
   if (currentTool() === "gwas" && regionData) drawNeighborhood(regionData);
 }
 window.addEventListener("resize", resizeChart);
+let atlasData = null;
+let atlasRequest = 0;
+let atlasGenes = [];
+// Load only the validated full Wang atlas and retain the shared selected gene.
+async function loadWangAtlas() {
+  const request = ++atlasRequest;
+  byId("atlas-content").hidden = true;
+  if (!regionData || !regionData.gene.id) {
+    byId("atlas-message").textContent =
+      "Select a gene in the sidebar or Locus and Genes to explore its expression.";
+    return;
+  }
+  if (!atlasGenes.includes(selectedGene)) atlasGenes = [selectedGene];
+  byId("atlas-message").textContent = "Loading the eight-organ Wang atlas…";
+  try {
+    const data = await fetchJson(
+      "/api/expression?" +
+        new URLSearchParams({
+          dataset: "wang_2025_eight_organ_atlas",
+          genes: atlasGenes.join(","),
+        }),
+    );
+    if (request !== atlasRequest) return;
+    if (!data.available) {
+      byId("atlas-message").textContent =
+        "The full Wang atlas is not installed and validated in this environment yet.";
+      return;
+    }
+    atlasData = data;
+    const previous = byId("atlas-organ").value;
+    byId("atlas-organ").replaceChildren(new Option("All eight organs", ""));
+    for (const organ of data.dataset.organs)
+      byId("atlas-organ").add(new Option(organ, organ));
+    byId("atlas-organ").value = data.dataset.organs.includes(previous)
+      ? previous
+      : "Crown root";
+    byId("atlas-compare").replaceChildren(new Option("Choose a neighbouring gene", ""));
+    for (const gene of neighboringGenes)
+      if (!atlasGenes.includes(gene.id))
+        byId("atlas-compare").add(
+          new Option(`${gene.symbol || gene.id} · ${gene.id}`, gene.id),
+        );
+    byId("atlas-source").innerHTML =
+      `${escapeHtml(data.dataset.citation)} · ${data.dataset.n_cells.toLocaleString()} deposited cells · 8 organs · 16 samples. <a href="${escapeHtml(data.dataset.publication_url)}" target="_blank" rel="noopener noreferrer">Publication</a> · <a href="${escapeHtml(data.dataset.repository_url)}" target="_blank" rel="noopener noreferrer">Original GEO data</a>`;
+    byId("atlas-export").href =
+      "/api/expression/export?" +
+      new URLSearchParams({ dataset: data.dataset.id, genes: atlasGenes.join(",") });
+    byId("atlas-message").textContent = "";
+    byId("atlas-content").hidden = false;
+    renderAtlas();
+  } catch (error) {
+    if (request === atlasRequest) byId("atlas-message").textContent = error.message;
+  }
+}
+// Select one organ without pooling measurements from other studies or organs.
+function renderAtlas() {
+  if (!atlasData) return;
+  const organ = byId("atlas-organ").value;
+  const contexts = atlasData.cell_groups.filter(matchesAtlasOrgan);
+  // Retain all original organ-specific contexts selected by the organ filter.
+  function matchesAtlasOrgan(group) {
+    return !organ || group.organ === organ;
+  }
+  byId("atlas-genes").innerHTML = atlasGenes.map(renderAtlasGeneChip).join("");
+  for (const button of byId("atlas-genes").querySelectorAll("[data-remove-gene]"))
+    button.onclick = removeAtlasGene;
+  let maximum = 0;
+  const lookup = new Map();
+  const values = [];
+  for (const gene of atlasData.genes) {
+    lookup.set(gene.gene_id, new Map());
+    if (gene.status !== "measured") continue;
+    for (const group of gene.groups) {
+      lookup.get(gene.gene_id).set(group.cell_type, group);
+      if (!organ || group.organ === organ) {
+        maximum = Math.max(maximum, group.mean_log);
+        values.push({ ...group, gene_id: gene.gene_id });
+      }
+    }
+  }
+  const left = organ ? 260 : 390;
+  const width = Math.max(
+    560,
+    byId("atlas-chart").parentElement.clientWidth,
+    left + atlasGenes.length * 125 + 30,
+  );
+  byId("atlas-chart").style.width = width + "px";
+  const top = 65,
+    spacing = (width - left - 30) / Math.max(1, atlasGenes.length);
+  let markup = `<defs><linearGradient id="atlas-scale"><stop stop-color="#edf5fa"/><stop offset="1" stop-color="#0072b2"/></linearGradient></defs>`;
+  for (let index = 0; index < atlasGenes.length; index++)
+    markup += `<text x="${left + spacing * (index + 0.5)}" y="25" text-anchor="middle" font-size="14" fill="#233247">${escapeHtml(atlasGenes[index])}</text>`;
+  for (let index = 0; index < contexts.length; index++) {
+    const context = contexts[index];
+    const y = top + index * 30;
+    if (index % 2 === 0)
+      markup += `<rect x="0" y="${y - 14}" width="${width}" height="30" fill="#f3f7f9"/>`;
+    const label = organ
+      ? context.source_cell_type
+      : `${context.organ} · ${context.source_cell_type}`;
+    markup += `<text x="${left - 12}" y="${y + 4}" text-anchor="end" font-size="14" fill="#233247">${escapeHtml(label)}</text>`;
+    for (let column = 0; column < atlasGenes.length; column++) {
+      const gene = atlasGenes[column],
+        group = lookup.get(gene)?.get(context.cell_type),
+        x = left + spacing * (column + 0.5);
+      if (!group) {
+        markup += `<text x="${x}" y="${y + 4}" text-anchor="middle" font-size="14" fill="#586779">N/A</text>`;
+        continue;
+      }
+      const ratio = maximum ? group.mean_log / maximum : 0;
+      const red = Math.round(237 * (1 - ratio)),
+        green = Math.round(245 * (1 - ratio) + 114 * ratio),
+        blue = Math.round(250 * (1 - ratio) + 178 * ratio);
+      const radius = group.percent_expressing
+        ? 3 + 9 * Math.sqrt(group.percent_expressing / 100)
+        : 1.5;
+      const text = `${gene} · ${context.organ} · ${context.source_cell_type}: mean log1p CP10K ${group.mean_log.toFixed(5)}, ${group.percent_expressing.toFixed(2)}% expressing (${group.n_expressing}/${group.n_cells} cells)`;
+      markup += `<circle cx="${x}" cy="${y}" r="${radius}" fill="rgb(${red},${green},${blue})" stroke="#62798b" stroke-width=".7" role="img" aria-label="${escapeHtml(text)}"><title>${escapeHtml(text)}</title></circle>`;
+    }
+  }
+  const bottom = top + contexts.length * 30 + 28;
+  markup += `<rect x="${left}" y="${bottom}" width="150" height="12" fill="url(#atlas-scale)"/><text x="${left}" y="${bottom + 30}" font-size="14" fill="#586779">0</text><text x="${left + 150}" y="${bottom + 30}" text-anchor="end" font-size="14" fill="#586779">${maximum.toFixed(3)}</text><text x="${left}" y="${bottom + 52}" font-size="14" fill="#586779">Mean log1p(CP10K)</text>`;
+  for (const [index, percent] of [0, 25, 50, 100].entries()) {
+    const x = 45 + index * 55;
+    const radius = percent ? 3 + 9 * Math.sqrt(percent / 100) : 1.5;
+    markup += `<circle cx="${x}" cy="${bottom + 6}" r="${radius}" fill="#0072b2" stroke="#62798b" stroke-width=".7"/><text x="${x}" y="${bottom + 30}" text-anchor="middle" font-size="14" fill="#586779">${percent}%</text>`;
+  }
+  markup += `<text x="25" y="${bottom + 52}" font-size="14" fill="#586779">Expressing cells</text>`;
+  byId("atlas-chart").setAttribute("viewBox", `0 0 ${width} ${bottom + 70}`);
+  byId("atlas-chart").innerHTML = markup;
+  byId("atlas-values").innerHTML = values.length
+    ? values.map(renderAtlasValue).join("")
+    : '<tr><td colspan="7">No mapped measurements are available for the selected genes. An absent feature is not zero expression.</td></tr>';
+  const selected = atlasData.genes.find(isSelectedAtlasGene);
+  // Identify the selected sidebar gene independently of comparison-gene ordering.
+  function isSelectedAtlasGene(gene) {
+    return gene.gene_id === selectedGene;
+  }
+  const groups = (selected?.groups || []).filter(matchesAtlasOrgan);
+  byId("atlas-summary").textContent = groups.length
+    ? `Highest mean expression ${organ ? "in " + organ : "across the deposited atlas"}: ${groups[0].source_cell_type} (${groups[0].organ}), ${groups[0].mean_log.toFixed(3)} mean log1p(CP10K), ${groups[0].percent_expressing.toFixed(1)}% expressing. Wang et al. (2025).`
+    : `${selectedGene} is not mapped to an available feature in this deposited count assay; it is not treated as zero expression.`;
+}
+// Present each expression comparison as an explicitly removable gene choice.
+function renderAtlasGeneChip(gene) {
+  return `<span class="atlas-chip">${escapeHtml(gene)}${gene === selectedGene ? " · selected" : ` <button type="button" class="text-button" data-remove-gene="${escapeHtml(gene)}" aria-label="Remove ${escapeHtml(gene)} from comparison">Remove</button>`}</span>`;
+}
+// Retain exact numeric expression evidence as an accessible alternative to the dot plot.
+function renderAtlasValue(row) {
+  return `<tr><td>${escapeHtml(row.gene_id)}</td><td>${escapeHtml(row.organ)}</td><td>${escapeHtml(row.source_cell_type)}</td><td>${row.mean_log.toFixed(6)}</td><td>${row.percent_expressing.toFixed(2)}%</td><td>${row.n_expressing.toLocaleString()} / ${row.n_cells.toLocaleString()}</td><td>${row.rank}</td></tr>`;
+}
+// Add a neighbouring gene for comparison within the same validated study.
+function addAtlasGene() {
+  const gene = byId("atlas-compare").value;
+  if (!gene || atlasGenes.includes(gene)) return;
+  if (atlasGenes.length >= 6) {
+    byId("atlas-message").textContent =
+      "Compare up to six genes at a time to keep the plot readable.";
+    return;
+  }
+  atlasGenes.push(gene);
+  loadWangAtlas();
+}
+// Remove only a comparison gene while preserving the shared selected gene.
+function removeAtlasGene(event) {
+  // Preserve every comparison except the gene explicitly removed by the user.
+  function keepAtlasGene(gene) {
+    return gene !== event.currentTarget.dataset.removeGene;
+  }
+  atlasGenes = atlasGenes.filter(keepAtlasGene);
+  loadWangAtlas();
+}
+byId("atlas-organ").onchange = renderAtlas;
+byId("atlas-add").onclick = addAtlasGene;
+
 restoreBookmark();
 loadOverview();

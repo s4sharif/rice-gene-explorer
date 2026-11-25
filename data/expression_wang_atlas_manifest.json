@@ -1,0 +1,1566 @@
+{
+  "id": "wang_2025_eight_organ_atlas",
+  "citation": "Wang et al. (2025) \u00b7 eight-organ atlas",
+  "publication_url": "https://doi.org/10.1038/s41586-025-09251-0",
+  "repository_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE232863",
+  "organ": "Eight organs \u00b7 Crown root, Culm, Flag leaf, Shoot apical meristem, Spikelet, Third leaf, Tiller bud, Young spike",
+  "condition": "Normal wild-type Nipponbare; all deposited atlas cells",
+  "assay": "single-cell multiomics \u00b7 original RNA counts only",
+  "reference": "MSU7 source alignment; deposited IDs mapped by exact RAP matches or the versioned unambiguous MSU alias resource; no coordinate transfer",
+  "n_cells": 115395,
+  "n_samples": 16,
+  "n_features": 37960,
+  "n_mapped_features": 35797,
+  "metric_description": "Mean log1p(10,000 \u00d7 RNA count / original RNA-count library size), including zero-count cells. Detection = count > 0. Replicates are cell-weighted within each organ\u2013cell-type context; ranks are within this study only.",
+  "coverage_note": "All RNA-count features across all eight organs and sixteen samples; no marker or highly-variable-gene restriction. Original annotations are preserved and identical cell-type names in different organs remain separate contexts.",
+  "source_sha256": "7a308241e07575770f227057b1cd716b4cb9c255200c4ff4189c567bc2fbc958",
+  "extraction": {
+    "eligible_samples": [
+      "Bud_21",
+      "Bud_22",
+      "Flag_1",
+      "Flag_2",
+      "Root_1",
+      "Root_2",
+      "SAM_1",
+      "SAM_2",
+      "SP_1",
+      "SP_2",
+      "ST_1",
+      "ST_2",
+      "Seed_31",
+      "Seed_32",
+      "leaf_1",
+      "leaf_2"
+    ],
+    "n_cells": 115395,
+    "n_organs": 8,
+    "organs": [
+      "Crown root",
+      "Culm",
+      "Flag leaf",
+      "Shoot apical meristem",
+      "Spikelet",
+      "Third leaf",
+      "Tiller bud",
+      "Young spike"
+    ],
+    "groups": [
+      {
+        "cell_type": "Tiller bud | Bud_axis",
+        "tissue_system": "Tiller bud",
+        "organ": "Tiller bud",
+        "source_cell_type": "Bud_axis",
+        "n_cells": 171
+      },
+      {
+        "cell_type": "Tiller bud | Bud_primordium",
+        "tissue_system": "Tiller bud",
+        "organ": "Tiller bud",
+        "source_cell_type": "Bud_primordium",
+        "n_cells": 903
+      },
+      {
+        "cell_type": "Tiller bud | Collenchymatous_cell",
+        "tissue_system": "Tiller bud",
+        "organ": "Tiller bud",
+        "source_cell_type": "Collenchymatous_cell",
+        "n_cells": 587
+      },
+      {
+        "cell_type": "Tiller bud | Epidermis",
+        "tissue_system": "Tiller bud",
+        "organ": "Tiller bud",
+        "source_cell_type": "Epidermis",
+        "n_cells": 1332
+      },
+      {
+        "cell_type": "Tiller bud | Parenchyma_cell",
+        "tissue_system": "Tiller bud",
+        "organ": "Tiller bud",
+        "source_cell_type": "Parenchyma_cell",
+        "n_cells": 3751
+      },
+      {
+        "cell_type": "Tiller bud | Root_meristem",
+        "tissue_system": "Tiller bud",
+        "organ": "Tiller bud",
+        "source_cell_type": "Root_meristem",
+        "n_cells": 1457
+      },
+      {
+        "cell_type": "Tiller bud | Shoot_apical_meristem",
+        "tissue_system": "Tiller bud",
+        "organ": "Tiller bud",
+        "source_cell_type": "Shoot_apical_meristem",
+        "n_cells": 304
+      },
+      {
+        "cell_type": "Tiller bud | Vascular_cylinder",
+        "tissue_system": "Tiller bud",
+        "organ": "Tiller bud",
+        "source_cell_type": "Vascular_cylinder",
+        "n_cells": 353
+      },
+      {
+        "cell_type": "Flag leaf | Epidermis",
+        "tissue_system": "Flag leaf",
+        "organ": "Flag leaf",
+        "source_cell_type": "Epidermis",
+        "n_cells": 632
+      },
+      {
+        "cell_type": "Flag leaf | Fiber",
+        "tissue_system": "Flag leaf",
+        "organ": "Flag leaf",
+        "source_cell_type": "Fiber",
+        "n_cells": 245
+      },
+      {
+        "cell_type": "Flag leaf | Guard_cell",
+        "tissue_system": "Flag leaf",
+        "organ": "Flag leaf",
+        "source_cell_type": "Guard_cell",
+        "n_cells": 485
+      },
+      {
+        "cell_type": "Flag leaf | Mesophyll",
+        "tissue_system": "Flag leaf",
+        "organ": "Flag leaf",
+        "source_cell_type": "Mesophyll",
+        "n_cells": 2582
+      },
+      {
+        "cell_type": "Flag leaf | Vascular_cylinder",
+        "tissue_system": "Flag leaf",
+        "organ": "Flag leaf",
+        "source_cell_type": "Vascular_cylinder",
+        "n_cells": 450
+      },
+      {
+        "cell_type": "Crown root | Cortex",
+        "tissue_system": "Crown root",
+        "organ": "Crown root",
+        "source_cell_type": "Cortex",
+        "n_cells": 2733
+      },
+      {
+        "cell_type": "Crown root | Endodermis",
+        "tissue_system": "Crown root",
+        "organ": "Crown root",
+        "source_cell_type": "Endodermis",
+        "n_cells": 1378
+      },
+      {
+        "cell_type": "Crown root | Epidermis",
+        "tissue_system": "Crown root",
+        "organ": "Crown root",
+        "source_cell_type": "Epidermis",
+        "n_cells": 8489
+      },
+      {
+        "cell_type": "Crown root | Exodermis",
+        "tissue_system": "Crown root",
+        "organ": "Crown root",
+        "source_cell_type": "Exodermis",
+        "n_cells": 2902
+      },
+      {
+        "cell_type": "Crown root | Meristem",
+        "tissue_system": "Crown root",
+        "organ": "Crown root",
+        "source_cell_type": "Meristem",
+        "n_cells": 3770
+      },
+      {
+        "cell_type": "Crown root | Root_cap",
+        "tissue_system": "Crown root",
+        "organ": "Crown root",
+        "source_cell_type": "Root_cap",
+        "n_cells": 903
+      },
+      {
+        "cell_type": "Crown root | Sclerenchyma",
+        "tissue_system": "Crown root",
+        "organ": "Crown root",
+        "source_cell_type": "Sclerenchyma",
+        "n_cells": 2348
+      },
+      {
+        "cell_type": "Crown root | Vascular_cylinder",
+        "tissue_system": "Crown root",
+        "organ": "Crown root",
+        "source_cell_type": "Vascular_cylinder",
+        "n_cells": 3577
+      },
+      {
+        "cell_type": "Crown root | epidermis_near_root_hair",
+        "tissue_system": "Crown root",
+        "organ": "Crown root",
+        "source_cell_type": "epidermis_near_root_hair",
+        "n_cells": 5008
+      },
+      {
+        "cell_type": "Shoot apical meristem | Epidermis",
+        "tissue_system": "Shoot apical meristem",
+        "organ": "Shoot apical meristem",
+        "source_cell_type": "Epidermis",
+        "n_cells": 712
+      },
+      {
+        "cell_type": "Shoot apical meristem | Guard_cell",
+        "tissue_system": "Shoot apical meristem",
+        "organ": "Shoot apical meristem",
+        "source_cell_type": "Guard_cell",
+        "n_cells": 932
+      },
+      {
+        "cell_type": "Shoot apical meristem | Meristem",
+        "tissue_system": "Shoot apical meristem",
+        "organ": "Shoot apical meristem",
+        "source_cell_type": "Meristem",
+        "n_cells": 2995
+      },
+      {
+        "cell_type": "Shoot apical meristem | Parenchyma_cell",
+        "tissue_system": "Shoot apical meristem",
+        "organ": "Shoot apical meristem",
+        "source_cell_type": "Parenchyma_cell",
+        "n_cells": 4146
+      },
+      {
+        "cell_type": "Shoot apical meristem | Primordia_apex",
+        "tissue_system": "Shoot apical meristem",
+        "organ": "Shoot apical meristem",
+        "source_cell_type": "Primordia_apex",
+        "n_cells": 2274
+      },
+      {
+        "cell_type": "Shoot apical meristem | Proliferating_cell",
+        "tissue_system": "Shoot apical meristem",
+        "organ": "Shoot apical meristem",
+        "source_cell_type": "Proliferating_cell",
+        "n_cells": 457
+      },
+      {
+        "cell_type": "Shoot apical meristem | Vascular_cylinder",
+        "tissue_system": "Shoot apical meristem",
+        "organ": "Shoot apical meristem",
+        "source_cell_type": "Vascular_cylinder",
+        "n_cells": 2275
+      },
+      {
+        "cell_type": "Young spike | Epidermis",
+        "tissue_system": "Young spike",
+        "organ": "Young spike",
+        "source_cell_type": "Epidermis",
+        "n_cells": 1760
+      },
+      {
+        "cell_type": "Young spike | Filament",
+        "tissue_system": "Young spike",
+        "organ": "Young spike",
+        "source_cell_type": "Filament",
+        "n_cells": 1360
+      },
+      {
+        "cell_type": "Young spike | Lodicule",
+        "tissue_system": "Young spike",
+        "organ": "Young spike",
+        "source_cell_type": "Lodicule",
+        "n_cells": 2246
+      },
+      {
+        "cell_type": "Young spike | Ovary_wall",
+        "tissue_system": "Young spike",
+        "organ": "Young spike",
+        "source_cell_type": "Ovary_wall",
+        "n_cells": 530
+      },
+      {
+        "cell_type": "Young spike | Ovule",
+        "tissue_system": "Young spike",
+        "organ": "Young spike",
+        "source_cell_type": "Ovule",
+        "n_cells": 3427
+      },
+      {
+        "cell_type": "Young spike | Pollen_mother_cell",
+        "tissue_system": "Young spike",
+        "organ": "Young spike",
+        "source_cell_type": "Pollen_mother_cell",
+        "n_cells": 2665
+      },
+      {
+        "cell_type": "Young spike | SP-unknown",
+        "tissue_system": "Young spike",
+        "organ": "Young spike",
+        "source_cell_type": "SP-unknown",
+        "n_cells": 813
+      },
+      {
+        "cell_type": "Young spike | Stigmata",
+        "tissue_system": "Young spike",
+        "organ": "Young spike",
+        "source_cell_type": "Stigmata",
+        "n_cells": 1059
+      },
+      {
+        "cell_type": "Young spike | Tapetum",
+        "tissue_system": "Young spike",
+        "organ": "Young spike",
+        "source_cell_type": "Tapetum",
+        "n_cells": 2671
+      },
+      {
+        "cell_type": "Young spike | Vascular_cylinder",
+        "tissue_system": "Young spike",
+        "organ": "Young spike",
+        "source_cell_type": "Vascular_cylinder",
+        "n_cells": 926
+      },
+      {
+        "cell_type": "Culm | Collenchymatous_cell",
+        "tissue_system": "Culm",
+        "organ": "Culm",
+        "source_cell_type": "Collenchymatous_cell",
+        "n_cells": 749
+      },
+      {
+        "cell_type": "Culm | Cortex",
+        "tissue_system": "Culm",
+        "organ": "Culm",
+        "source_cell_type": "Cortex",
+        "n_cells": 1187
+      },
+      {
+        "cell_type": "Culm | Epidermis",
+        "tissue_system": "Culm",
+        "organ": "Culm",
+        "source_cell_type": "Epidermis",
+        "n_cells": 1982
+      },
+      {
+        "cell_type": "Culm | Parenchyma_cell",
+        "tissue_system": "Culm",
+        "organ": "Culm",
+        "source_cell_type": "Parenchyma_cell",
+        "n_cells": 4162
+      },
+      {
+        "cell_type": "Culm | Procambium",
+        "tissue_system": "Culm",
+        "organ": "Culm",
+        "source_cell_type": "Procambium",
+        "n_cells": 5165
+      },
+      {
+        "cell_type": "Culm | Vascular_cylinder",
+        "tissue_system": "Culm",
+        "organ": "Culm",
+        "source_cell_type": "Vascular_cylinder",
+        "n_cells": 6495
+      },
+      {
+        "cell_type": "Spikelet | Epidermis",
+        "tissue_system": "Spikelet",
+        "organ": "Spikelet",
+        "source_cell_type": "Epidermis",
+        "n_cells": 968
+      },
+      {
+        "cell_type": "Spikelet | Plumule",
+        "tissue_system": "Spikelet",
+        "organ": "Spikelet",
+        "source_cell_type": "Plumule",
+        "n_cells": 1373
+      },
+      {
+        "cell_type": "Spikelet | Scutellum",
+        "tissue_system": "Spikelet",
+        "organ": "Spikelet",
+        "source_cell_type": "Scutellum",
+        "n_cells": 2479
+      },
+      {
+        "cell_type": "Spikelet | Seed-unknown",
+        "tissue_system": "Spikelet",
+        "organ": "Spikelet",
+        "source_cell_type": "Seed-unknown",
+        "n_cells": 1133
+      },
+      {
+        "cell_type": "Spikelet | Vascular_cylinder",
+        "tissue_system": "Spikelet",
+        "organ": "Spikelet",
+        "source_cell_type": "Vascular_cylinder",
+        "n_cells": 323
+      },
+      {
+        "cell_type": "Third leaf | Epidermis",
+        "tissue_system": "Third leaf",
+        "organ": "Third leaf",
+        "source_cell_type": "Epidermis",
+        "n_cells": 1097
+      },
+      {
+        "cell_type": "Third leaf | Fiber",
+        "tissue_system": "Third leaf",
+        "organ": "Third leaf",
+        "source_cell_type": "Fiber",
+        "n_cells": 280
+      },
+      {
+        "cell_type": "Third leaf | Guard_cell",
+        "tissue_system": "Third leaf",
+        "organ": "Third leaf",
+        "source_cell_type": "Guard_cell",
+        "n_cells": 2293
+      },
+      {
+        "cell_type": "Third leaf | Mesophyll",
+        "tissue_system": "Third leaf",
+        "organ": "Third leaf",
+        "source_cell_type": "Mesophyll",
+        "n_cells": 9448
+      },
+      {
+        "cell_type": "Third leaf | Parenchyma_cell",
+        "tissue_system": "Third leaf",
+        "organ": "Third leaf",
+        "source_cell_type": "Parenchyma_cell",
+        "n_cells": 210
+      },
+      {
+        "cell_type": "Third leaf | Vascular_cylinder",
+        "tissue_system": "Third leaf",
+        "organ": "Third leaf",
+        "source_cell_type": "Vascular_cylinder",
+        "n_cells": 443
+      }
+    ],
+    "sample_groups": [
+      {
+        "sample": "Bud_21",
+        "cell_type": "Tiller bud | Bud_axis",
+        "tissue_system": "Tiller bud",
+        "n_cells": 91
+      },
+      {
+        "sample": "Bud_21",
+        "cell_type": "Tiller bud | Bud_primordium",
+        "tissue_system": "Tiller bud",
+        "n_cells": 479
+      },
+      {
+        "sample": "Bud_21",
+        "cell_type": "Tiller bud | Collenchymatous_cell",
+        "tissue_system": "Tiller bud",
+        "n_cells": 311
+      },
+      {
+        "sample": "Bud_21",
+        "cell_type": "Tiller bud | Epidermis",
+        "tissue_system": "Tiller bud",
+        "n_cells": 706
+      },
+      {
+        "sample": "Bud_21",
+        "cell_type": "Tiller bud | Parenchyma_cell",
+        "tissue_system": "Tiller bud",
+        "n_cells": 1988
+      },
+      {
+        "sample": "Bud_21",
+        "cell_type": "Tiller bud | Root_meristem",
+        "tissue_system": "Tiller bud",
+        "n_cells": 772
+      },
+      {
+        "sample": "Bud_21",
+        "cell_type": "Tiller bud | Shoot_apical_meristem",
+        "tissue_system": "Tiller bud",
+        "n_cells": 161
+      },
+      {
+        "sample": "Bud_21",
+        "cell_type": "Tiller bud | Vascular_cylinder",
+        "tissue_system": "Tiller bud",
+        "n_cells": 187
+      },
+      {
+        "sample": "Bud_22",
+        "cell_type": "Tiller bud | Bud_axis",
+        "tissue_system": "Tiller bud",
+        "n_cells": 80
+      },
+      {
+        "sample": "Bud_22",
+        "cell_type": "Tiller bud | Bud_primordium",
+        "tissue_system": "Tiller bud",
+        "n_cells": 424
+      },
+      {
+        "sample": "Bud_22",
+        "cell_type": "Tiller bud | Collenchymatous_cell",
+        "tissue_system": "Tiller bud",
+        "n_cells": 276
+      },
+      {
+        "sample": "Bud_22",
+        "cell_type": "Tiller bud | Epidermis",
+        "tissue_system": "Tiller bud",
+        "n_cells": 626
+      },
+      {
+        "sample": "Bud_22",
+        "cell_type": "Tiller bud | Parenchyma_cell",
+        "tissue_system": "Tiller bud",
+        "n_cells": 1763
+      },
+      {
+        "sample": "Bud_22",
+        "cell_type": "Tiller bud | Root_meristem",
+        "tissue_system": "Tiller bud",
+        "n_cells": 685
+      },
+      {
+        "sample": "Bud_22",
+        "cell_type": "Tiller bud | Shoot_apical_meristem",
+        "tissue_system": "Tiller bud",
+        "n_cells": 143
+      },
+      {
+        "sample": "Bud_22",
+        "cell_type": "Tiller bud | Vascular_cylinder",
+        "tissue_system": "Tiller bud",
+        "n_cells": 166
+      },
+      {
+        "sample": "Flag_1",
+        "cell_type": "Flag leaf | Epidermis",
+        "tissue_system": "Flag leaf",
+        "n_cells": 208
+      },
+      {
+        "sample": "Flag_1",
+        "cell_type": "Flag leaf | Fiber",
+        "tissue_system": "Flag leaf",
+        "n_cells": 91
+      },
+      {
+        "sample": "Flag_1",
+        "cell_type": "Flag leaf | Guard_cell",
+        "tissue_system": "Flag leaf",
+        "n_cells": 178
+      },
+      {
+        "sample": "Flag_1",
+        "cell_type": "Flag leaf | Mesophyll",
+        "tissue_system": "Flag leaf",
+        "n_cells": 981
+      },
+      {
+        "sample": "Flag_1",
+        "cell_type": "Flag leaf | Vascular_cylinder",
+        "tissue_system": "Flag leaf",
+        "n_cells": 182
+      },
+      {
+        "sample": "Flag_2",
+        "cell_type": "Flag leaf | Epidermis",
+        "tissue_system": "Flag leaf",
+        "n_cells": 424
+      },
+      {
+        "sample": "Flag_2",
+        "cell_type": "Flag leaf | Fiber",
+        "tissue_system": "Flag leaf",
+        "n_cells": 154
+      },
+      {
+        "sample": "Flag_2",
+        "cell_type": "Flag leaf | Guard_cell",
+        "tissue_system": "Flag leaf",
+        "n_cells": 307
+      },
+      {
+        "sample": "Flag_2",
+        "cell_type": "Flag leaf | Mesophyll",
+        "tissue_system": "Flag leaf",
+        "n_cells": 1601
+      },
+      {
+        "sample": "Flag_2",
+        "cell_type": "Flag leaf | Vascular_cylinder",
+        "tissue_system": "Flag leaf",
+        "n_cells": 268
+      },
+      {
+        "sample": "Root_1",
+        "cell_type": "Crown root | Cortex",
+        "tissue_system": "Crown root",
+        "n_cells": 803
+      },
+      {
+        "sample": "Root_1",
+        "cell_type": "Crown root | Endodermis",
+        "tissue_system": "Crown root",
+        "n_cells": 571
+      },
+      {
+        "sample": "Root_1",
+        "cell_type": "Crown root | Epidermis",
+        "tissue_system": "Crown root",
+        "n_cells": 6625
+      },
+      {
+        "sample": "Root_1",
+        "cell_type": "Crown root | Exodermis",
+        "tissue_system": "Crown root",
+        "n_cells": 1107
+      },
+      {
+        "sample": "Root_1",
+        "cell_type": "Crown root | Meristem",
+        "tissue_system": "Crown root",
+        "n_cells": 1581
+      },
+      {
+        "sample": "Root_1",
+        "cell_type": "Crown root | Root_cap",
+        "tissue_system": "Crown root",
+        "n_cells": 379
+      },
+      {
+        "sample": "Root_1",
+        "cell_type": "Crown root | Sclerenchyma",
+        "tissue_system": "Crown root",
+        "n_cells": 830
+      },
+      {
+        "sample": "Root_1",
+        "cell_type": "Crown root | Vascular_cylinder",
+        "tissue_system": "Crown root",
+        "n_cells": 1349
+      },
+      {
+        "sample": "Root_1",
+        "cell_type": "Crown root | epidermis_near_root_hair",
+        "tissue_system": "Crown root",
+        "n_cells": 1683
+      },
+      {
+        "sample": "Root_2",
+        "cell_type": "Crown root | Cortex",
+        "tissue_system": "Crown root",
+        "n_cells": 1930
+      },
+      {
+        "sample": "Root_2",
+        "cell_type": "Crown root | Endodermis",
+        "tissue_system": "Crown root",
+        "n_cells": 807
+      },
+      {
+        "sample": "Root_2",
+        "cell_type": "Crown root | Epidermis",
+        "tissue_system": "Crown root",
+        "n_cells": 1864
+      },
+      {
+        "sample": "Root_2",
+        "cell_type": "Crown root | Exodermis",
+        "tissue_system": "Crown root",
+        "n_cells": 1795
+      },
+      {
+        "sample": "Root_2",
+        "cell_type": "Crown root | Meristem",
+        "tissue_system": "Crown root",
+        "n_cells": 2189
+      },
+      {
+        "sample": "Root_2",
+        "cell_type": "Crown root | Root_cap",
+        "tissue_system": "Crown root",
+        "n_cells": 524
+      },
+      {
+        "sample": "Root_2",
+        "cell_type": "Crown root | Sclerenchyma",
+        "tissue_system": "Crown root",
+        "n_cells": 1518
+      },
+      {
+        "sample": "Root_2",
+        "cell_type": "Crown root | Vascular_cylinder",
+        "tissue_system": "Crown root",
+        "n_cells": 2228
+      },
+      {
+        "sample": "Root_2",
+        "cell_type": "Crown root | epidermis_near_root_hair",
+        "tissue_system": "Crown root",
+        "n_cells": 3325
+      },
+      {
+        "sample": "SAM_1",
+        "cell_type": "Shoot apical meristem | Epidermis",
+        "tissue_system": "Shoot apical meristem",
+        "n_cells": 353
+      },
+      {
+        "sample": "SAM_1",
+        "cell_type": "Shoot apical meristem | Guard_cell",
+        "tissue_system": "Shoot apical meristem",
+        "n_cells": 467
+      },
+      {
+        "sample": "SAM_1",
+        "cell_type": "Shoot apical meristem | Meristem",
+        "tissue_system": "Shoot apical meristem",
+        "n_cells": 1525
+      },
+      {
+        "sample": "SAM_1",
+        "cell_type": "Shoot apical meristem | Parenchyma_cell",
+        "tissue_system": "Shoot apical meristem",
+        "n_cells": 2160
+      },
+      {
+        "sample": "SAM_1",
+        "cell_type": "Shoot apical meristem | Primordia_apex",
+        "tissue_system": "Shoot apical meristem",
+        "n_cells": 1168
+      },
+      {
+        "sample": "SAM_1",
+        "cell_type": "Shoot apical meristem | Proliferating_cell",
+        "tissue_system": "Shoot apical meristem",
+        "n_cells": 212
+      },
+      {
+        "sample": "SAM_1",
+        "cell_type": "Shoot apical meristem | Vascular_cylinder",
+        "tissue_system": "Shoot apical meristem",
+        "n_cells": 1198
+      },
+      {
+        "sample": "SAM_2",
+        "cell_type": "Shoot apical meristem | Epidermis",
+        "tissue_system": "Shoot apical meristem",
+        "n_cells": 359
+      },
+      {
+        "sample": "SAM_2",
+        "cell_type": "Shoot apical meristem | Guard_cell",
+        "tissue_system": "Shoot apical meristem",
+        "n_cells": 465
+      },
+      {
+        "sample": "SAM_2",
+        "cell_type": "Shoot apical meristem | Meristem",
+        "tissue_system": "Shoot apical meristem",
+        "n_cells": 1470
+      },
+      {
+        "sample": "SAM_2",
+        "cell_type": "Shoot apical meristem | Parenchyma_cell",
+        "tissue_system": "Shoot apical meristem",
+        "n_cells": 1986
+      },
+      {
+        "sample": "SAM_2",
+        "cell_type": "Shoot apical meristem | Primordia_apex",
+        "tissue_system": "Shoot apical meristem",
+        "n_cells": 1106
+      },
+      {
+        "sample": "SAM_2",
+        "cell_type": "Shoot apical meristem | Proliferating_cell",
+        "tissue_system": "Shoot apical meristem",
+        "n_cells": 245
+      },
+      {
+        "sample": "SAM_2",
+        "cell_type": "Shoot apical meristem | Vascular_cylinder",
+        "tissue_system": "Shoot apical meristem",
+        "n_cells": 1077
+      },
+      {
+        "sample": "SP_1",
+        "cell_type": "Young spike | Epidermis",
+        "tissue_system": "Young spike",
+        "n_cells": 869
+      },
+      {
+        "sample": "SP_1",
+        "cell_type": "Young spike | Filament",
+        "tissue_system": "Young spike",
+        "n_cells": 656
+      },
+      {
+        "sample": "SP_1",
+        "cell_type": "Young spike | Lodicule",
+        "tissue_system": "Young spike",
+        "n_cells": 1119
+      },
+      {
+        "sample": "SP_1",
+        "cell_type": "Young spike | Ovary_wall",
+        "tissue_system": "Young spike",
+        "n_cells": 266
+      },
+      {
+        "sample": "SP_1",
+        "cell_type": "Young spike | Ovule",
+        "tissue_system": "Young spike",
+        "n_cells": 1660
+      },
+      {
+        "sample": "SP_1",
+        "cell_type": "Young spike | Pollen_mother_cell",
+        "tissue_system": "Young spike",
+        "n_cells": 1282
+      },
+      {
+        "sample": "SP_1",
+        "cell_type": "Young spike | SP-unknown",
+        "tissue_system": "Young spike",
+        "n_cells": 350
+      },
+      {
+        "sample": "SP_1",
+        "cell_type": "Young spike | Stigmata",
+        "tissue_system": "Young spike",
+        "n_cells": 524
+      },
+      {
+        "sample": "SP_1",
+        "cell_type": "Young spike | Tapetum",
+        "tissue_system": "Young spike",
+        "n_cells": 1480
+      },
+      {
+        "sample": "SP_1",
+        "cell_type": "Young spike | Vascular_cylinder",
+        "tissue_system": "Young spike",
+        "n_cells": 439
+      },
+      {
+        "sample": "SP_2",
+        "cell_type": "Young spike | Epidermis",
+        "tissue_system": "Young spike",
+        "n_cells": 891
+      },
+      {
+        "sample": "SP_2",
+        "cell_type": "Young spike | Filament",
+        "tissue_system": "Young spike",
+        "n_cells": 704
+      },
+      {
+        "sample": "SP_2",
+        "cell_type": "Young spike | Lodicule",
+        "tissue_system": "Young spike",
+        "n_cells": 1127
+      },
+      {
+        "sample": "SP_2",
+        "cell_type": "Young spike | Ovary_wall",
+        "tissue_system": "Young spike",
+        "n_cells": 264
+      },
+      {
+        "sample": "SP_2",
+        "cell_type": "Young spike | Ovule",
+        "tissue_system": "Young spike",
+        "n_cells": 1767
+      },
+      {
+        "sample": "SP_2",
+        "cell_type": "Young spike | Pollen_mother_cell",
+        "tissue_system": "Young spike",
+        "n_cells": 1383
+      },
+      {
+        "sample": "SP_2",
+        "cell_type": "Young spike | SP-unknown",
+        "tissue_system": "Young spike",
+        "n_cells": 463
+      },
+      {
+        "sample": "SP_2",
+        "cell_type": "Young spike | Stigmata",
+        "tissue_system": "Young spike",
+        "n_cells": 535
+      },
+      {
+        "sample": "SP_2",
+        "cell_type": "Young spike | Tapetum",
+        "tissue_system": "Young spike",
+        "n_cells": 1191
+      },
+      {
+        "sample": "SP_2",
+        "cell_type": "Young spike | Vascular_cylinder",
+        "tissue_system": "Young spike",
+        "n_cells": 487
+      },
+      {
+        "sample": "ST_1",
+        "cell_type": "Culm | Collenchymatous_cell",
+        "tissue_system": "Culm",
+        "n_cells": 388
+      },
+      {
+        "sample": "ST_1",
+        "cell_type": "Culm | Cortex",
+        "tissue_system": "Culm",
+        "n_cells": 616
+      },
+      {
+        "sample": "ST_1",
+        "cell_type": "Culm | Epidermis",
+        "tissue_system": "Culm",
+        "n_cells": 913
+      },
+      {
+        "sample": "ST_1",
+        "cell_type": "Culm | Parenchyma_cell",
+        "tissue_system": "Culm",
+        "n_cells": 2110
+      },
+      {
+        "sample": "ST_1",
+        "cell_type": "Culm | Procambium",
+        "tissue_system": "Culm",
+        "n_cells": 2563
+      },
+      {
+        "sample": "ST_1",
+        "cell_type": "Culm | Vascular_cylinder",
+        "tissue_system": "Culm",
+        "n_cells": 3254
+      },
+      {
+        "sample": "ST_2",
+        "cell_type": "Culm | Collenchymatous_cell",
+        "tissue_system": "Culm",
+        "n_cells": 361
+      },
+      {
+        "sample": "ST_2",
+        "cell_type": "Culm | Cortex",
+        "tissue_system": "Culm",
+        "n_cells": 571
+      },
+      {
+        "sample": "ST_2",
+        "cell_type": "Culm | Epidermis",
+        "tissue_system": "Culm",
+        "n_cells": 1069
+      },
+      {
+        "sample": "ST_2",
+        "cell_type": "Culm | Parenchyma_cell",
+        "tissue_system": "Culm",
+        "n_cells": 2052
+      },
+      {
+        "sample": "ST_2",
+        "cell_type": "Culm | Procambium",
+        "tissue_system": "Culm",
+        "n_cells": 2602
+      },
+      {
+        "sample": "ST_2",
+        "cell_type": "Culm | Vascular_cylinder",
+        "tissue_system": "Culm",
+        "n_cells": 3241
+      },
+      {
+        "sample": "Seed_31",
+        "cell_type": "Spikelet | Epidermis",
+        "tissue_system": "Spikelet",
+        "n_cells": 513
+      },
+      {
+        "sample": "Seed_31",
+        "cell_type": "Spikelet | Plumule",
+        "tissue_system": "Spikelet",
+        "n_cells": 728
+      },
+      {
+        "sample": "Seed_31",
+        "cell_type": "Spikelet | Scutellum",
+        "tissue_system": "Spikelet",
+        "n_cells": 1314
+      },
+      {
+        "sample": "Seed_31",
+        "cell_type": "Spikelet | Seed-unknown",
+        "tissue_system": "Spikelet",
+        "n_cells": 600
+      },
+      {
+        "sample": "Seed_31",
+        "cell_type": "Spikelet | Vascular_cylinder",
+        "tissue_system": "Spikelet",
+        "n_cells": 171
+      },
+      {
+        "sample": "Seed_32",
+        "cell_type": "Spikelet | Epidermis",
+        "tissue_system": "Spikelet",
+        "n_cells": 455
+      },
+      {
+        "sample": "Seed_32",
+        "cell_type": "Spikelet | Plumule",
+        "tissue_system": "Spikelet",
+        "n_cells": 645
+      },
+      {
+        "sample": "Seed_32",
+        "cell_type": "Spikelet | Scutellum",
+        "tissue_system": "Spikelet",
+        "n_cells": 1165
+      },
+      {
+        "sample": "Seed_32",
+        "cell_type": "Spikelet | Seed-unknown",
+        "tissue_system": "Spikelet",
+        "n_cells": 533
+      },
+      {
+        "sample": "Seed_32",
+        "cell_type": "Spikelet | Vascular_cylinder",
+        "tissue_system": "Spikelet",
+        "n_cells": 152
+      },
+      {
+        "sample": "leaf_1",
+        "cell_type": "Third leaf | Epidermis",
+        "tissue_system": "Third leaf",
+        "n_cells": 540
+      },
+      {
+        "sample": "leaf_1",
+        "cell_type": "Third leaf | Fiber",
+        "tissue_system": "Third leaf",
+        "n_cells": 145
+      },
+      {
+        "sample": "leaf_1",
+        "cell_type": "Third leaf | Guard_cell",
+        "tissue_system": "Third leaf",
+        "n_cells": 1220
+      },
+      {
+        "sample": "leaf_1",
+        "cell_type": "Third leaf | Mesophyll",
+        "tissue_system": "Third leaf",
+        "n_cells": 4877
+      },
+      {
+        "sample": "leaf_1",
+        "cell_type": "Third leaf | Parenchyma_cell",
+        "tissue_system": "Third leaf",
+        "n_cells": 103
+      },
+      {
+        "sample": "leaf_1",
+        "cell_type": "Third leaf | Vascular_cylinder",
+        "tissue_system": "Third leaf",
+        "n_cells": 222
+      },
+      {
+        "sample": "leaf_2",
+        "cell_type": "Third leaf | Epidermis",
+        "tissue_system": "Third leaf",
+        "n_cells": 557
+      },
+      {
+        "sample": "leaf_2",
+        "cell_type": "Third leaf | Fiber",
+        "tissue_system": "Third leaf",
+        "n_cells": 135
+      },
+      {
+        "sample": "leaf_2",
+        "cell_type": "Third leaf | Guard_cell",
+        "tissue_system": "Third leaf",
+        "n_cells": 1073
+      },
+      {
+        "sample": "leaf_2",
+        "cell_type": "Third leaf | Mesophyll",
+        "tissue_system": "Third leaf",
+        "n_cells": 4571
+      },
+      {
+        "sample": "leaf_2",
+        "cell_type": "Third leaf | Parenchyma_cell",
+        "tissue_system": "Third leaf",
+        "n_cells": 107
+      },
+      {
+        "sample": "leaf_2",
+        "cell_type": "Third leaf | Vascular_cylinder",
+        "tissue_system": "Third leaf",
+        "n_cells": 221
+      }
+    ],
+    "features_per_sample": {
+      "Bud_21": 37960,
+      "Bud_22": 37960,
+      "Flag_1": 37960,
+      "Flag_2": 37960,
+      "Root_1": 37960,
+      "Root_2": 37960,
+      "SAM_1": 37960,
+      "SAM_2": 37960,
+      "SP_1": 37960,
+      "SP_2": 37960,
+      "ST_1": 37960,
+      "ST_2": 37960,
+      "Seed_31": 37960,
+      "Seed_32": 37960,
+      "leaf_1": 37960,
+      "leaf_2": 37960
+    },
+    "metadata_columns": [
+      "barcode",
+      "orig.ident",
+      "nCount_RNA",
+      "nFeature_RNA",
+      "nCount_ATAC",
+      "nFeature_ATAC",
+      "sample",
+      "cluster",
+      "RNA.weight",
+      "ATAC.weight",
+      "wsnn_res.0.1",
+      "seurat_clusters",
+      "nucleosome_signal",
+      "nucleosome_percentile",
+      "TSS.enrichment",
+      "TSS.percentile",
+      "tissue",
+      "final_id2",
+      "tissue_cluster",
+      "nCount_atacRNA",
+      "nFeature_atacRNA",
+      "cluster_names",
+      "tissue_cluster_names"
+    ],
+    "source_cell_count": 115395,
+    "published_cell_count": 116564,
+    "cell_count_discrepancy": "Paper reports 116,564 cells; deposited RNA count matrix and metadata contain 115,395. All deposited cells are retained; the reason for the 1,169-cell difference is not established.",
+    "sample_evidence": {
+      "Flag_1": {
+        "accession": "GSM7384981",
+        "title": "Rice-scRNA-Flag_Leaf-Rep1",
+        "tissue": "Flag Leaf",
+        "stage": "120-day-old",
+        "genotype": "Nipponbare",
+        "treatment": "normal",
+        "tissue_code": "Flag"
+      },
+      "Flag_2": {
+        "accession": "GSM7384982",
+        "title": "Rice-scRNA-Flag_Leaf-Rep2",
+        "tissue": "Flag Leaf",
+        "stage": "120-day-old",
+        "genotype": "Nipponbare",
+        "treatment": "normal",
+        "tissue_code": "Flag"
+      },
+      "leaf_1": {
+        "accession": "GSM7384985",
+        "title": "Rice-scRNA-Leaf-Rep1",
+        "tissue": "Third Leaf",
+        "stage": "21-day-old",
+        "genotype": "Nipponbare",
+        "treatment": "normal",
+        "tissue_code": "leaf"
+      },
+      "leaf_2": {
+        "accession": "GSM7384986",
+        "title": "Rice-scRNA-Leaf-Rep2",
+        "tissue": "Third Leaf",
+        "stage": "21-day-old",
+        "genotype": "Nipponbare",
+        "treatment": "normal",
+        "tissue_code": "leaf"
+      },
+      "Root_1": {
+        "accession": "GSM7384989",
+        "title": "Rice-scRNA-Root-Rep1",
+        "tissue": "Crown Root",
+        "stage": "10-day-old",
+        "genotype": "Nipponbare",
+        "treatment": "normal",
+        "tissue_code": "Root"
+      },
+      "Root_2": {
+        "accession": "GSM7384990",
+        "title": "Rice-scRNA-Root-Rep2",
+        "tissue": "Crown Root",
+        "stage": "10-day-old",
+        "genotype": "Nipponbare",
+        "treatment": "normal",
+        "tissue_code": "Root"
+      },
+      "SAM_1": {
+        "accession": "GSM7384993",
+        "title": "Rice-scRNA-SAM-Rep1",
+        "tissue": "Shoot apical meristem",
+        "stage": "2-day-old",
+        "genotype": "Nipponbare",
+        "treatment": "normal",
+        "tissue_code": "SAM"
+      },
+      "SAM_2": {
+        "accession": "GSM7384994",
+        "title": "Rice-scRNA-SAM-Rep2",
+        "tissue": "Shoot apical meristem",
+        "stage": "2-day-old",
+        "genotype": "Nipponbare",
+        "treatment": "normal",
+        "tissue_code": "SAM"
+      },
+      "SP_1": {
+        "accession": "GSM7384999",
+        "title": "Rice-scRNA-SP-Rep1",
+        "tissue": "Young Spike",
+        "stage": "100-day-old",
+        "genotype": "Nipponbare",
+        "treatment": "normal",
+        "tissue_code": "SP"
+      },
+      "SP_2": {
+        "accession": "GSM7385000",
+        "title": "Rice-scRNA-SP-Rep2",
+        "tissue": "Young Spike",
+        "stage": "100-day-old",
+        "genotype": "Nipponbare",
+        "treatment": "normal",
+        "tissue_code": "SP"
+      },
+      "ST_1": {
+        "accession": "GSM7385003",
+        "title": "Rice-scRNA-Culm-Rep1",
+        "tissue": "Culm",
+        "stage": "80-day-old",
+        "genotype": "Nipponbare",
+        "treatment": "normal",
+        "tissue_code": "ST"
+      },
+      "ST_2": {
+        "accession": "GSM7385004",
+        "title": "Rice-scRNA-Culm-Rep2",
+        "tissue": "Culm",
+        "stage": "80-day-old",
+        "genotype": "Nipponbare",
+        "treatment": "normal",
+        "tissue_code": "ST"
+      },
+      "Bud_21": {
+        "accession": "GSM8416685",
+        "title": "Rice-scRNA-Tiller_Bud-Rep1",
+        "tissue": "Tiller Bud",
+        "stage": "30-day-old",
+        "library type": "RNA-Seq",
+        "genotype": "Nipponbare",
+        "treatment": "normal",
+        "tissue_code": "Bud"
+      },
+      "Bud_22": {
+        "accession": "GSM8416686",
+        "title": "Rice-scRNA-Tiller_Bud-Rep2",
+        "tissue": "Tiller Bud",
+        "stage": "30-day-old",
+        "library type": "RNA-Seq",
+        "genotype": "Nipponbare",
+        "treatment": "normal",
+        "tissue_code": "Bud"
+      },
+      "Seed_31": {
+        "accession": "GSM8416689",
+        "title": "Rice-scRNA-Spikelet-Rep1",
+        "tissue": "Spikelet",
+        "stage": "120-day-old",
+        "library type": "RNA-Seq",
+        "genotype": "Nipponbare",
+        "treatment": "normal",
+        "tissue_code": "Seed"
+      },
+      "Seed_32": {
+        "accession": "GSM8416690",
+        "title": "Rice-scRNA-Spikelet-Rep2",
+        "tissue": "Spikelet",
+        "stage": "120-day-old",
+        "library type": "RNA-Seq",
+        "genotype": "Nipponbare",
+        "treatment": "normal",
+        "tissue_code": "Seed"
+      }
+    },
+    "source_library_sizes_agree": true,
+    "normalization": "log1p CP10K from uncorrected RNA counts; zeros included",
+    "selection": "All deposited atlas cells, retaining the original organ, sample and cluster_names labels; normal Nipponbare source samples",
+    "feature_missingness": "All original RNA count features; no marker or highly-variable-gene restriction",
+    "streamed_files": {
+      "i.bin": "5aafc822e2057d715a1045180dfc6bd797ab2b5aae2699f38e5b3261ebe73a49",
+      "p.bin": "a6d5e3290cfa4db308360eb21777f6dbc25efe8b7404e6a1e8eb485a13ec2560",
+      "x.bin": "d5fba131f9ddedee12392da60c44fab9af802f46b35468976563e5a38494fef7",
+      "matrix.json": "fa947670630e6b144a31d31a5c9af20e5f2cc540e6ac1bc98f72db9c1468586e",
+      "cell_metadata.tsv": "1bc6541ea5676e3233379691e078d697bb38cbf39d81b1d42118bf0b31d980fd",
+      "barcodes.tsv": "9d607436d0a37f2af701c64be64e71ae28c8f1dd0dffe5d174827e77c2422047",
+      "features.tsv": "1092565fe44b9dcf0a78967d58a054e98bd34f031b1b0f7cc70d1f128ef14afc"
+    }
+  },
+  "cell_unit": "cells",
+  "organs": [
+    "Crown root",
+    "Culm",
+    "Flag leaf",
+    "Shoot apical meristem",
+    "Spikelet",
+    "Third leaf",
+    "Tiller bud",
+    "Young spike"
+  ],
+  "context_annotations": {
+    "Tiller bud | Bud_axis": {
+      "organ": "Tiller bud",
+      "source_cell_type": "Bud_axis"
+    },
+    "Tiller bud | Bud_primordium": {
+      "organ": "Tiller bud",
+      "source_cell_type": "Bud_primordium"
+    },
+    "Tiller bud | Collenchymatous_cell": {
+      "organ": "Tiller bud",
+      "source_cell_type": "Collenchymatous_cell"
+    },
+    "Tiller bud | Epidermis": {
+      "organ": "Tiller bud",
+      "source_cell_type": "Epidermis"
+    },
+    "Tiller bud | Parenchyma_cell": {
+      "organ": "Tiller bud",
+      "source_cell_type": "Parenchyma_cell"
+    },
+    "Tiller bud | Root_meristem": {
+      "organ": "Tiller bud",
+      "source_cell_type": "Root_meristem"
+    },
+    "Tiller bud | Shoot_apical_meristem": {
+      "organ": "Tiller bud",
+      "source_cell_type": "Shoot_apical_meristem"
+    },
+    "Tiller bud | Vascular_cylinder": {
+      "organ": "Tiller bud",
+      "source_cell_type": "Vascular_cylinder"
+    },
+    "Flag leaf | Epidermis": {
+      "organ": "Flag leaf",
+      "source_cell_type": "Epidermis"
+    },
+    "Flag leaf | Fiber": {
+      "organ": "Flag leaf",
+      "source_cell_type": "Fiber"
+    },
+    "Flag leaf | Guard_cell": {
+      "organ": "Flag leaf",
+      "source_cell_type": "Guard_cell"
+    },
+    "Flag leaf | Mesophyll": {
+      "organ": "Flag leaf",
+      "source_cell_type": "Mesophyll"
+    },
+    "Flag leaf | Vascular_cylinder": {
+      "organ": "Flag leaf",
+      "source_cell_type": "Vascular_cylinder"
+    },
+    "Crown root | Cortex": {
+      "organ": "Crown root",
+      "source_cell_type": "Cortex"
+    },
+    "Crown root | Endodermis": {
+      "organ": "Crown root",
+      "source_cell_type": "Endodermis"
+    },
+    "Crown root | Epidermis": {
+      "organ": "Crown root",
+      "source_cell_type": "Epidermis"
+    },
+    "Crown root | Exodermis": {
+      "organ": "Crown root",
+      "source_cell_type": "Exodermis"
+    },
+    "Crown root | Meristem": {
+      "organ": "Crown root",
+      "source_cell_type": "Meristem"
+    },
+    "Crown root | Root_cap": {
+      "organ": "Crown root",
+      "source_cell_type": "Root_cap"
+    },
+    "Crown root | Sclerenchyma": {
+      "organ": "Crown root",
+      "source_cell_type": "Sclerenchyma"
+    },
+    "Crown root | Vascular_cylinder": {
+      "organ": "Crown root",
+      "source_cell_type": "Vascular_cylinder"
+    },
+    "Crown root | epidermis_near_root_hair": {
+      "organ": "Crown root",
+      "source_cell_type": "epidermis_near_root_hair"
+    },
+    "Shoot apical meristem | Epidermis": {
+      "organ": "Shoot apical meristem",
+      "source_cell_type": "Epidermis"
+    },
+    "Shoot apical meristem | Guard_cell": {
+      "organ": "Shoot apical meristem",
+      "source_cell_type": "Guard_cell"
+    },
+    "Shoot apical meristem | Meristem": {
+      "organ": "Shoot apical meristem",
+      "source_cell_type": "Meristem"
+    },
+    "Shoot apical meristem | Parenchyma_cell": {
+      "organ": "Shoot apical meristem",
+      "source_cell_type": "Parenchyma_cell"
+    },
+    "Shoot apical meristem | Primordia_apex": {
+      "organ": "Shoot apical meristem",
+      "source_cell_type": "Primordia_apex"
+    },
+    "Shoot apical meristem | Proliferating_cell": {
+      "organ": "Shoot apical meristem",
+      "source_cell_type": "Proliferating_cell"
+    },
+    "Shoot apical meristem | Vascular_cylinder": {
+      "organ": "Shoot apical meristem",
+      "source_cell_type": "Vascular_cylinder"
+    },
+    "Young spike | Epidermis": {
+      "organ": "Young spike",
+      "source_cell_type": "Epidermis"
+    },
+    "Young spike | Filament": {
+      "organ": "Young spike",
+      "source_cell_type": "Filament"
+    },
+    "Young spike | Lodicule": {
+      "organ": "Young spike",
+      "source_cell_type": "Lodicule"
+    },
+    "Young spike | Ovary_wall": {
+      "organ": "Young spike",
+      "source_cell_type": "Ovary_wall"
+    },
+    "Young spike | Ovule": {
+      "organ": "Young spike",
+      "source_cell_type": "Ovule"
+    },
+    "Young spike | Pollen_mother_cell": {
+      "organ": "Young spike",
+      "source_cell_type": "Pollen_mother_cell"
+    },
+    "Young spike | SP-unknown": {
+      "organ": "Young spike",
+      "source_cell_type": "SP-unknown"
+    },
+    "Young spike | Stigmata": {
+      "organ": "Young spike",
+      "source_cell_type": "Stigmata"
+    },
+    "Young spike | Tapetum": {
+      "organ": "Young spike",
+      "source_cell_type": "Tapetum"
+    },
+    "Young spike | Vascular_cylinder": {
+      "organ": "Young spike",
+      "source_cell_type": "Vascular_cylinder"
+    },
+    "Culm | Collenchymatous_cell": {
+      "organ": "Culm",
+      "source_cell_type": "Collenchymatous_cell"
+    },
+    "Culm | Cortex": {
+      "organ": "Culm",
+      "source_cell_type": "Cortex"
+    },
+    "Culm | Epidermis": {
+      "organ": "Culm",
+      "source_cell_type": "Epidermis"
+    },
+    "Culm | Parenchyma_cell": {
+      "organ": "Culm",
+      "source_cell_type": "Parenchyma_cell"
+    },
+    "Culm | Procambium": {
+      "organ": "Culm",
+      "source_cell_type": "Procambium"
+    },
+    "Culm | Vascular_cylinder": {
+      "organ": "Culm",
+      "source_cell_type": "Vascular_cylinder"
+    },
+    "Spikelet | Epidermis": {
+      "organ": "Spikelet",
+      "source_cell_type": "Epidermis"
+    },
+    "Spikelet | Plumule": {
+      "organ": "Spikelet",
+      "source_cell_type": "Plumule"
+    },
+    "Spikelet | Scutellum": {
+      "organ": "Spikelet",
+      "source_cell_type": "Scutellum"
+    },
+    "Spikelet | Seed-unknown": {
+      "organ": "Spikelet",
+      "source_cell_type": "Seed-unknown"
+    },
+    "Spikelet | Vascular_cylinder": {
+      "organ": "Spikelet",
+      "source_cell_type": "Vascular_cylinder"
+    },
+    "Third leaf | Epidermis": {
+      "organ": "Third leaf",
+      "source_cell_type": "Epidermis"
+    },
+    "Third leaf | Fiber": {
+      "organ": "Third leaf",
+      "source_cell_type": "Fiber"
+    },
+    "Third leaf | Guard_cell": {
+      "organ": "Third leaf",
+      "source_cell_type": "Guard_cell"
+    },
+    "Third leaf | Mesophyll": {
+      "organ": "Third leaf",
+      "source_cell_type": "Mesophyll"
+    },
+    "Third leaf | Parenchyma_cell": {
+      "organ": "Third leaf",
+      "source_cell_type": "Parenchyma_cell"
+    },
+    "Third leaf | Vascular_cylinder": {
+      "organ": "Third leaf",
+      "source_cell_type": "Vascular_cylinder"
+    }
+  },
+  "annotation_source_name": "Original deposited Seurat meta.data: tissue, sample, cluster_names",
+  "annotation_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE232863",
+  "annotation_note": "Full published atlas; the separately deposited normal-root experiment remains a distinct dataset, not pooled with this atlas."
+}

@@ -97,7 +97,7 @@ def overview():
     result["atlas_cells"] = sum(d["n_cells"] for d in selected)
     result["atlas_datasets"] = selected
     result["cell_count_note"] = (
-        "Cells and nuclei in the selected annotation versions. Li author annotations are counted once; the overlapping scPlantDB annotation version is excluded. Expression browsing is paused during this revision."
+        "Cells and nuclei in the selected annotation versions. Li author annotations are counted once; the overlapping scPlantDB annotation version is excluded. The Cell Expression preview currently exposes the validated full Wang atlas; other imported versions remain separate."
     )
     result["qtl_note"] = (
         "Source-reported QTL names are retained on GWAS records; this export does not independently identify linkage-QTL studies."
@@ -521,6 +521,8 @@ class Handler(BaseHTTPRequestHandler):
                         "mapping_status",
                         "cell_type",
                         "tissue_system",
+                        "organ",
+                        "source_cell_type",
                         "rank",
                         "mean_log",
                         "n_expressing",
