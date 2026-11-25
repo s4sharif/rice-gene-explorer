@@ -1,0 +1,10 @@
+# Create independent R serialization evidence for RNA count and annotation tests.
+library(Matrix)
+setClass("AtlasAssayFixture", slots=c(counts="dgCMatrix", data="dgCMatrix", misc="list"))
+setClass("AtlasObjectFixture", slots=c(assays="list", meta.data="data.frame"))
+m <- as(Matrix(matrix(c(0,2,0,3,0,5), nrow=3), sparse=TRUE), "dgCMatrix")
+dimnames(m) <- list(c("Os01g0100100", "Os03g0407400", "unmapped"), c("cell-A", "cell-B"))
+a <- new("AtlasAssayFixture", counts=m, data=m*99, misc=list(pointer=new("externalptr"), environment=new.env(parent=emptyenv())))
+b <- new("AtlasAssayFixture", counts=m*5, data=m*100, misc=list())
+x <- new("AtlasObjectFixture", assays=list(RNA=a, ATAC=b), meta.data=data.frame(sample=c("Root_1","Root_2"), tissue=c("Root","Root"), cluster_names=c("epidermis","epidermis"), row.names=colnames(m)))
+saveRDS(x, "tests/fixtures/wang_atlas_counts.rds")

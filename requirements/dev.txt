@@ -1,2 +1,3 @@
 black==25.9.0
 ruff==0.12.0
+-r expression.txt

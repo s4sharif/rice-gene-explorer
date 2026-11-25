@@ -29,7 +29,7 @@ def file_hash(path):
 
 # Load validated per-sample summaries and retain unmapped features explicitly.
 def build_expression(study="robertson"):
-    wang = study == "wang"
+    wang = study in {"wang", "wang_atlas"}
     li = study in {"li", "li_author"}
     suffix = "" if study == "robertson" else "_" + study
     raw = ROOT / "data/raw" / ("expression" if study == "robertson" else study)
@@ -44,9 +44,18 @@ def build_expression(study="robertson"):
     expected_samples = {
         "robertson": ["Well.Watered.Rep1", "Well.Watered.Rep2", "Well.Watered.Rep3"],
         "wang": ["NIP_G_1", "NIP_G_2"],
+        "wang_atlas": report["eligible_samples"],
         "li": ["GSM6346349", "GSM6346350"],
         "li_author": ["GSM6346349", "GSM6346350"],
     }[study]
+    if study == "wang_atlas" and (
+        report["n_cells"] != 115395
+        or report["n_organs"] != 8
+        or len(expected_samples) != 16
+    ):
+        raise ValueError(
+            "The complete eight-organ atlas and all sixteen source samples are required."
+        )
     if report["eligible_samples"] != expected_samples:
         raise ValueError("Unexpected baseline sample selection.")
     features = list(csv.DictReader((raw / "features.tsv").open(), delimiter="\t"))
@@ -94,8 +103,12 @@ def build_expression(study="robertson"):
                     mapped.get(original),
                     (
                         "exact RAP locus"
-                        if original in mapped
-                        else "unmapped or ambiguous"
+                        if original in mapped and original in recognized
+                        else (
+                            "unambiguous MSU alias"
+                            if original in mapped
+                            else "unmapped or ambiguous"
+                        )
                     ),
                 ),
             )
@@ -159,6 +172,7 @@ def build_expression(study="robertson"):
                 / {
                     "robertson": "GSE313726_OsLeafStressIntegrated.rds",
                     "wang": "GSE273875_LTP_NIP_label_240622.rds.gz",
+                    "wang_atlas": "GSE232863_scRNA_omics.Rds",
                     "li": "SRP386976.rds.gz",
                     "li_author": "mmc3.xlsx",
                 }[study]
@@ -179,6 +193,32 @@ def build_expression(study="robertson"):
                     "reference": "Source alignment MSU7; deposited features already RAP-labelled; exact ID matching, no coordinate transfer",
                     "metric_description": "Mean log1p(10,000 × RNA UMI count / retained RNA-count library size), including zero-count cells. Detection = RNA count > 0. Two normal replicates are pooled with cell-weighted means; ranks are within this study only.",
                     "coverage_note": "All features in the original RNA count assay are retained, not only markers or variable genes. Unmapped and ambiguous gene mappings are unavailable in the RAP search. This is the paper's normal-root experiment, not the full eight-organ atlas.",
+                }
+            )
+        if study == "wang_atlas":
+            dataset.update(
+                {
+                    "id": "wang_2025_eight_organ_atlas",
+                    "citation": "Wang et al. (2025) · eight-organ atlas",
+                    "repository_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE232863",
+                    "organ": "Eight organs · " + ", ".join(report["organs"]),
+                    "organs": report["organs"],
+                    "condition": "Normal wild-type Nipponbare; all deposited atlas cells",
+                    "assay": "single-cell multiomics · original RNA counts only",
+                    "cell_unit": "cells",
+                    "reference": "MSU7 source alignment; deposited IDs mapped by exact RAP matches or the versioned unambiguous MSU alias resource; no coordinate transfer",
+                    "metric_description": "Mean log1p(10,000 × RNA count / original RNA-count library size), including zero-count cells. Detection = count > 0. Replicates are cell-weighted within each organ–cell-type context; ranks are within this study only.",
+                    "coverage_note": "All RNA-count features across all eight organs and sixteen samples; no marker or highly-variable-gene restriction. Original annotations are preserved and identical cell-type names in different organs remain separate contexts.",
+                    "context_annotations": {
+                        g["cell_type"]: {
+                            "organ": g["organ"],
+                            "source_cell_type": g["source_cell_type"],
+                        }
+                        for g in report["groups"]
+                    },
+                    "annotation_source_name": "Original deposited Seurat meta.data: tissue, sample, cluster_names",
+                    "annotation_source_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE232863",
+                    "annotation_note": "Full published atlas; the separately deposited normal-root experiment remains a distinct dataset, not pooled with this atlas.",
                 }
             )
         if li:
@@ -242,6 +282,8 @@ def build_expression(study="robertson"):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--study", choices=["robertson", "wang", "li", "li_author"], default="robertson"
+        "--study",
+        choices=["robertson", "wang", "wang_atlas", "li", "li_author"],
+        default="robertson",
     )
     build_expression(parser.parse_args().study)

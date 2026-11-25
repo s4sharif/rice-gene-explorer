@@ -112,6 +112,9 @@ class ExpressionTests(unittest.TestCase):
             with (
                 patch.object(expression, "EXPRESSION_DB", paths[0]),
                 patch.object(expression, "WANG_DB", paths[1]),
+                patch.object(
+                    expression, "WANG_ATLAS_DB", Path(directory) / "atlas_absent.sqlite"
+                ),
                 patch.object(expression, "dataset_enabled", return_value=True),
                 patch.object(
                     expression, "LI_DB", Path(directory) / "not_imported.sqlite"

@@ -23,7 +23,9 @@ def sha256_file(path):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--study", choices=["robertson", "wang", "li", "li_author"], default="robertson"
+        "--study",
+        choices=["robertson", "wang", "wang_atlas", "li", "li_author"],
+        default="robertson",
     )
     study = parser.parse_args().study
     suffix = "" if study == "robertson" else "_" + study
