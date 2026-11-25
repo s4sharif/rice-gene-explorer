@@ -1,6 +1,6 @@
 # RiceLENS
 
-A working local prototype for searching rice genes, exploring neighboring genes and viewing published GWAS evidence. Optional baseline-expression datasets provide cell-type plots, detection percentages and neighboring-gene comparisons, with each study viewed separately. Searches query precomputed data; they do not run GWAS or CATCH.
+A working local prototype for searching rice genes, exploring neighboring genes and viewing published GWAS evidence. This revision prioritizes a shared genomic search and GWAS exploration; expression browsing is paused while its existing datasets and APIs are retained. Searches query precomputed data; they do not run GWAS or CATCH.
 
 ## Clone and run
 
@@ -19,6 +19,10 @@ Open [RiceLENS](http://127.0.0.1:8766) in a browser after starting the server. T
 Use Python 3.11 or newer. The application and data importer use only the Python standard library; no Python packages, Node.js, Docker or HPC service are required to run the prototype. Internet access is needed for the initial source downloads, approximately 21 MB compressed. The database occupies approximately 224 MB after building; allow additional space while rebuilding. Development tools are described in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 The repository contains source code, documentation, a preview and provenance manifests. Downloaded third-party source files, the derived SQLite database and local caches are excluded from Git. The data scripts reproduce the database from the recorded source URLs and checksums. A private repository must be accessible to your GitHub account before cloning.
+
+## Current layout
+
+Home provides live database counts and an overview without a search field. Locus and Genes, GWAS and the empty Cell Expression placeholder share a persistent search sidebar. Search by gene name/ID or genomic coordinates, then move between pages without repeating the search. The GWAS page retains the neighbourhood plot, offers basic filters and P-value sorting, and summarizes the complete filtered result set. Download exports genes and associations separately. Homolog Search and Tutorial are placeholders; Contact Us lists the lab’s public details. See [layout and validation notes](docs/gwas_layout.md).
 
 ## What is implemented
 
