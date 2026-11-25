@@ -845,16 +845,29 @@
         </section>
         <section class="page" data-panel="expression" id="cell-expression-page" hidden>
           <div class="page-heading">
-            <p class="eyebrow">WANG ET AL. · NORMAL NIPPONBARE</p>
+            <p class="eyebrow">BASELINE EXPRESSION · SOURCE-BY-SOURCE EVIDENCE</p>
             <h1>Cell Expression</h1>
             <p>
-              Baseline RNA expression across the eight organs in the deposited Wang
-              atlas.
+              Explore baseline gene expression in each study’s original organs and cell
+              types.
             </p>
           </div>
+          <div class="study-picker">
+            <label for="expression-study">Study / dataset</label
+            ><select id="expression-study" aria-describedby="study-scope">
+              <option>Loading studies…</option>
+            </select>
+            <p id="study-scope" class="help"></p>
+          </div>
           <p id="atlas-message" class="notice" role="status"></p>
+          <details id="pending-studies" class="pending-studies">
+            <summary>Studies awaiting complete expression inputs</summary>
+            <div id="pending-study-details"></div>
+          </details>
           <div id="atlas-content" hidden>
             <p id="atlas-source" class="help"></p>
+            <p id="study-version-warning" class="notice" hidden></p>
+            <p id="study-discrepancy" class="notice" hidden></p>
             <div class="atlas-toolbar">
               <div>
                 <label for="atlas-organ">Organ</label
@@ -881,7 +894,7 @@
               <svg
                 id="atlas-chart"
                 role="group"
-                aria-label="Wang atlas expression by gene, organ and original cell-type annotation"
+                aria-label="Selected study expression by gene, organ and original cell-type annotation"
               ></svg>
             </div>
             <details class="methods">
@@ -896,7 +909,7 @@
                       <th>Mean log1p(CP10K)</th>
                       <th>Expressing</th>
                       <th>Detected / total cells</th>
-                      <th>Atlas rank</th>
+                      <th>Within-study rank</th>
                     </tr>
                   </thead>
                   <tbody id="atlas-values"></tbody>
@@ -905,24 +918,14 @@
             </details>
             <details class="methods">
               <summary>Coverage, calculation and source annotations</summary>
+              <p id="study-metric"></p>
+              <p id="study-coverage"></p>
+              <p id="study-annotation"></p>
               <p>
-                All 37,960 RNA-count features in the processed object are retained.
-                Means include zero-count cells. Original sample and organ–cell-type
-                labels remain separate; biological replicates use cell-weighted
-                summaries. These values are not pooled or directly compared with
-                Robertson, Li or the separate Wang root experiment.
-              </p>
-              <p>
-                The publication reports 116,564 cells; the deposited object contains
-                115,395. Every available deposited cell is included here. The reason for
-                the 1,169-cell difference has not been established. Original unknown
-                cell-type labels are retained.
-              </p>
-              <p>
-                Ranks apply within this atlas. The CSV includes all eight organs even
-                when the plot is filtered to one. Colours are scaled within the
-                displayed view; changes in colour scale do not establish biological
-                differences across studies.
+                Ranks and colour scales apply only within the selected study. The CSV
+                includes every available organ–cell-type context from that dataset even
+                when the plot is filtered. Measurements are not pooled or directly
+                compared across studies or annotation versions.
               </p>
             </details>
           </div>

@@ -64,6 +64,8 @@ function searchParameters(page = currentPage) {
     sort: sortOrder,
     page,
     include_repeats: String(byId("include-repeats").checked),
+    expression: selectedDataset,
+    expression_organ: organSelections.get(selectedDataset) ?? "",
   });
 }
 // Update navigation and downloads with one consistent selected region and filter state.
@@ -113,7 +115,7 @@ function showToolPage() {
   closeSuggestions();
   updateToolLinks();
   if (tool === "gwas" && regionData) drawNeighborhood(regionData);
-  if (tool === "expression") loadWangAtlas();
+  if (tool === "expression") loadExpressionStudy();
 }
 // Navigate locally without fetching a second copy of the shared application state.
 function navigateTool(event) {
@@ -388,7 +390,7 @@ async function loadRegion(selector, page = 1) {
     for (const panel of document.querySelectorAll(".empty-selection"))
       panel.hidden = true;
     renderSummary(data);
-    if (currentTool() === "expression") loadWangAtlas();
+    if (currentTool() === "expression") loadExpressionStudy();
     filterNeighborTable();
     drawNeighborhood(data);
     setStatus("");
@@ -488,6 +490,9 @@ function chooseExample(event) {
 // Restore bookmarked filters and selection when loading a page or using browser history.
 function restoreBookmark() {
   const query = new URLSearchParams(location.hash.slice(1));
+  selectedDataset = query.get("expression") || "";
+  if (selectedDataset && query.has("expression_organ"))
+    organSelections.set(selectedDataset, query.get("expression_organ"));
   ++latestRequest;
   selectedGene = query.get("gene") || "";
   byId("query").value = selectedGene;
@@ -694,56 +699,189 @@ window.addEventListener("resize", resizeChart);
 let atlasData = null;
 let atlasRequest = 0;
 let atlasGenes = [];
-// Load only the validated full Wang atlas and retain the shared selected gene.
-async function loadWangAtlas() {
+let selectedDataset = "";
+let atlasCatalog = null;
+let atlasCatalogPromise = null;
+const organSelections = new Map();
+// Populate available datasets and visibly separate papers that lack complete quantitative inputs.
+function renderStudyCatalog(catalog) {
+  const select = byId("expression-study");
+  const placeholder = new Option("Choose a dataset", "");
+  placeholder.disabled = true;
+  select.replaceChildren(placeholder);
+  const available = document.createElement("optgroup");
+  available.label = "Imported datasets";
+  for (const dataset of catalog.datasets)
+    available.append(new Option(dataset.label, dataset.id));
+  select.append(available);
+  const pending = document.createElement("optgroup");
+  pending.label = "Not yet integrated";
+  for (const source of catalog.pending || []) {
+    const option = new Option(
+      `${source.citation} — pending data`,
+      "pending:" + source.id,
+    );
+    option.disabled = true;
+    pending.append(option);
+  }
+  if (pending.children.length) select.append(pending);
+  const publications = new Set(
+    catalog.datasets.map(datasetPublication).filter(Boolean),
+  );
+  // Count publications independently of the number of annotation or experiment versions.
+  function datasetPublication(dataset) {
+    return dataset.publication_url;
+  }
+  byId("study-scope").textContent =
+    `${catalog.datasets.length} selectable datasets / annotation versions from ${publications.size} publications. Values and colour scales are specific to each study; normalized values should not be directly compared across studies. Jing and Liu remain pending.`;
+  byId("pending-studies").hidden = !(catalog.pending || []).length;
+  byId("pending-study-details").replaceChildren();
+  for (const source of catalog.pending || []) {
+    const section = document.createElement("section");
+    section.innerHTML = `<h3><a href="${escapeHtml(source.publication_url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.citation)}</a></h3><p>${escapeHtml(source.status)}</p><p>${escapeHtml(source.required_input)}</p>`;
+    for (const link of source.links || []) {
+      const anchor = document.createElement("a");
+      anchor.href = link.url;
+      anchor.textContent = link.label;
+      anchor.target = "_blank";
+      anchor.rel = "noopener noreferrer";
+      section.append(anchor, document.createTextNode(" "));
+    }
+    byId("pending-study-details").append(section);
+  }
+}
+// Fetch the small installed-dataset catalog once while sharing concurrent requests safely.
+async function loadStudyCatalog() {
+  if (atlasCatalog) return atlasCatalog;
+  if (!atlasCatalogPromise) atlasCatalogPromise = fetchJson("/api/expression/datasets");
+  try {
+    const catalog = await atlasCatalogPromise;
+    if (!atlasCatalog) {
+      atlasCatalog = catalog;
+      renderStudyCatalog(catalog);
+    }
+    return atlasCatalog;
+  } catch (error) {
+    atlasCatalogPromise = null;
+    throw error;
+  }
+}
+// Load exactly one selected dataset while preserving the shared gene and comparison choices.
+async function loadExpressionStudy() {
   const request = ++atlasRequest;
   byId("atlas-content").hidden = true;
-  if (!regionData || !regionData.gene.id) {
-    byId("atlas-message").textContent =
-      "Select a gene in the sidebar or Locus and Genes to explore its expression.";
-    return;
-  }
-  if (!atlasGenes.includes(selectedGene)) atlasGenes = [selectedGene];
-  byId("atlas-message").textContent = "Loading the eight-organ Wang atlas…";
+  byId("atlas-message").textContent = "Loading study information…";
   try {
+    const catalog = await loadStudyCatalog();
+    if (request !== atlasRequest) return;
+    if (!selectedDataset)
+      selectedDataset = catalog.datasets.some(isFullWangAtlas)
+        ? "wang_2025_eight_organ_atlas"
+        : catalog.datasets[0]?.id || "";
+    // Prefer the full validated atlas only for the initial selection, never on a study change.
+    function isFullWangAtlas(dataset) {
+      return dataset.id === "wang_2025_eight_organ_atlas";
+    }
+    if (!catalog.datasets.some(isRequestedDataset)) {
+      byId("expression-study").value = "";
+      byId("atlas-message").textContent =
+        "This dataset is not imported in this installation. Choose an available dataset; pending studies have no plotted measurements.";
+      return;
+    }
+    // Match the explicit selected identifier rather than choosing a similarly named study.
+    function isRequestedDataset(dataset) {
+      return dataset.id === selectedDataset;
+    }
+    byId("expression-study").value = selectedDataset;
+    if (!regionData || !regionData.gene.id) {
+      byId("atlas-message").textContent =
+        "Select a gene in the sidebar or Locus and Genes to explore its expression.";
+      return;
+    }
+    if (!atlasGenes.includes(selectedGene)) atlasGenes = [selectedGene];
+    byId("atlas-message").textContent = "Loading this study’s expression evidence…";
+    const datasetId = selectedDataset;
     const data = await fetchJson(
       "/api/expression?" +
-        new URLSearchParams({
-          dataset: "wang_2025_eight_organ_atlas",
-          genes: atlasGenes.join(","),
-        }),
+        new URLSearchParams({ dataset: datasetId, genes: atlasGenes.join(",") }),
     );
-    if (request !== atlasRequest) return;
+    if (request !== atlasRequest || datasetId !== selectedDataset) return;
     if (!data.available) {
-      byId("atlas-message").textContent =
-        "The full Wang atlas is not installed and validated in this environment yet.";
+      byId("atlas-message").textContent = data.message;
       return;
     }
     atlasData = data;
-    const previous = byId("atlas-organ").value;
-    byId("atlas-organ").replaceChildren(new Option("All eight organs", ""));
-    for (const organ of data.dataset.organs)
-      byId("atlas-organ").add(new Option(organ, organ));
-    byId("atlas-organ").value = data.dataset.organs.includes(previous)
-      ? previous
-      : "Crown root";
+    const organs = data.dataset.organs || [data.dataset.organ];
+    const remembered = organSelections.get(datasetId);
+    byId("atlas-organ").replaceChildren();
+    if (organs.length > 1)
+      byId("atlas-organ").add(new Option(`All ${organs.length} organs`, ""));
+    for (const organ of organs) byId("atlas-organ").add(new Option(organ, organ));
+    byId("atlas-organ").disabled = organs.length === 1;
+    byId("atlas-organ").value =
+      remembered === "" && organs.length > 1
+        ? ""
+        : organs.includes(remembered)
+          ? remembered
+          : organs.includes("Crown root")
+            ? "Crown root"
+            : organs[0];
+    organSelections.set(datasetId, byId("atlas-organ").value);
     byId("atlas-compare").replaceChildren(new Option("Choose a neighbouring gene", ""));
     for (const gene of neighboringGenes)
       if (!atlasGenes.includes(gene.id))
         byId("atlas-compare").add(
           new Option(`${gene.symbol || gene.id} · ${gene.id}`, gene.id),
         );
+    const unit =
+      data.dataset.cell_unit ||
+      (data.dataset.assay?.includes("nucleus") ? "nuclei" : "cells");
     byId("atlas-source").innerHTML =
-      `${escapeHtml(data.dataset.citation)} · ${data.dataset.n_cells.toLocaleString()} deposited cells · 8 organs · 16 samples. <a href="${escapeHtml(data.dataset.publication_url)}" target="_blank" rel="noopener noreferrer">Publication</a> · <a href="${escapeHtml(data.dataset.repository_url)}" target="_blank" rel="noopener noreferrer">Original GEO data</a>`;
+      `${escapeHtml(data.dataset.citation)} · ${data.dataset.n_cells.toLocaleString()} ${escapeHtml(unit)} · ${organs.length} organ${organs.length === 1 ? "" : "s"} · ${data.dataset.n_samples} samples. <a href="${escapeHtml(data.dataset.publication_url)}" target="_blank" rel="noopener noreferrer">Publication</a> · <a href="${escapeHtml(data.dataset.repository_url)}" target="_blank" rel="noopener noreferrer">Original data</a><br>${escapeHtml(data.dataset.condition)}`;
+    byId("study-metric").textContent = data.dataset.metric_description;
+    byId("study-coverage").textContent = data.dataset.coverage_note;
+    byId("study-annotation").textContent =
+      data.dataset.annotation_note ||
+      "Original deposited cell-type annotations are retained.";
+    byId("study-version-warning").hidden = !datasetId.startsWith("li_2023");
+    byId("study-version-warning").textContent =
+      "The two Li options reuse the same diploid GEO libraries with different cell annotations and retained cells. They are alternative versions, not independent replication.";
+    const discrepancy = data.dataset.extraction?.cell_count_discrepancy;
+    byId("study-discrepancy").hidden = !discrepancy;
+    byId("study-discrepancy").textContent = discrepancy || "";
+    byId("atlas-chart").setAttribute(
+      "aria-label",
+      `${data.dataset.citation}: expression by gene, organ and original cell-type annotation`,
+    );
     byId("atlas-export").href =
       "/api/expression/export?" +
-      new URLSearchParams({ dataset: data.dataset.id, genes: atlasGenes.join(",") });
+      new URLSearchParams({ dataset: datasetId, genes: atlasGenes.join(",") });
     byId("atlas-message").textContent = "";
     byId("atlas-content").hidden = false;
     renderAtlas();
+    syncExpressionBookmark();
   } catch (error) {
     if (request === atlasRequest) byId("atlas-message").textContent = error.message;
   }
+}
+// Persist the selected study independently of gene, window and association filters.
+function syncExpressionBookmark() {
+  if (selectedGene)
+    history.replaceState(null, "", location.pathname + "#" + searchParameters());
+  updateToolLinks();
+}
+// Change datasets without carrying over another study's measurements or organ names.
+function changeExpressionStudy() {
+  if (atlasData) organSelections.set(atlasData.dataset.id, byId("atlas-organ").value);
+  selectedDataset = byId("expression-study").value;
+  atlasData = null;
+  if (selectedDataset) loadExpressionStudy();
+}
+// Remember each dataset's organ selection while keeping its plot scale within that study.
+function changeExpressionOrgan() {
+  organSelections.set(selectedDataset, byId("atlas-organ").value);
+  renderAtlas();
+  syncExpressionBookmark();
 }
 // Select one organ without pooling measurements from other studies or organs.
 function renderAtlas() {
@@ -831,7 +969,7 @@ function renderAtlas() {
   }
   const groups = (selected?.groups || []).filter(matchesAtlasOrgan);
   byId("atlas-summary").textContent = groups.length
-    ? `Highest mean expression ${organ ? "in " + organ : "across the deposited atlas"}: ${groups[0].source_cell_type} (${groups[0].organ}), ${groups[0].mean_log.toFixed(3)} mean log1p(CP10K), ${groups[0].percent_expressing.toFixed(1)}% expressing. Wang et al. (2025).`
+    ? `Highest mean expression ${organ ? "in " + organ : "across this study’s available organs"}: ${groups[0].source_cell_type}${organ ? "" : ` (${groups[0].organ})`}, ${groups[0].mean_log.toFixed(3)} mean log1p(CP10K), ${groups[0].percent_expressing.toFixed(1)}% expressing. ${atlasData.dataset.citation}.`
     : `${selectedGene} is not mapped to an available feature in this deposited count assay; it is not treated as zero expression.`;
 }
 // Present each expression comparison as an explicitly removable gene choice.
@@ -852,7 +990,7 @@ function addAtlasGene() {
     return;
   }
   atlasGenes.push(gene);
-  loadWangAtlas();
+  loadExpressionStudy();
 }
 // Remove only a comparison gene while preserving the shared selected gene.
 function removeAtlasGene(event) {
@@ -861,9 +999,10 @@ function removeAtlasGene(event) {
     return gene !== event.currentTarget.dataset.removeGene;
   }
   atlasGenes = atlasGenes.filter(keepAtlasGene);
-  loadWangAtlas();
+  loadExpressionStudy();
 }
-byId("atlas-organ").onchange = renderAtlas;
+byId("expression-study").onchange = changeExpressionStudy;
+byId("atlas-organ").onchange = changeExpressionOrgan;
 byId("atlas-add").onclick = addAtlasGene;
 
 restoreBookmark();
