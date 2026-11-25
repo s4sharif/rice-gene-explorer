@@ -14,6 +14,62 @@ LI_AUTHOR_DB = DATA_DIR / "expression_li_author.sqlite"
 LI_DB = DATA_DIR / "expression_li.sqlite"
 
 
+DATASET_LABELS = {
+    "wang_2025_eight_organ_atlas": "Wang (2025) — eight-organ atlas",
+    "wang_2025_normal_root": "Wang (2025) — separate normal-root experiment",
+    "robertson_2026_control": "Robertson (2026) — well-watered leaf",
+    "li_2023_pistil_2n_author": "Li (2023) — pistil, author annotations",
+    "li_2023_pistil_2n_scplantdb": "Li (2023) — pistil, alternate scPlantDB annotations",
+}
+
+
+# Preserve an organ separately from tissue-system families such as Robertson's epidermis groups.
+def context_annotation(dataset, cell_type):
+    return dataset.get("context_annotations", {}).get(
+        cell_type,
+        {
+            "organ": dataset.get("organ", "Not specified"),
+            "source_cell_type": cell_type,
+        },
+    )
+
+
+# Report papers awaiting complete quantitative input without advertising marker tables as expression.
+def pending_expression_sources():
+    directory = Path(__file__).resolve().parents[1] / "data"
+    sources = []
+    for name, filename in [
+        ("jing", "expression_jing_metadata.json"),
+        ("liu", "expression_liu_review.json"),
+    ]:
+        path = directory / filename
+        if not path.exists():
+            continue
+        source = json.loads(path.read_text())
+        sources.append(
+            {
+                "id": name,
+                "citation": source["citation"],
+                "publication_url": source["publication_url"],
+                "status": "Not integrated — quantitative expression unavailable in this installation",
+                "required_input": source.get(
+                    "required_input",
+                    "An accessible all-gene processed RNA count matrix or annotated object, matching retained-cell labels and a complete gene-ID crosswalk. Existing marker/cross-reference tables are supporting metadata only.",
+                ),
+                "links": source.get(
+                    "links",
+                    [
+                        {
+                            "label": "Original atlas",
+                            "url": source.get("atlas_url", source["publication_url"]),
+                        }
+                    ],
+                ),
+            }
+        )
+    return sources
+
+
 # Resolve a study identifier to its own database without accepting arbitrary paths.
 def dataset_path(dataset_id):
     if dataset_id == "robertson_2026_control":
@@ -74,15 +130,22 @@ def expression_datasets():
                 )
             datasets.append(
                 {
-                    key: metadata[key]
-                    for key in [
-                        "id",
-                        "citation",
-                        "organ",
-                        "condition",
-                        "n_cells",
-                        "n_samples",
-                    ]
+                    **{
+                        key: metadata[key]
+                        for key in [
+                            "id",
+                            "citation",
+                            "organ",
+                            "condition",
+                            "n_cells",
+                            "n_samples",
+                        ]
+                    },
+                    "label": DATASET_LABELS[dataset_id],
+                    "publication_url": metadata.get("publication_url"),
+                    "shared_libraries": (
+                        "GSE208432" if dataset_id.startswith("li_2023") else None
+                    ),
                 }
             )
     return datasets
@@ -116,10 +179,8 @@ def expression_evidence(gene_ids, dataset_id="robertson_2026_control"):
                     (gene,),
                 )
             ]
-            annotations = dataset.get("context_annotations", {})
             for row in rows:
-                if row["cell_type"] in annotations:
-                    row.update(annotations[row["cell_type"]])
+                row.update(context_annotation(dataset, row["cell_type"]))
             previous = None
             rank = 0
             for index, row in enumerate(rows, 1):
@@ -143,7 +204,7 @@ def expression_evidence(gene_ids, dataset_id="robertson_2026_control"):
             "cell_groups": [
                 {
                     **dict(r),
-                    **dataset.get("context_annotations", {}).get(r["cell_type"], {}),
+                    **context_annotation(dataset, r["cell_type"]),
                 }
                 for r in db.execute("SELECT * FROM cell_group ORDER BY cell_type")
             ],

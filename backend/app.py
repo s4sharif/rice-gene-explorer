@@ -12,7 +12,11 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
-from backend.expression import expression_datasets, expression_evidence
+from backend.expression import (
+    expression_datasets,
+    expression_evidence,
+    pending_expression_sources,
+)
 from backend.runtime_data import DATA_DIR
 from backend.source_coverage import source_coverage
 from pipelines.build_database import CHROMOSOME_LENGTHS
@@ -97,7 +101,7 @@ def overview():
     result["atlas_cells"] = sum(d["n_cells"] for d in selected)
     result["atlas_datasets"] = selected
     result["cell_count_note"] = (
-        "Cells and nuclei in the selected annotation versions. Li author annotations are counted once; the overlapping scPlantDB annotation version is excluded. The Cell Expression preview currently exposes the validated full Wang atlas; other imported versions remain separate."
+        "Cells and nuclei in the selected annotation versions. Li author annotations are counted once; the overlapping scPlantDB annotation version is excluded. Imported dataset versions are browsed separately in Cell Expression; overlapping Li annotation versions are not added twice."
     )
     result["qtl_note"] = (
         "Source-reported QTL names are retained on GWAS records; this export does not independently identify linkage-QTL studies."
@@ -498,7 +502,12 @@ class Handler(BaseHTTPRequestHandler):
             if parsed.path == "/api/expression/sources":
                 return self.send_json(source_coverage(q.get("gene", "")))
             if parsed.path == "/api/expression/datasets":
-                return self.send_json({"datasets": expression_datasets()})
+                return self.send_json(
+                    {
+                        "datasets": expression_datasets(),
+                        "pending": pending_expression_sources(),
+                    }
+                )
             if parsed.path in {"/api/expression", "/api/expression/export"}:
                 genes = q.get("genes", "").split(",")
                 with connect() as db:

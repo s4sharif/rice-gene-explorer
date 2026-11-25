@@ -29,6 +29,27 @@ class ExpressionTests(unittest.TestCase):
         )
         self.assertEqual(column_values(metadata["value"][2]), [3, 7])
 
+    # Keep an organ distinct from the cell's tissue-system family and preserve original labels.
+    def test_organ_and_tissue_system_are_distinct(self):
+        annotation = expression.context_annotation(
+            {"organ": "Developing leaf"}, "Xylem"
+        )
+        self.assertEqual(
+            annotation, {"organ": "Developing leaf", "source_cell_type": "Xylem"}
+        )
+        self.assertEqual(
+            expression.context_annotation({}, "Xylem")["organ"], "Not specified"
+        )
+        atlas = {
+            "organ": "Eight organs",
+            "context_annotations": {
+                "Root | Cortex": {"organ": "Crown root", "source_cell_type": "Cortex"}
+            },
+        }
+        self.assertEqual(
+            expression.context_annotation(atlas, "Root | Cortex")["organ"], "Crown root"
+        )
+
     # Confirm that unavailable datasets return an explicit state rather than fabricated zeros.
     def test_missing_dataset(self):
         with patch.object(expression, "EXPRESSION_DB", Path("/does-not-exist.sqlite")):
