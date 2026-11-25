@@ -1,6 +1,6 @@
 # GWAS-focused layout
 
-This review branch implements Lisa’s revised Home, Locus and Genes, and GWAS workflow. Cell Expression and Tutorial intentionally have empty main content; existing expression databases and API methods are retained. Homolog Search has an independent input and explicit unavailable-data notice, not fabricated mappings.
+This review branch implements Lisa’s revised Home, Locus and Genes, and GWAS workflow. This layout revision initially left Cell Expression and Tutorial empty. The subsequent [full Wang atlas integration](wang_full_atlas.md) enables a local Cell Expression view for that validated dataset; Tutorial remains empty. Homolog Search has an independent input and explicit unavailable-data notice, not fabricated mappings.
 
 ## Navigation and selection
 
@@ -14,7 +14,7 @@ The URL preserves the selected ID or interval, window, trait, maximum P-value, p
 
 Homepage counts are calculated by `/api/overview` from the serving databases. The present snapshot contains 828 study contexts in 152 publications, 357 trait/ontology entries and 132,765 source association rows. Study contexts are not presented as unique publications.
 
-The displayed atlas count is 62,712 cells/nuclei in the selected annotation versions: Robertson controls (36,455), Wang normal-root subset (18,180), and Li author-labelled diploid pistil nuclei (8,077). The overlapping Li scPlantDB annotation version (9,769) is not added. The homepage disclosure lists the contributing versions. This does not claim full Wang eight-organ coverage, a union of all annotation versions, or resumed expression browsing.
+Before the full Wang import, the displayed atlas count was 62,712 cells/nuclei in the selected annotation versions: Robertson controls (36,455), Wang normal-root subset (18,180), and Li author-labelled diploid pistil nuclei (8,077). The overlapping Li scPlantDB annotation version (9,769) is not added. The homepage disclosure lists the contributing versions. The subsequent full Wang import adds 115,395 deposited cells, bringing the selected-version count to 178,107. See [full-atlas methods](wang_full_atlas.md) for the deposited-versus-published cell-count discrepancy and the local expression view. This count is not a union of every alternate annotation version.
 
 The source `QTL` field is retained in results and CSV exports: 6,599 imported source rows contain a nonempty label. These rows remain GWAS evidence, with visible QTL names. This field does not establish an independently mapped linkage-QTL dataset. GWAS Atlas describes a curated significant-GWAS association resource: <https://ngdc.cncb.ac.cn/gwas/documentation>. No separate linkage-QTL data are inferred or invented.
 

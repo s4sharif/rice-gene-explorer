@@ -10,6 +10,12 @@ CATALOG = ROOT / "datasets"
 STUDIES = [
     ("robertson_2026_well_watered_leaf", "expression", "expression", "robertson"),
     ("wang_2025_normal_root", "wang", "expression_wang", "wang"),
+    (
+        "wang_2025_eight_organ_atlas",
+        "wang_atlas",
+        "expression_wang_atlas",
+        "wang_atlas",
+    ),
     ("li_2023_diploid_pistil_scplantdb_annotations", "li", "expression_li", "li"),
     (
         "li_2023_diploid_pistil_author_annotations",
@@ -39,6 +45,8 @@ def organize():
         folder.mkdir(exist_ok=True)
         raw = ROOT / "data/raw" / raw_name
         pipeline = f"python3 -m pipelines.fetch_expression --study {study}; python3 -m pipelines.build_expression --study {study}; python3 -m pipelines.validate_expression --study {study}"
+        if study == "wang_atlas":
+            pipeline = "python3 -m pipelines.fetch_expression --study wang_atlas; python3 -m scripts.stream_wang_atlas data/raw/wang_atlas/GSE232863_scRNA_omics.Rds data/raw/wang_atlas; python3 -m pipelines.prepare_wang_atlas; python3 -m pipelines.build_expression --study wang_atlas; python3 -m pipelines.validate_wang_atlas"
         files = [
             (p, "source_or_intermediate") for p in sorted(raw.glob("*")) if p.is_file()
         ]

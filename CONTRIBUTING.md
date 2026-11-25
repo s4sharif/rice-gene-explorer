@@ -1,6 +1,6 @@
 # Working on the project
 
-Use Python 3.11 or newer for the application. Node.js and the tools below are needed only when editing or checking source code.
+Use Python 3.11 or newer for the application. Offline full-atlas import and its regression tests use NumPy, included in the development requirements; serving precomputed expression remains standard-library Python. Node.js and the tools below are needed only when editing or checking source code.
 
 ```sh
 python3 -m pip install -r requirements/dev.txt

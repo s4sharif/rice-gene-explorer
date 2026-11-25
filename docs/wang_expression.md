@@ -1,5 +1,7 @@
 # Wang et al. (2025): normal-root expression subset
 
+The [full deposited eight-organ atlas](wang_full_atlas.md) is now imported as a separate dataset; the methods below describe only the independent GSE273875 root experiment.
+
 ## Imported scope
 
 This second expression dataset uses [GSE273875](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE273875), a separately deposited root experiment associated with [Wang et al., Nature (2025)](https://doi.org/10.1038/s41586-025-09251-0). It is **not the complete eight-organ atlas** in GSE232863. The main eight-organ object is about 5.1 GB; this annotated root object is about 390 MB compressed, and approximately 2.2 GB in R memory.
@@ -40,6 +42,6 @@ The source file is gzip-compressed twice. The R reader explicitly opens both com
 
 The R import verifies unique genes/barcodes, count-layer dimensions, integer nonnegative counts, exact metadata-to-count-cell matching and agreement of normal-sample/WT labels. It exports unmodified WT counts for an independent Python calculation of selected genes across all available sample/cell-type groups. This checks the calculations using the deposited count layer; it is not validation against independently generated sequencing data.
 
-Outputs include extraction counts, features and per-sample summaries under `data/raw/wang`, the separate SQLite database, `data/expression_wang_manifest.json` and `data/expression_wang_validation.json`. The full eight-organ atlas and the other papers remain future imports.
+Outputs include extraction counts, features and per-sample summaries under `data/raw/wang`, the separate SQLite database, `data/expression_wang_manifest.json` and `data/expression_wang_validation.json`. The full eight-organ GSE232863 atlas is now imported separately; see [full-atlas methods](wang_full_atlas.md).
 
 Validation passed **54** independent gene–replicate–cell-type calculations (three available example genes × two WT replicates × nine cell types). The requested fourth example, Os07g0141400, is absent from this deposited count assay and is not treated as zero. All 19 software tests passed, including explicit study-separation checks.
