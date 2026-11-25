@@ -82,7 +82,7 @@ class HostingTests(unittest.TestCase):
                 response = request(path, USERNAME + ":" + PASSWORD)
                 self.assertTrue(response["status"].startswith("200"))
                 self.assertIn(b'aria-label="Main navigation"', response["body"])
-                self.assertIn(b'id="expression-organ"', response["body"])
+                self.assertIn(b'id="cell-expression-page"', response["body"])
 
     # Serve the existing search API only when both reviewer credentials match exactly.
     def test_authorized_search_and_wrong_password(self):

@@ -3,885 +3,941 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>RiceLENS · Wilkins Lab</title>
+    <meta
+      name="description"
+      content="RICELens connects rice genes, genomic regions and published GWAS evidence."
+    />
+    <title>RICELens · Wilkins Lab</title>
     <link rel="stylesheet" href="/style.css" />
   </head>
-  <body>
+  <body data-page="home">
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <header class="masthead">
-      <nav class="topbar" aria-label="Main navigation">
+    <header class="site-header">
+      <div class="header-top">
         <a class="brand" href="/" data-route="home"
-          ><span class="brand-mark" aria-hidden="true">✳</span> RiceLENS</a
-        >
-        <div class="nav-links">
-          <a href="/" data-route="home">Home</a
-          ><a href="/variation" data-route="variation">Genetic Variation</a
-          ><a href="/gwas" data-route="gwas">GWAS Associations</a
-          ><a href="/expression" data-route="expression">Cell Type Expression</a>
-        </div>
-        <a
-          class="tag"
+          ><span class="brand-mark" aria-hidden="true">✳</span> RICELens</a
+        ><a
+          class="lab-link"
           href="https://www.oliviawilkinslab.com/"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Wilkins Lab (opens in a new tab)"
-          >Wilkins Lab <span aria-hidden="true">↗</span></a
+          >Wilkins Lab<span class="sr-only"> (opens in a new tab)</span></a
         >
+      </div>
+      <nav aria-label="Main navigation">
+        <a href="/" data-route="home">Home</a
+        ><a href="/locus" data-route="locus">Locus and Genes</a
+        ><a href="/gwas" data-route="gwas">GWAS</a
+        ><a href="/expression" data-route="expression">Cell Expression</a
+        ><a href="/homolog" data-route="homolog">Homolog Search</a
+        ><a href="/download" data-route="download">Download</a
+        ><a href="/tutorial" data-route="tutorial">Tutorial</a
+        ><a href="/contact" data-route="contact">Contact Us</a>
       </nav>
-      <div class="hero">
-        <div class="hero-copy">
-          <p class="eyebrow">RICE GENOMICS / EVIDENCE EXPLORER</p>
-          <h1>Follow<br /><em>the gene.</em></h1>
-          <p class="hero-description">
-            Search rice genes, published GWAS associations and nearby genomic regions.
-          </p>
-          <a class="hero-link" href="/gwas" data-route="gwas"
-            >Begin your search <span aria-hidden="true">↗</span></a
-          >
-        </div>
-        <div class="hero-art">
-          <svg class="botanical-visual" viewBox="0 0 560 500" aria-hidden="true">
-            <defs>
-              <radialGradient id="aura">
-                <stop stop-color="#b9cbdc" stop-opacity=".8" />
-                <stop offset="1" stop-color="#dce7ee" stop-opacity="0" />
-              </radialGradient>
-              <linearGradient id="grain" x1="0" y1="0" x2="1" y2="1">
-                <stop stop-color="#ffffff" stop-opacity=".95" />
-                <stop offset=".48" stop-color="#d3e5ec" stop-opacity=".8" />
-                <stop offset="1" stop-color="#8daec6" stop-opacity=".65" />
-              </linearGradient>
-            </defs>
-            <circle cx="290" cy="250" r="245" fill="url(#aura)" />
-            <g fill="none" stroke="#a9bdce" stroke-width=".6">
-              <circle cx="290" cy="240" r="175" />
-              <circle cx="290" cy="240" r="205" stroke-dasharray="2 9" />
-              <path d="M50 240H530M290 10V470" stroke-opacity=".4" />
-            </g>
-            <path
-              d="M290 460 Q408 275 260 90"
-              fill="none"
-              stroke="#71918c"
-              stroke-width="2.5"
-            />
-            <path
-              d="M294 443 Q169 372 196 280 Q269 320 294 443Z"
-              fill="url(#grain)"
-              stroke="#8ca9ab"
-            />
-            <path d="M295 444 Q225 370 196 280" fill="none" stroke="#8ca9ab" />
-            <path
-              d="M260.0,100.0 Q232.0,92.0 215.0,82.0"
-              fill="none"
-              stroke="#6682a2"
-              stroke-width="1.2"
-            />
-            <ellipse
-              cx="215.0"
-              cy="82.0"
-              rx="12"
-              ry="25"
-              transform="rotate(-35 215.0 82.0)"
-              fill="url(#grain)"
-              stroke="#8aa4b5"
-              stroke-opacity=".65"
-            />
-            <path
-              d="M260.0,100.0 Q288.0,92.0 305.0,82.0"
-              fill="none"
-              stroke="#6682a2"
-              stroke-width="1.2"
-            />
-            <ellipse
-              cx="305.0"
-              cy="82.0"
-              rx="12"
-              ry="25"
-              transform="rotate(35 305.0 82.0)"
-              fill="url(#grain)"
-              stroke="#8aa4b5"
-              stroke-opacity=".65"
-            />
-            <path
-              d="M275.7,123.0 Q239.3,115.0 222.3,105.0"
-              fill="none"
-              stroke="#6682a2"
-              stroke-width="1.2"
-            />
-            <ellipse
-              cx="222.3"
-              cy="105.0"
-              rx="12"
-              ry="25"
-              transform="rotate(-35 222.3 105.0)"
-              fill="url(#grain)"
-              stroke="#8aa4b5"
-              stroke-opacity=".65"
-            />
-            <path
-              d="M275.7,123.0 Q312.1,115.0 329.1,105.0"
-              fill="none"
-              stroke="#6682a2"
-              stroke-width="1.2"
-            />
-            <ellipse
-              cx="329.1"
-              cy="105.0"
-              rx="12"
-              ry="25"
-              transform="rotate(35 329.1 105.0)"
-              fill="url(#grain)"
-              stroke="#8aa4b5"
-              stroke-opacity=".65"
-            />
-            <path
-              d="M290.9,146.0 Q253.8,138.0 236.8,128.0"
-              fill="none"
-              stroke="#6682a2"
-              stroke-width="1.2"
-            />
-            <ellipse
-              cx="236.8"
-              cy="128.0"
-              rx="12"
-              ry="25"
-              transform="rotate(-35 236.8 128.0)"
-              fill="url(#grain)"
-              stroke="#8aa4b5"
-              stroke-opacity=".65"
-            />
-            <path
-              d="M290.9,146.0 Q328.0,138.0 345.0,128.0"
-              fill="none"
-              stroke="#6682a2"
-              stroke-width="1.2"
-            />
-            <ellipse
-              cx="345.0"
-              cy="128.0"
-              rx="12"
-              ry="25"
-              transform="rotate(35 345.0 128.0)"
-              fill="url(#grain)"
-              stroke="#8aa4b5"
-              stroke-opacity=".65"
-            />
-            <path
-              d="M305.1,169.0 Q275.7,161.0 258.7,151.0"
-              fill="none"
-              stroke="#6682a2"
-              stroke-width="1.2"
-            />
-            <ellipse
-              cx="258.7"
-              cy="151.0"
-              rx="12"
-              ry="25"
-              transform="rotate(-35 258.7 151.0)"
-              fill="url(#grain)"
-              stroke="#8aa4b5"
-              stroke-opacity=".65"
-            />
-            <path
-              d="M305.1,169.0 Q334.5,161.0 351.5,151.0"
-              fill="none"
-              stroke="#6682a2"
-              stroke-width="1.2"
-            />
-            <ellipse
-              cx="351.5"
-              cy="151.0"
-              rx="12"
-              ry="25"
-              transform="rotate(35 351.5 151.0)"
-              fill="url(#grain)"
-              stroke="#8aa4b5"
-              stroke-opacity=".65"
-            />
-            <path
-              d="M318.0,192.0 Q297.5,184.0 280.5,174.0"
-              fill="none"
-              stroke="#6682a2"
-              stroke-width="1.2"
-            />
-            <ellipse
-              cx="280.5"
-              cy="174.0"
-              rx="12"
-              ry="25"
-              transform="rotate(-35 280.5 174.0)"
-              fill="url(#grain)"
-              stroke="#8aa4b5"
-              stroke-opacity=".65"
-            />
-            <path
-              d="M318.0,192.0 Q338.4,184.0 355.4,174.0"
-              fill="none"
-              stroke="#6682a2"
-              stroke-width="1.2"
-            />
-            <ellipse
-              cx="355.4"
-              cy="174.0"
-              rx="12"
-              ry="25"
-              transform="rotate(35 355.4 174.0)"
-              fill="url(#grain)"
-              stroke="#8aa4b5"
-              stroke-opacity=".65"
-            />
-            <path
-              d="M329.1,215.0 Q310.7,207.0 293.7,197.0"
-              fill="none"
-              stroke="#6682a2"
-              stroke-width="1.2"
-            />
-            <ellipse
-              cx="293.7"
-              cy="197.0"
-              rx="12"
-              ry="25"
-              transform="rotate(-35 293.7 197.0)"
-              fill="url(#grain)"
-              stroke="#8aa4b5"
-              stroke-opacity=".65"
-            />
-            <path
-              d="M329.1,215.0 Q347.5,207.0 364.5,197.0"
-              fill="none"
-              stroke="#6682a2"
-              stroke-width="1.2"
-            />
-            <ellipse
-              cx="364.5"
-              cy="197.0"
-              rx="12"
-              ry="25"
-              transform="rotate(35 364.5 197.0)"
-              fill="url(#grain)"
-              stroke="#8aa4b5"
-              stroke-opacity=".65"
-            />
-            <path
-              d="M338.1,238.0 Q312.9,230.0 295.9,220.0"
-              fill="none"
-              stroke="#6682a2"
-              stroke-width="1.2"
-            />
-            <ellipse
-              cx="295.9"
-              cy="220.0"
-              rx="12"
-              ry="25"
-              transform="rotate(-35 295.9 220.0)"
-              fill="url(#grain)"
-              stroke="#8aa4b5"
-              stroke-opacity=".65"
-            />
-            <path
-              d="M338.1,238.0 Q363.3,230.0 380.3,220.0"
-              fill="none"
-              stroke="#6682a2"
-              stroke-width="1.2"
-            />
-            <ellipse
-              cx="380.3"
-              cy="220.0"
-              rx="12"
-              ry="25"
-              transform="rotate(35 380.3 220.0)"
-              fill="url(#grain)"
-              stroke="#8aa4b5"
-              stroke-opacity=".65"
-            />
-            <path
-              d="M344.7,261.0 Q310.1,253.0 293.1,243.0"
-              fill="none"
-              stroke="#6682a2"
-              stroke-width="1.2"
-            />
-            <ellipse
-              cx="293.1"
-              cy="243.0"
-              rx="12"
-              ry="25"
-              transform="rotate(-35 293.1 243.0)"
-              fill="url(#grain)"
-              stroke="#8aa4b5"
-              stroke-opacity=".65"
-            />
-            <path
-              d="M344.7,261.0 Q379.2,253.0 396.2,243.0"
-              fill="none"
-              stroke="#6682a2"
-              stroke-width="1.2"
-            />
-            <ellipse
-              cx="396.2"
-              cy="243.0"
-              rx="12"
-              ry="25"
-              transform="rotate(35 396.2 243.0)"
-              fill="url(#grain)"
-              stroke="#8aa4b5"
-              stroke-opacity=".65"
-            />
-            <path
-              d="M348.7,284.0 Q310.8,276.0 293.8,266.0"
-              fill="none"
-              stroke="#6682a2"
-              stroke-width="1.2"
-            />
-            <ellipse
-              cx="293.8"
-              cy="266.0"
-              rx="12"
-              ry="25"
-              transform="rotate(-35 293.8 266.0)"
-              fill="url(#grain)"
-              stroke="#8aa4b5"
-              stroke-opacity=".65"
-            />
-            <path
-              d="M348.7,284.0 Q386.6,276.0 403.6,266.0"
-              fill="none"
-              stroke="#6682a2"
-              stroke-width="1.2"
-            />
-            <ellipse
-              cx="403.6"
-              cy="266.0"
-              rx="12"
-              ry="25"
-              transform="rotate(35 403.6 266.0)"
-              fill="url(#grain)"
-              stroke="#8aa4b5"
-              stroke-opacity=".65"
-            />
-            <path
-              d="M350.0,307.0 Q317.9,299.0 300.9,289.0"
-              fill="none"
-              stroke="#6682a2"
-              stroke-width="1.2"
-            />
-            <ellipse
-              cx="300.9"
-              cy="289.0"
-              rx="12"
-              ry="25"
-              transform="rotate(-35 300.9 289.0)"
-              fill="url(#grain)"
-              stroke="#8aa4b5"
-              stroke-opacity=".65"
-            />
-            <path
-              d="M350.0,307.0 Q382.1,299.0 399.1,289.0"
-              fill="none"
-              stroke="#6682a2"
-              stroke-width="1.2"
-            />
-            <ellipse
-              cx="399.1"
-              cy="289.0"
-              rx="12"
-              ry="25"
-              transform="rotate(35 399.1 289.0)"
-              fill="url(#grain)"
-              stroke="#8aa4b5"
-              stroke-opacity=".65"
-            />
-            <path
-              d="M348.6,330.0 Q326.0,322.0 309.0,312.0"
-              fill="none"
-              stroke="#6682a2"
-              stroke-width="1.2"
-            />
-            <ellipse
-              cx="309.0"
-              cy="312.0"
-              rx="12"
-              ry="25"
-              transform="rotate(-35 309.0 312.0)"
-              fill="url(#grain)"
-              stroke="#8aa4b5"
-              stroke-opacity=".65"
-            />
-            <path
-              d="M348.6,330.0 Q371.1,322.0 388.1,312.0"
-              fill="none"
-              stroke="#6682a2"
-              stroke-width="1.2"
-            />
-            <ellipse
-              cx="388.1"
-              cy="312.0"
-              rx="12"
-              ry="25"
-              transform="rotate(35 388.1 312.0)"
-              fill="url(#grain)"
-              stroke="#8aa4b5"
-              stroke-opacity=".65"
-            />
-            <path
-              d="M344.4,353.0 Q326.4,345.0 309.4,335.0"
-              fill="none"
-              stroke="#6682a2"
-              stroke-width="1.2"
-            />
-            <ellipse
-              cx="309.4"
-              cy="335.0"
-              rx="12"
-              ry="25"
-              transform="rotate(-35 309.4 335.0)"
-              fill="url(#grain)"
-              stroke="#8aa4b5"
-              stroke-opacity=".65"
-            />
-            <path
-              d="M344.4,353.0 Q362.4,345.0 379.4,335.0"
-              fill="none"
-              stroke="#6682a2"
-              stroke-width="1.2"
-            />
-            <ellipse
-              cx="379.4"
-              cy="335.0"
-              rx="12"
-              ry="25"
-              transform="rotate(35 379.4 335.0)"
-              fill="url(#grain)"
-              stroke="#8aa4b5"
-              stroke-opacity=".65"
-            />
-            <path
-              d="M337.7,376.0 Q315.1,368.0 298.1,358.0"
-              fill="none"
-              stroke="#6682a2"
-              stroke-width="1.2"
-            />
-            <ellipse
-              cx="298.1"
-              cy="358.0"
-              rx="12"
-              ry="25"
-              transform="rotate(-35 298.1 358.0)"
-              fill="url(#grain)"
-              stroke="#8aa4b5"
-              stroke-opacity=".65"
-            />
-            <path
-              d="M337.7,376.0 Q360.3,368.0 377.3,358.0"
-              fill="none"
-              stroke="#6682a2"
-              stroke-width="1.2"
-            />
-            <ellipse
-              cx="377.3"
-              cy="358.0"
-              rx="12"
-              ry="25"
-              transform="rotate(35 377.3 358.0)"
-              fill="url(#grain)"
-              stroke="#8aa4b5"
-              stroke-opacity=".65"
-            />
-            <g fill="#647fa3">
-              <circle cx="113" cy="240" r="3" />
-              <circle cx="465" cy="240" r="3" />
-              <circle cx="290" cy="34" r="3" />
-            </g>
-          </svg>
-        </div>
-      </div>
-      <div class="hero-bottom">
-        <span>Connecting genes with published evidence.</span>
-      </div>
     </header>
-    <main id="main-content" tabindex="-1">
-      <section id="home-tools" class="panel">
-        <h2>Explore rice gene evidence</h2>
-        <p>
-          Search a gene once, then explore its genomic neighborhood, published trait
-          associations and baseline cell-type expression.
-        </p>
-        <div class="tool-grid">
-          <article>
-            <h3>Genetic Variation</h3>
-            <p>
-              Where are the recorded variants around a gene? Explore positions and the
-              surrounding genomic region.
-            </p>
-            <a class="button" href="/variation" data-route="variation"
-              >Explore recorded variants →</a
-            >
-          </article>
-          <article>
-            <h3>GWAS Associations</h3>
-            <p>
-              Which published traits are associated with regional signals? Examine
-              statistics, publications and neighboring genes.
-            </p>
-            <a class="button" href="/gwas" data-route="gwas">Explore associations →</a>
-          </article>
-          <article>
-            <h3>Cell Type Expression</h3>
-            <p>
-              Which cells express a gene? Explore baseline expression within each study,
-              with publication evidence.
-            </p>
-            <a class="button" href="/expression" data-route="expression"
-              >Explore expression →</a
-            >
-          </article>
-        </div>
-        <p class="notice">
-          Current coverage: curated published rice GWAS associations and selected
-          baseline expression datasets. Wang’s full eight-organ atlas is pending
-          processing and validation. Expression values from different studies are kept
-          separate.
-        </p>
-      </section>
-      <section id="page-intro" class="panel" hidden>
-        <h1 id="page-title"></h1>
-        <p id="page-description"></p>
-      </section>
-      <section class="search" aria-label="Gene search">
-        <div class="section-intro">
-          <p>Find a rice gene</p>
-        </div>
-        <form id="search">
-          <label for="query">Gene ID or symbol</label>
-          <div class="searchline">
+    <div class="workspace">
+      <aside
+        id="search-sidebar"
+        class="search-sidebar"
+        aria-label="Shared genomic search"
+        hidden
+      >
+        <p class="eyebrow">YOUR SEARCH</p>
+        <h2>Explore a locus</h2>
+        <form id="search-form" role="search">
+          <label for="query">Gene or genomic position</label>
+          <div class="suggestion-anchor">
             <input
               id="query"
-              value="Os03g0407400"
-              placeholder="GS3, Os03g0407400, LOC_Os01g01010"
               autocomplete="off"
-              required
-            /><button>Find gene →</button>
+              spellcheck="false"
+              placeholder="e.g. SD1 or chr3:16730000"
+              role="combobox"
+              aria-autocomplete="list"
+              aria-expanded="false"
+              aria-controls="search-suggestions"
+              aria-describedby="query-help"
+            />
+            <ul id="search-suggestions" class="suggestions" role="listbox" hidden></ul>
           </div>
-          <p class="muted">
-            Try
-            <button type="button" class="link" data-example="GS3">GS3</button> or
-            <button type="button" class="link" data-example="SD1">SD1</button>.
-          </p>
+          <p id="query-help" class="help">Gene name, RAP/MSU ID, or chr:start-end.</p>
+          <label for="window">Flanking window (each side)</label
+          ><select id="window">
+            <option value="0">Gene / interval only</option>
+            <option value="10000">±10 kb</option>
+            <option value="25000" selected>±25 kb</option>
+            <option value="50000">±50 kb</option>
+            <option value="100000">±100 kb</option>
+            <option value="250000">±250 kb</option>
+            <option value="1000000">±1 Mb</option></select
+          ><button class="primary search-button" type="submit">Search</button>
         </form>
+        <p class="help">
+          Try
+          <button type="button" class="text-button example" data-query="SD1">
+            SD1
+          </button>
+          or
+          <button type="button" class="text-button example" data-query="Os03g0407400">
+            GS3 locus</button
+          >.
+        </p>
         <div id="message" role="status" aria-live="polite"></div>
         <div id="matches"></div>
-      </section>
-      <section id="result" hidden>
-        <div id="gene"></div>
-        <div class="controls" id="regional-controls">
-          <label
-            >Flanking window<select id="window">
-              <option value="10000">±10 kb</option>
-              <option value="25000" selected>±25 kb</option>
-              <option value="50000">±50 kb</option>
-              <option value="100000">±100 kb</option>
-              <option value="250000">±250 kb</option>
-              <option value="1000000">±1 Mb</option>
-            </select></label
-          >
-          <details class="advanced-filters">
-            <summary>Advanced association filters</summary>
-            <div class="controls">
-              <label
-                >Trait contains<input
-                  id="trait"
-                  placeholder="All available traits" /></label
-              ><label
-                >Study<select id="study">
-                  <option value="">All studies</option>
-                </select></label
-              >
-              <label
-                >Publication<select id="publication">
-                  <option value="">All publications</option>
-                </select></label
-              >
-              <label
-                >Maximum p-value<select id="maximum-p">
-                  <option value="1">All reported values</option>
-                  <option value="0.00001">≤ 10⁻⁵</option>
-                  <option value="0.00000001">≤ 10⁻⁸</option>
-                </select></label
-              >
-              <label
-                >Position<select id="position">
-                  <option value="">All positions</option>
-                  <option value="overlap">Overlaps gene</option>
-                  <option value="upstream">Upstream</option>
-                  <option value="downstream">Downstream</option>
-                </select></label
-              >
-              <label class="checkbox"
-                ><input type="checkbox" id="include-repeats" />Include repeated source
-                rows</label
-              >
-            </div>
-            <div class="filter-actions">
-              <button id="apply">Apply filters</button>
-              <button id="reset" class="secondary">Reset filters</button>
-            </div>
-          </details>
-          <a id="export" class="button secondary">Export evidence CSV</a>
-        </div>
-        <section class="panel" id="neighborhood-panel">
-          <h2>Genomic neighborhood</h2>
-          <p id="region" class="muted"></p>
-          <p class="plot-legend">
-            <span
-              ><b class="legend-diamond" aria-hidden="true">◆</b> Verified FDR-adjusted
-              p-value</span
-            >
-            <span
-              ><b class="legend-circle" aria-hidden="true">●</b> Adjustment status
-              unverified</span
-            >
+        <section id="selection" class="selection" hidden>
+          <h3>Current selection</h3>
+          <div id="selected-context"></div>
+          <p class="help">
+            Your selection and window stay with you across these three tabs.
           </p>
-          <div class="plot-toolbar">
-            <button id="zoom-in" type="button">Zoom in +</button
-            ><button id="zoom-out" type="button" class="secondary">Zoom out −</button
-            ><span>Zoom is centered on the selected gene.</span>
-          </div>
-          <p id="chart-mode" class="muted"></p>
-          <div class="chartscroll">
-            <svg
-              id="chart"
-              viewBox="0 0 1100 400"
-              role="img"
-              aria-label="GWAS association strengths and gene positions"
-            ></svg>
-          </div>
-          <p id="gene-detail" class="notice" role="status" aria-live="polite"></p>
-          <p class="muted">
-            Nearby associations show regional evidence. Causality requires further
-            evidence.
-          </p>
-          <details class="reading-guide">
-            <summary>How to read this chart</summary>
-            <p>
-              Each point is a published association record. Multiple records can share a
-              position. Select a gene arrow to explore that gene. Arrows follow the
-              reference strand.
-            </p>
-            <p>
-              Coverage is limited to curated published associations. Significance
-              thresholds vary by study.
-            </p>
-            <p class="muted">
-              The vertical axis uses each study's reported value. Adjusted and
-              unverified values are not equivalent evidence scales. Point details
-              include the statistic type; no shared significance line is drawn.
-            </p>
-            <p class="muted">
-              Gene and displayed SNP coordinates use IRGSP-1.0 (1-based, inclusive). SNP
-              assembly is taken from the source's explicit reference label; remapping
-              from each original study has not been independently verified. Unresolved
-              reference labels and out-of-range coordinates are excluded.
-            </p>
-          </details>
         </section>
-        <section class="panel" id="variation-panel">
-          <div class="variant-heading">
-            <h2>Recorded variant positions</h2>
-            <form id="variant-search-form" role="search" aria-label="Recorded variants">
-              <label for="variant-search">Search recorded variants</label>
-              <div class="searchline">
-                <input
-                  id="variant-search"
-                  type="search"
-                  maxlength="100"
-                  placeholder="chr3:16,733,441 or record ID"
-                  autocomplete="off"
-                  role="combobox"
-                  aria-autocomplete="list"
-                  aria-expanded="false"
-                  aria-controls="variant-suggestions"
-                /><button type="submit">Search</button
-                ><button type="button" class="secondary" id="clear-variant-search">
-                  Clear
-                </button>
-              </div>
-              <ul
-                id="variant-suggestions"
-                role="listbox"
-                aria-label="Suggested records"
-                hidden
-              ></ul>
-              <p
-                id="variant-search-status"
-                class="muted"
-                role="status"
-                aria-live="polite"
-              >
-                Searches every matching record in this region, including other pages.
-              </p>
-            </form>
-          </div>
-          <p id="variation-counts"></p>
+        <details class="reference-note">
+          <summary>Reference and coordinates</summary>
           <p>
-            Each row is an association-linked observation; positions may repeat across
-            studies. Reference/alternate allele orientation is not inferred from effect
-            alleles.
+            Rice Nipponbare · IRGSP-1.0. Coordinates are 1-based and inclusive. Nearby
+            evidence does not establish gene causality.
           </p>
-          <div class="tablewrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>SNP position</th>
-                  <th>Relation / distance</th>
-                  <th>Reported effect allele</th>
-                  <th>Other allele</th>
-                  <th>Coordinate provenance</th>
-                </tr>
-              </thead>
-              <tbody id="variants"></tbody>
-            </table>
-          </div>
-        </section>
-        <section class="panel" id="evidence-panel">
-          <h2 id="evidence">Published association evidence</h2>
-          <p id="counts"></p>
-          <div class="tablewrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Trait</th>
-                  <th>SNP position</th>
-                  <th>Relation / distance</th>
-                  <th>p-value</th>
-                  <th>Alleles / effect</th>
-                  <th>Study & publication</th>
-                </tr>
-              </thead>
-              <tbody id="associations"></tbody>
-            </table>
-          </div>
-        </section>
-        <div class="pagination">
-          <button id="prev">← Previous</button><span id="page"></span
-          ><button id="next">Next →</button
-          ><label
-            >Go to page<input id="page-number" type="number" min="1" value="1" /></label
-          ><button id="go-page" class="secondary">Go</button>
-        </div>
-        <section class="panel" id="neighbors-panel">
-          <h2>Genes in this window</h2>
-          <form
-            id="neighbor-search-form"
-            class="gene-window-search"
-            role="search"
-            aria-label="Genes in this window"
-          >
-            <label for="neighbor-search">Search genes in this window</label>
-            <div class="searchline">
-              <input
-                id="neighbor-search"
-                type="search"
-                maxlength="200"
-                placeholder="Gene ID, symbol or description"
-                autocomplete="off"
-                role="combobox"
-                aria-autocomplete="list"
-                aria-expanded="false"
-                aria-controls="neighbor-suggestions"
-              /><button type="submit">Search</button
-              ><button type="button" class="secondary" id="clear-neighbor-search">
-                Clear
-              </button>
-            </div>
-            <ul
-              id="neighbor-suggestions"
-              role="listbox"
-              aria-label="Suggested neighboring genes"
-              hidden
-            ></ul>
-            <p
-              id="neighbor-search-status"
-              class="muted"
-              role="status"
-              aria-live="polite"
-            >
-              Searches every gene in the selected genomic window.
-            </p>
-          </form>
-          <div class="tablewrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Gene</th>
-                  <th>Symbol</th>
-                  <th>Position / strand</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody id="neighbors"></tbody>
-            </table>
-          </div>
-        </section>
-        <section class="panel" id="expression-panel">
-          <h2>Baseline cell-type expression</h2>
-          <details class="reading-guide">
-            <summary>Try an example: compare SD1 with a neighboring gene</summary>
+        </details>
+      </aside>
+      <main id="main-content" tabindex="-1">
+        <section class="page home-page" data-panel="home">
+          <div class="home-intro">
+            <p class="eyebrow">WILKINS LAB · UNIVERSITY OF MANITOBA</p>
+            <h1>Welcome to RICELens</h1>
             <p>
-              Load SD1 in the Wang root study. Open
-              <strong>Compare neighboring genes</strong>, select one nearby gene, then
-              choose <strong>Update expression comparison</strong>. Look for cell types
-              where the dots differ in size or color.
+              RICELens is a comprehensive database bringing together rice GWAS
+              associations, genomic information and cell-type-specific expression data.
+              Explore published evidence around genes and genomic regions, with links to
+              the original sources.
             </p>
-            <button
-              type="button"
-              class="secondary"
-              data-example="Os01g0883800"
-              data-example-study="wang_2025_normal_root"
-            >
-              Load SD1 in the Wang root study
-            </button>
-          </details>
-          <div id="study-coverage"></div>
-          <label for="expression-dataset">Study</label>
-          <select id="expression-dataset">
-            <option value="robertson_2026_control">
-              Robertson et al. (2026) · developing leaf
-            </option>
-          </select>
-          <p id="expression-status" role="status">
-            Select a gene to explore expression.
-          </p>
-          <div class="controls" id="expression-filters">
-            <label for="expression-organ"
-              >Organ<select id="expression-organ" disabled>
-                <option value="">All available organs</option>
-              </select></label
-            >
-            <label for="expression-cell"
-              >Cell type<select id="expression-cell" disabled>
-                <option value="">All available cell types</option>
-              </select></label
-            >
           </div>
-          <p class="muted">
-            Compare expression within one study at a time. CSV exports include all cell
-            types for the selected genes.
-          </p>
-          <details>
-            <summary>Compare neighboring genes</summary>
-            <div id="expression-controls"></div>
-          </details>
-          <div id="expression-content"></div>
+          <div class="atlas-overview" aria-label="RICELens overview">
+            <div class="overview-branch studies">
+              <span class="eyebrow">PUBLISHED EVIDENCE</span
+              ><strong id="study-count">—</strong>
+              <h2>GWAS study contexts</h2>
+              <p id="publication-count">Loading database counts…</p>
+              <a href="/gwas" data-route="gwas">Explore GWAS</a>
+            </div>
+            <div class="overview-branch traits">
+              <span class="eyebrow">TRAIT COVERAGE</span
+              ><strong id="trait-count">—</strong>
+              <h2>GWAS traits</h2>
+              <p>Trait and ontology entries in the imported database.</p>
+              <a href="/gwas" data-route="gwas">Browse associations</a>
+            </div>
+            <div class="rice-illustration">
+              <svg class="botanical-visual" viewBox="0 0 560 500" aria-hidden="true">
+                <defs>
+                  <radialGradient id="aura">
+                    <stop stop-color="#b9cbdc" stop-opacity=".8" />
+                    <stop offset="1" stop-color="#dce7ee" stop-opacity="0" />
+                  </radialGradient>
+                  <linearGradient id="grain" x1="0" y1="0" x2="1" y2="1">
+                    <stop stop-color="#ffffff" stop-opacity=".95" />
+                    <stop offset=".48" stop-color="#d3e5ec" stop-opacity=".8" />
+                    <stop offset="1" stop-color="#8daec6" stop-opacity=".65" />
+                  </linearGradient>
+                </defs>
+                <circle cx="290" cy="250" r="245" fill="url(#aura)" />
+                <g fill="none" stroke="#a9bdce" stroke-width=".6">
+                  <circle cx="290" cy="240" r="175" />
+                  <circle cx="290" cy="240" r="205" stroke-dasharray="2 9" />
+                  <path d="M50 240H530M290 10V470" stroke-opacity=".4" />
+                </g>
+                <path
+                  d="M290 460 Q408 275 260 90"
+                  fill="none"
+                  stroke="#71918c"
+                  stroke-width="2.5"
+                />
+                <path
+                  d="M294 443 Q169 372 196 280 Q269 320 294 443Z"
+                  fill="url(#grain)"
+                  stroke="#8ca9ab"
+                />
+                <path d="M295 444 Q225 370 196 280" fill="none" stroke="#8ca9ab" />
+                <path
+                  d="M260.0,100.0 Q232.0,92.0 215.0,82.0"
+                  fill="none"
+                  stroke="#6682a2"
+                  stroke-width="1.2"
+                />
+                <ellipse
+                  cx="215.0"
+                  cy="82.0"
+                  rx="12"
+                  ry="25"
+                  transform="rotate(-35 215.0 82.0)"
+                  fill="url(#grain)"
+                  stroke="#8aa4b5"
+                  stroke-opacity=".65"
+                />
+                <path
+                  d="M260.0,100.0 Q288.0,92.0 305.0,82.0"
+                  fill="none"
+                  stroke="#6682a2"
+                  stroke-width="1.2"
+                />
+                <ellipse
+                  cx="305.0"
+                  cy="82.0"
+                  rx="12"
+                  ry="25"
+                  transform="rotate(35 305.0 82.0)"
+                  fill="url(#grain)"
+                  stroke="#8aa4b5"
+                  stroke-opacity=".65"
+                />
+                <path
+                  d="M275.7,123.0 Q239.3,115.0 222.3,105.0"
+                  fill="none"
+                  stroke="#6682a2"
+                  stroke-width="1.2"
+                />
+                <ellipse
+                  cx="222.3"
+                  cy="105.0"
+                  rx="12"
+                  ry="25"
+                  transform="rotate(-35 222.3 105.0)"
+                  fill="url(#grain)"
+                  stroke="#8aa4b5"
+                  stroke-opacity=".65"
+                />
+                <path
+                  d="M275.7,123.0 Q312.1,115.0 329.1,105.0"
+                  fill="none"
+                  stroke="#6682a2"
+                  stroke-width="1.2"
+                />
+                <ellipse
+                  cx="329.1"
+                  cy="105.0"
+                  rx="12"
+                  ry="25"
+                  transform="rotate(35 329.1 105.0)"
+                  fill="url(#grain)"
+                  stroke="#8aa4b5"
+                  stroke-opacity=".65"
+                />
+                <path
+                  d="M290.9,146.0 Q253.8,138.0 236.8,128.0"
+                  fill="none"
+                  stroke="#6682a2"
+                  stroke-width="1.2"
+                />
+                <ellipse
+                  cx="236.8"
+                  cy="128.0"
+                  rx="12"
+                  ry="25"
+                  transform="rotate(-35 236.8 128.0)"
+                  fill="url(#grain)"
+                  stroke="#8aa4b5"
+                  stroke-opacity=".65"
+                />
+                <path
+                  d="M290.9,146.0 Q328.0,138.0 345.0,128.0"
+                  fill="none"
+                  stroke="#6682a2"
+                  stroke-width="1.2"
+                />
+                <ellipse
+                  cx="345.0"
+                  cy="128.0"
+                  rx="12"
+                  ry="25"
+                  transform="rotate(35 345.0 128.0)"
+                  fill="url(#grain)"
+                  stroke="#8aa4b5"
+                  stroke-opacity=".65"
+                />
+                <path
+                  d="M305.1,169.0 Q275.7,161.0 258.7,151.0"
+                  fill="none"
+                  stroke="#6682a2"
+                  stroke-width="1.2"
+                />
+                <ellipse
+                  cx="258.7"
+                  cy="151.0"
+                  rx="12"
+                  ry="25"
+                  transform="rotate(-35 258.7 151.0)"
+                  fill="url(#grain)"
+                  stroke="#8aa4b5"
+                  stroke-opacity=".65"
+                />
+                <path
+                  d="M305.1,169.0 Q334.5,161.0 351.5,151.0"
+                  fill="none"
+                  stroke="#6682a2"
+                  stroke-width="1.2"
+                />
+                <ellipse
+                  cx="351.5"
+                  cy="151.0"
+                  rx="12"
+                  ry="25"
+                  transform="rotate(35 351.5 151.0)"
+                  fill="url(#grain)"
+                  stroke="#8aa4b5"
+                  stroke-opacity=".65"
+                />
+                <path
+                  d="M318.0,192.0 Q297.5,184.0 280.5,174.0"
+                  fill="none"
+                  stroke="#6682a2"
+                  stroke-width="1.2"
+                />
+                <ellipse
+                  cx="280.5"
+                  cy="174.0"
+                  rx="12"
+                  ry="25"
+                  transform="rotate(-35 280.5 174.0)"
+                  fill="url(#grain)"
+                  stroke="#8aa4b5"
+                  stroke-opacity=".65"
+                />
+                <path
+                  d="M318.0,192.0 Q338.4,184.0 355.4,174.0"
+                  fill="none"
+                  stroke="#6682a2"
+                  stroke-width="1.2"
+                />
+                <ellipse
+                  cx="355.4"
+                  cy="174.0"
+                  rx="12"
+                  ry="25"
+                  transform="rotate(35 355.4 174.0)"
+                  fill="url(#grain)"
+                  stroke="#8aa4b5"
+                  stroke-opacity=".65"
+                />
+                <path
+                  d="M329.1,215.0 Q310.7,207.0 293.7,197.0"
+                  fill="none"
+                  stroke="#6682a2"
+                  stroke-width="1.2"
+                />
+                <ellipse
+                  cx="293.7"
+                  cy="197.0"
+                  rx="12"
+                  ry="25"
+                  transform="rotate(-35 293.7 197.0)"
+                  fill="url(#grain)"
+                  stroke="#8aa4b5"
+                  stroke-opacity=".65"
+                />
+                <path
+                  d="M329.1,215.0 Q347.5,207.0 364.5,197.0"
+                  fill="none"
+                  stroke="#6682a2"
+                  stroke-width="1.2"
+                />
+                <ellipse
+                  cx="364.5"
+                  cy="197.0"
+                  rx="12"
+                  ry="25"
+                  transform="rotate(35 364.5 197.0)"
+                  fill="url(#grain)"
+                  stroke="#8aa4b5"
+                  stroke-opacity=".65"
+                />
+                <path
+                  d="M338.1,238.0 Q312.9,230.0 295.9,220.0"
+                  fill="none"
+                  stroke="#6682a2"
+                  stroke-width="1.2"
+                />
+                <ellipse
+                  cx="295.9"
+                  cy="220.0"
+                  rx="12"
+                  ry="25"
+                  transform="rotate(-35 295.9 220.0)"
+                  fill="url(#grain)"
+                  stroke="#8aa4b5"
+                  stroke-opacity=".65"
+                />
+                <path
+                  d="M338.1,238.0 Q363.3,230.0 380.3,220.0"
+                  fill="none"
+                  stroke="#6682a2"
+                  stroke-width="1.2"
+                />
+                <ellipse
+                  cx="380.3"
+                  cy="220.0"
+                  rx="12"
+                  ry="25"
+                  transform="rotate(35 380.3 220.0)"
+                  fill="url(#grain)"
+                  stroke="#8aa4b5"
+                  stroke-opacity=".65"
+                />
+                <path
+                  d="M344.7,261.0 Q310.1,253.0 293.1,243.0"
+                  fill="none"
+                  stroke="#6682a2"
+                  stroke-width="1.2"
+                />
+                <ellipse
+                  cx="293.1"
+                  cy="243.0"
+                  rx="12"
+                  ry="25"
+                  transform="rotate(-35 293.1 243.0)"
+                  fill="url(#grain)"
+                  stroke="#8aa4b5"
+                  stroke-opacity=".65"
+                />
+                <path
+                  d="M344.7,261.0 Q379.2,253.0 396.2,243.0"
+                  fill="none"
+                  stroke="#6682a2"
+                  stroke-width="1.2"
+                />
+                <ellipse
+                  cx="396.2"
+                  cy="243.0"
+                  rx="12"
+                  ry="25"
+                  transform="rotate(35 396.2 243.0)"
+                  fill="url(#grain)"
+                  stroke="#8aa4b5"
+                  stroke-opacity=".65"
+                />
+                <path
+                  d="M348.7,284.0 Q310.8,276.0 293.8,266.0"
+                  fill="none"
+                  stroke="#6682a2"
+                  stroke-width="1.2"
+                />
+                <ellipse
+                  cx="293.8"
+                  cy="266.0"
+                  rx="12"
+                  ry="25"
+                  transform="rotate(-35 293.8 266.0)"
+                  fill="url(#grain)"
+                  stroke="#8aa4b5"
+                  stroke-opacity=".65"
+                />
+                <path
+                  d="M348.7,284.0 Q386.6,276.0 403.6,266.0"
+                  fill="none"
+                  stroke="#6682a2"
+                  stroke-width="1.2"
+                />
+                <ellipse
+                  cx="403.6"
+                  cy="266.0"
+                  rx="12"
+                  ry="25"
+                  transform="rotate(35 403.6 266.0)"
+                  fill="url(#grain)"
+                  stroke="#8aa4b5"
+                  stroke-opacity=".65"
+                />
+                <path
+                  d="M350.0,307.0 Q317.9,299.0 300.9,289.0"
+                  fill="none"
+                  stroke="#6682a2"
+                  stroke-width="1.2"
+                />
+                <ellipse
+                  cx="300.9"
+                  cy="289.0"
+                  rx="12"
+                  ry="25"
+                  transform="rotate(-35 300.9 289.0)"
+                  fill="url(#grain)"
+                  stroke="#8aa4b5"
+                  stroke-opacity=".65"
+                />
+                <path
+                  d="M350.0,307.0 Q382.1,299.0 399.1,289.0"
+                  fill="none"
+                  stroke="#6682a2"
+                  stroke-width="1.2"
+                />
+                <ellipse
+                  cx="399.1"
+                  cy="289.0"
+                  rx="12"
+                  ry="25"
+                  transform="rotate(35 399.1 289.0)"
+                  fill="url(#grain)"
+                  stroke="#8aa4b5"
+                  stroke-opacity=".65"
+                />
+                <path
+                  d="M348.6,330.0 Q326.0,322.0 309.0,312.0"
+                  fill="none"
+                  stroke="#6682a2"
+                  stroke-width="1.2"
+                />
+                <ellipse
+                  cx="309.0"
+                  cy="312.0"
+                  rx="12"
+                  ry="25"
+                  transform="rotate(-35 309.0 312.0)"
+                  fill="url(#grain)"
+                  stroke="#8aa4b5"
+                  stroke-opacity=".65"
+                />
+                <path
+                  d="M348.6,330.0 Q371.1,322.0 388.1,312.0"
+                  fill="none"
+                  stroke="#6682a2"
+                  stroke-width="1.2"
+                />
+                <ellipse
+                  cx="388.1"
+                  cy="312.0"
+                  rx="12"
+                  ry="25"
+                  transform="rotate(35 388.1 312.0)"
+                  fill="url(#grain)"
+                  stroke="#8aa4b5"
+                  stroke-opacity=".65"
+                />
+                <path
+                  d="M344.4,353.0 Q326.4,345.0 309.4,335.0"
+                  fill="none"
+                  stroke="#6682a2"
+                  stroke-width="1.2"
+                />
+                <ellipse
+                  cx="309.4"
+                  cy="335.0"
+                  rx="12"
+                  ry="25"
+                  transform="rotate(-35 309.4 335.0)"
+                  fill="url(#grain)"
+                  stroke="#8aa4b5"
+                  stroke-opacity=".65"
+                />
+                <path
+                  d="M344.4,353.0 Q362.4,345.0 379.4,335.0"
+                  fill="none"
+                  stroke="#6682a2"
+                  stroke-width="1.2"
+                />
+                <ellipse
+                  cx="379.4"
+                  cy="335.0"
+                  rx="12"
+                  ry="25"
+                  transform="rotate(35 379.4 335.0)"
+                  fill="url(#grain)"
+                  stroke="#8aa4b5"
+                  stroke-opacity=".65"
+                />
+                <path
+                  d="M337.7,376.0 Q315.1,368.0 298.1,358.0"
+                  fill="none"
+                  stroke="#6682a2"
+                  stroke-width="1.2"
+                />
+                <ellipse
+                  cx="298.1"
+                  cy="358.0"
+                  rx="12"
+                  ry="25"
+                  transform="rotate(-35 298.1 358.0)"
+                  fill="url(#grain)"
+                  stroke="#8aa4b5"
+                  stroke-opacity=".65"
+                />
+                <path
+                  d="M337.7,376.0 Q360.3,368.0 377.3,358.0"
+                  fill="none"
+                  stroke="#6682a2"
+                  stroke-width="1.2"
+                />
+                <ellipse
+                  cx="377.3"
+                  cy="358.0"
+                  rx="12"
+                  ry="25"
+                  transform="rotate(35 377.3 358.0)"
+                  fill="url(#grain)"
+                  stroke="#8aa4b5"
+                  stroke-opacity=".65"
+                />
+                <g fill="#647fa3">
+                  <circle cx="113" cy="240" r="3" />
+                  <circle cx="465" cy="240" r="3" />
+                  <circle cx="290" cy="34" r="3" />
+                </g></svg
+              ><span>RICELens</span>
+            </div>
+            <div class="overview-branch cells">
+              <span class="eyebrow">EXPRESSION ATLAS</span
+              ><strong id="cell-count">—</strong>
+              <h2>Cells and nuclei</h2>
+              <p>
+                Imported annotation versions; expression browsing returns in a later
+                update.
+              </p>
+              <details>
+                <summary>How this is counted</summary>
+                <p id="cell-count-note"></p>
+                <ul id="atlas-datasets"></ul>
+              </details>
+            </div>
+            <div class="overview-branch homologs">
+              <span class="eyebrow">ACROSS SPECIES</span>
+              <h2>Homolog search</h2>
+              <p>Maize, sorghum and Arabidopsis thaliana.</p>
+              <a href="/homolog" data-route="homolog">View planned feature</a>
+            </div>
+          </div>
+          <p id="overview-message" class="help" role="status"></p>
+          <div class="home-note">
+            <p>
+              Start in <a href="/locus" data-route="locus">Locus and Genes</a> or
+              <a href="/gwas" data-route="gwas">GWAS</a>. Search once, then move between
+              pages with the same genomic context.
+            </p>
+            <p>
+              Curated published associations, rather than complete genome-wide SNP
+              results. No matching records does not establish absence of association.
+            </p>
+          </div>
         </section>
-      </section>
-    </main>
-    <footer class="site-footer">
-      <strong>Wilkins Lab · University of Manitoba</strong>
-      <p>Winnipeg, Manitoba, Canada</p>
+        <section class="page" data-panel="locus" hidden>
+          <div class="page-heading">
+            <p class="eyebrow">GENOMIC CONTEXT</p>
+            <h1>Locus and Genes</h1>
+            <p>
+              Genes within your selected region, with available source-observed SNP
+              positions.
+            </p>
+          </div>
+          <div class="empty-selection">
+            Search for a gene or genomic region using the sidebar.
+          </div>
+          <div class="requires-selection" hidden>
+            <div class="section-heading">
+              <h2>Genes in this window</h2>
+              <span id="gene-count" class="help"></span>
+            </div>
+            <p id="locus-region" class="region-caption"></p>
+            <p class="help">
+              Click a gene ID to centre the search on that gene. SNPs listed here
+              overlap the gene span; reference/alternative orientation is shown only
+              when verified.
+            </p>
+            <div class="table-scroll">
+              <table class="gene-table">
+                <thead>
+                  <tr>
+                    <th>Gene ID / name</th>
+                    <th>Chr</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Alternative names</th>
+                    <th>Observed SNP positions</th>
+                    <th>Ref / Alt</th>
+                  </tr>
+                </thead>
+                <tbody id="genes"></tbody>
+              </table>
+            </div>
+            <p class="help">
+              The current GWAS export provides effect alleles for some records, but does
+              not verify reference/alternative orientation. Missing values are shown as
+              “Not reported”.
+            </p>
+          </div>
+        </section>
+        <section class="page" data-panel="gwas" hidden>
+          <div class="page-heading">
+            <p class="eyebrow">PUBLISHED ASSOCIATION EVIDENCE</p>
+            <h1>GWAS</h1>
+            <p>Explore traits and associated SNPs in the same genomic neighbourhood.</p>
+          </div>
+          <div class="empty-selection">
+            Search for a gene or genomic region using the sidebar.
+          </div>
+          <div class="requires-selection" hidden>
+            <p id="evidence-message" class="error" role="alert"></p>
+            <form id="filter-form" class="filter-bar">
+              <div>
+                <label for="trait">Trait</label
+                ><input
+                  id="trait"
+                  list="trait-options"
+                  placeholder="All traits"
+                  autocomplete="off"
+                /><datalist id="trait-options"></datalist>
+              </div>
+              <div>
+                <label for="maximum-p">Maximum reported P-value</label
+                ><input
+                  id="maximum-p"
+                  value="1"
+                  inputmode="decimal"
+                  placeholder="e.g. 5e-8"
+                  required
+                />
+              </div>
+              <div>
+                <label for="position">Genomic position</label
+                ><select id="position">
+                  <option value="">Anywhere in window</option>
+                  <option value="overlap">Overlapping selection</option>
+                  <option value="upstream">Upstream of gene</option>
+                  <option value="downstream">Downstream of gene</option>
+                </select>
+              </div>
+              <button class="primary" type="submit">Apply filters</button
+              ><button id="reset-filters" type="button" class="secondary">Reset</button>
+            </form>
+            <section class="plot-panel" aria-labelledby="plot-title">
+              <div class="section-heading">
+                <h2 id="plot-title">Genomic Neighbourhood View</h2>
+                <div class="zoom-controls">
+                  <button
+                    id="zoom-in"
+                    class="secondary"
+                    type="button"
+                    aria-label="Smaller flanking window"
+                  >
+                    Zoom in</button
+                  ><button
+                    id="zoom-out"
+                    class="secondary"
+                    type="button"
+                    aria-label="Larger flanking window"
+                  >
+                    Zoom out
+                  </button>
+                </div>
+              </div>
+              <p id="region" class="region-caption"></p>
+              <div class="plot-legend">
+                <span><i class="legend-band"></i> Selected gene / interval</span
+                ><span>● Adjustment unverified</span
+                ><span class="adjusted">◆ Verified FDR-adjusted</span>
+              </div>
+              <div class="chart-wrap">
+                <svg
+                  id="chart"
+                  role="group"
+                  aria-label="Regional SNP association strengths and selectable gene positions"
+                ></svg>
+              </div>
+              <p id="chart-mode" class="help"></p>
+              <p id="gene-detail" class="help" role="status"></p>
+            </section>
+            <div class="evidence-layout">
+              <section class="evidence-main">
+                <div class="section-heading">
+                  <h2>Published associations</h2>
+                  <a id="export" class="download-link" href="#">Download CSV</a>
+                </div>
+                <p id="counts" class="help" aria-live="polite"></p>
+                <div class="table-scroll">
+                  <table id="association-table">
+                    <thead>
+                      <tr>
+                        <th>Trait / evidence</th>
+                        <th>SNP position</th>
+                        <th id="p-heading" aria-sort="ascending">
+                          <button id="sort-p" type="button" class="sort-button">
+                            P-value ↑
+                          </button>
+                        </th>
+                        <th>Publication / study</th>
+                        <th>GWAS model</th>
+                        <th>Sample size</th>
+                        <th>Environment / condition</th>
+                      </tr>
+                    </thead>
+                    <tbody id="associations"></tbody>
+                  </table>
+                </div>
+                <div class="pagination">
+                  <button id="prev" type="button" class="secondary">Previous</button
+                  ><span id="page" aria-live="polite"></span
+                  ><button id="next" type="button" class="secondary">Next</button>
+                  <form id="page-form">
+                    <label for="page-number">Go to page</label
+                    ><input id="page-number" type="number" min="1" value="1" /><button
+                      class="secondary"
+                      type="submit"
+                    >
+                      Go
+                    </button>
+                  </form>
+                </div>
+                <details class="methods">
+                  <summary>Evidence, QTL labels and coordinate provenance</summary>
+                  <p>
+                    Reported P-values are preserved. Orange diamonds identify values
+                    verified as FDR-adjusted in selected original tables; grey circles
+                    have unverified adjustment status. These statistics should not be
+                    interpreted as uniformly calibrated.
+                  </p>
+                  <p>
+                    GWAS Atlas QTL names are shown on their original GWAS rows. A QTL
+                    label alone does not establish a separate linkage-QTL study; no
+                    independently identified linkage-QTL dataset is loaded.
+                  </p>
+                  <p>
+                    Source-labelled IRGSP-1.0 coordinates are used. Historical
+                    coordinate remapping by the source has not been independently
+                    revalidated. Exact duplicate evidence rows are grouped by default;
+                    records may still share samples and are not independent
+                    replications.
+                  </p>
+                  <label class="checkbox-label"
+                    ><input id="include-repeats" type="checkbox" /> Show every source
+                    row, including exact repeats</label
+                  >
+                </details>
+              </section>
+              <aside class="summary-panel" aria-labelledby="summary-title">
+                <h2 id="summary-title">This search</h2>
+                <div id="summary" aria-live="polite"></div>
+              </aside>
+            </div>
+            <section class="neighbor-section">
+              <div class="section-heading">
+                <h2>Explore neighbouring genes</h2>
+                <label class="sr-only" for="neighbor-search"
+                  >Filter genes in this window</label
+                ><input
+                  id="neighbor-search"
+                  placeholder="Filter gene ID, name or description"
+                />
+              </div>
+              <p class="help">
+                Select a gene to update the plot, associations and summary. Your
+                flanking window is retained.
+              </p>
+              <div class="table-scroll">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Gene ID</th>
+                      <th>Name</th>
+                      <th>Position</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody id="neighbors"></tbody>
+                </table>
+              </div>
+              <p id="neighbor-count" class="help"></p>
+            </section>
+          </div>
+        </section>
+        <section class="page" data-panel="expression" id="cell-expression-page" hidden>
+          <div class="page-heading"><h1>Cell Expression</h1></div>
+        </section>
+        <section class="page" data-panel="homolog" hidden>
+          <div class="page-heading">
+            <p class="eyebrow">CROSS-SPECIES EXPLORATION</p>
+            <h1>Homolog Search</h1>
+            <p>
+              Search rice genes for homologs in maize, sorghum and Arabidopsis thaliana.
+            </p>
+          </div>
+          <form id="homolog-form" class="standalone-form">
+            <label for="homolog-query">Rice gene name or ID</label
+            ><input id="homolog-query" placeholder="e.g. Os03g0407400" required /><label
+              for="homolog-species"
+              >Target species</label
+            ><select id="homolog-species">
+              <option>Maize</option>
+              <option>Sorghum</option>
+              <option>Arabidopsis thaliana</option></select
+            ><button type="submit" class="primary">Search homologs</button>
+          </form>
+          <p class="notice">
+            Homology data have not been imported yet. This search is a placeholder.
+          </p>
+          <p id="homolog-message" role="status"></p>
+        </section>
+        <section class="page" data-panel="download" hidden>
+          <div class="page-heading">
+            <p class="eyebrow">YOUR RESULTS</p>
+            <h1>Download</h1>
+            <p>Export the current genomic selection and matching published evidence.</p>
+          </div>
+          <div id="download-empty" class="notice">
+            Select a gene or region in Locus and Genes or GWAS first.
+          </div>
+          <div id="download-ready" hidden>
+            <p id="download-context"></p>
+            <div class="download-cards">
+              <section>
+                <h2>Gene information</h2>
+                <p>
+                  All genes in the selected window, including coordinates, aliases and
+                  overlapping SNP positions. GWAS filters do not remove genes.
+                </p>
+                <a id="download-genes" class="primary" href="#">Download genes CSV</a>
+              </section>
+              <section>
+                <h2>GWAS associations</h2>
+                <p>
+                  All matching records across every results page, with active filters,
+                  sort order, source fields and provenance.
+                </p>
+                <a id="download-gwas" class="primary" href="#"
+                  >Download associations CSV</a
+                >
+              </section>
+            </div>
+          </div>
+        </section>
+        <section class="page" data-panel="tutorial" hidden>
+          <div class="page-heading"><h1>Tutorial</h1></div>
+        </section>
+        <section class="page" data-panel="contact" hidden>
+          <div class="page-heading">
+            <p class="eyebrow">UNIVERSITY OF MANITOBA</p>
+            <h1>Contact Us</h1>
+            <p>RICELens is developed with the Wilkins Lab.</p>
+          </div>
+          <address>
+            <strong>Wilkins Lab · Department of Biological Sciences</strong
+            ><br />University of Manitoba<br />Office: 508 Buller Building · Laboratory:
+            509 Buller Building<br />Winnipeg, MB R3T 2N2, Canada<br /><a
+              href="mailto:olivia.wilkins@umanitoba.ca"
+              >olivia.wilkins@umanitoba.ca</a
+            ><br />+1 (204) 474-8040
+          </address>
+          <p>
+            <a
+              href="https://www.oliviawilkinslab.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Visit the Wilkins Lab website</a
+            >
+          </p>
+        </section>
+      </main>
+    </div>
+    <footer>
+      <h2>How to Cite RICELens</h2>
       <p>
-        RiceLENS · Research prototype · Original publications and source datasets are
-        linked alongside each result.
+        Citation details will be added when finalized. Please also cite the original
+        studies supporting any data you use.
       </p>
     </footer>
-    <script src="/app.js"></script>
+    <script src="/app.js" defer></script>
   </body>
 </html>
